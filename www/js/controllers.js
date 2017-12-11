@@ -87,11 +87,9 @@ angular.module('starter.controllers', [])
 
 
   $scope.dialog = function(){
-
   $cordovaDialogs.alert('message', 'title', 'button name')
      .then(function() {
-       // callback success
-     });
+      });
 };
 
 
@@ -112,7 +110,7 @@ $scope.getNotif = function(){
              //First function handles success
              alert('worked');
              alert(data);
-             
+
              $scope.getToken = data;
              //$scope.content = response.data;
          }, function() {
@@ -129,273 +127,6 @@ $scope.getNotif = function(){
   });
 
 };
-
-
-
-$scope.dialog333 = function(){
-//  phonegap plugin add phonegap-plugin-push --variable SENDER_ID="901561854903"
-
-
-
-    console.log('calling push init');
-    var push = PushNotification.init({
-        "android": {
-            "senderID": "901561854903"
-        },
-        "browser": {},
-        "ios": {
-            "sound": true,
-            "vibration": true,
-            "badge": true
-        },
-        "windows": {}
-    });
-    console.log('after init');
-
-    push.on('registration', function(data) {
-        console.log('registration event: ' + data.registrationId);
-
-        var oldRegId = localStorage.getItem('registrationId');
-        if (oldRegId !== data.registrationId) {
-            // Save new registration ID
-            localStorage.setItem('registrationId', data.registrationId);
-            // Post registrationId to your app server as the value has changed
-        }
-
-        var parentElement = document.getElementById('registration');
-        var listeningElement = parentElement.querySelector('.waiting');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-    });
-
-    push.on('error', function(e) {
-        console.log("push error = " + e.message);
-    });
-
-    push.on('notification', function(data) {
-        console.log('notification event');
-        navigator.notification.alert(
-            data.message,         // message
-            null,                 // callback
-            data.title,           // title
-            'Ok'                  // buttonName
-        );
-   });
-
- };
-
-
-
-
-
-
-$ionicPlatform.ready(function () {
-
-  // ========== Scheduling
-
-  $scope.scheduleSingleNotification = function () {
-    $cordovaLocalNotification.schedule({
-      id: 1,
-      title: 'Title here',
-      text: 'Text here',
-      data: {
-        customProperty: 'custom value'
-      }
-    }).then(function (result) {
-      // ...
-    });
-  };
-
-  $scope.scheduleMultipleNotifications = function () {
-    $cordovaLocalNotification.schedule([
-      {
-        id: 1,
-        title: 'Title 1 here',
-        text: 'Text 1 here',
-        data: {
-          customProperty: 'custom 1 value'
-        }
-      },
-      {
-        id: 2,
-        title: 'Title 2 here',
-        text: 'Text 2 here',
-        data: {
-          customProperty: 'custom 2 value'
-        }
-      },
-      {
-        id: 3,
-        title: 'Title 3 here',
-        text: 'Text 3 here',
-        data: {
-          customProperty: 'custom 3 value'
-        }
-      }
-    ]).then(function (result) {
-      // ...
-    });
-  };
-
-  $scope.scheduleDelayedNotification = function () {
-    var now = new Date().getTime();
-    var _10SecondsFromNow = new Date(now + 10 * 1000);
-
-    $cordovaLocalNotification.schedule({
-      id: 1,
-      title: 'Title here',
-      text: 'Text here',
-      at: _10SecondsFromNow
-    }).then(function (result) {
-      // ...
-    });
-  };
-
-  $scope.scheduleEveryMinuteNotification = function () {
-    $cordovaLocalNotification.schedule({
-      id: 1,
-      title: 'Title here',
-      text: 'Text here',
-      every: 'minute'
-    }).then(function (result) {
-      // ...
-    });
-  };
-
-  // =========/ Scheduling
-
-  // ========== Update
-
-  $scope.updateSingleNotification = function () {
-    $cordovaLocalNotification.update({
-      id: 1,
-      title: 'Title - UPDATED',
-      text: 'Text - UPDATED'
-    }).then(function (result) {
-      // ...
-    });
-  };
-
-  $scope.updateMultipleNotifications = function () {
-    $cordovaLocalNotification.update([
-      {
-        id: 1,
-        title: 'Title 1 - UPDATED',
-        text: 'Text 1 - UPDATED'
-      },
-      {
-        id: 2,
-        title: 'Title 2 - UPDATED',
-        text: 'Text 2 - UPDATED'
-      },
-      {
-        id: 3,
-        title: 'Title 3 - UPDATED',
-        text: 'Text 3 - UPDATED'
-      }
-    ]).then(function (result) {
-      // ...
-    });
-  };
-
-  // =========/ Update
-
-  // ========== Cancelation
-
-  $scope.cancelSingleNotification = function () {
-    $cordovaLocalNotification.cancel(1).then(function (result) {
-      // ...
-    });
-  };
-
-  $scope.cancelMultipleNotifications = function () {
-    $cordovaLocalNotification.cancel([1, 2]).then(function (result) {
-      // ...
-    });
-  };
-
-  $scope.cancelAllNotifications = function () {
-    $cordovaLocalNotification.cancelAll().then(function (result) {
-      // ...
-    });
-  };
-
-  // =========/ Cancelation
-
-  // ========== Events
-
-  $rootScope.$on('$cordovaLocalNotification:schedule',
-  function (event, notification, state) {
-    // ...
-  });
-
-  $rootScope.$on('$cordovaLocalNotification:trigger',
-  function (event, notification, state) {
-    // ...
-  });
-
-  $rootScope.$on('$cordovaLocalNotification:update',
-  function (event, notification, state) {
-    // ...
-  });
-
-  $rootScope.$on('$cordovaLocalNotification:clear',
-  function (event, notification, state) {
-    // ...
-  });
-
-  $rootScope.$on('$cordovaLocalNotification:clearall',
-  function (event, state) {
-    // ...
-  });
-
-  $rootScope.$on('$cordovaLocalNotification:cancel',
-  function (event, notification, state) {
-    // ...
-  });
-
-  $rootScope.$on('$cordovaLocalNotification:cancelall',
-  function (event, state) {
-    // ...
-  });
-
-  $rootScope.$on('$cordovaLocalNotification:click',
-  function (event, notification, state) {
-    // ...
-  });
-
-  // =========/ Events
-
-});
-
-
-
-
-
-
-/*
-  $cordovaToast
-    .show('Here is a message', 'long', 'center')
-    .then(function(success) {
-      // success
-    }, function (error) {
-      // error
-    });
-
-  $cordovaToast.showShortTop('Here is a message').then(function(success) {
-    // success
-  }, function (error) {
-    // error
-  });
-
-  $cordovaToast.showLongBottom('Here is a message').then(function(success) {
-    // success
-  }, function (error) {
-    // error
-  });
-*/
 
 
           $rootScope.goback2 = function(){ console.log('clicked'); $state.go('home'); };
@@ -445,7 +176,7 @@ $ionicPlatform.ready(function () {
 //FACEBOOK GETS USERDATA, BUT NEEDS TO BE LOGGED IN FIRST!!!
 
   //   function myFunction4() {
-       $scope.savetoken = function(){
+   $scope.savetoken = function(){
        document.addEventListener("deviceready", function() {   alert("device ready");
 
        try {
@@ -496,90 +227,7 @@ $ionicPlatform.ready(function () {
          alert(e);
        }
        }, false);
-      };
-
-
-
-      $scope.this_notification = function(){
-        $scope.blue = 'WORK';
-
-        document.addEventListener("deviceready", function() {
-
-                module.run(function($http, $cordovaPushV5) {
-             var options = {
-            	android: {  senderID: "901561854903" },
-              ios: {   alert: "true",    badge: "true",   sound: "true" },
-              windows: {}
-            };
-
-            // initialize
-            $cordovaPushV5.initialize(options).then(function() {
-              window.alert("device ready1");
-              // start listening for new notifications
-              $cordovaPushV5.onNotification();
-              // start listening for errors
-              $cordovaPushV5.onError();
-               // register to get registrationId
-              $cordovaPushV5.register().then(function(registrationId) {
-                // save `registrationId` somewhere;
-              })
-            });
-
-            // triggered every time notification received
-            $rootScope.$on('$cordovaPushV5:notificationReceived', function(event, data){
-              window.alert("device ready2");
-              // data.message,
-              // data.title,
-            });
-
-            // triggered every time error occurs
-            $rootScope.$on('$cordovaPushV5:errorOcurred', function(event, e){
-              window.alert("device read3");
-              // e.message
-            });
-
-          });
-        }, false);
-
-      };
-
-
-      $scope.this_notification2 = function(){
-        $scope.blue = 'WORK';
-
-        document.addEventListener("deviceready", function() {
-
-              var config = null;
-        var deviceToken = "";
-
-          config =  {
-            android: {
-              senderID: "901561854903"
-            },
-            ios: {
-              alert: 'true',
-              badge: true,
-              sound: 'false',
-              clearBadge: true
-            }
-          };
-
-          $cordovaPushV5.initialize(config).then(function(result) {
-            $cordovaPushV5.onNotification();
-            $cordovaPushV5.onError();
-            $cordovaPushV5.register().then(function(registrationID) {
-              deviceToken = registrationID;
-            }, function(err) {
-              alert(err);
-            });
-          }, function(err) {
-            alert(err);
-          });
-
-        }, false);
-
-      };
-
+  };
 
 
 

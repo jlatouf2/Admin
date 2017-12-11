@@ -7,93 +7,12 @@
 
 
 document.addEventListener("deviceready", function() {
-  // navigator.notification.beep(2);
-//THER IS PERMISSIOSN AS WELL [ONLY IF NEEDED] READ THE DOCS!!
-//1) ONE POSSIBLE SOLUTION TO NOTIFICATION NOT BEING CALLED IF APP IS IN BACKGROUND:
-//NGCORDOVA HAS BACKGROUND GEOLOCATION THAT CAN REMAIN ON, SO APP REMAINS ON
-//THIS ALLOWS THE NOTIFICAITON TO BE ABLE TO PASSED AND WORKS!!!!
 
 /*
 window.cordova.plugins.notification.local.schedule([{
    text:"test",
    at: new Date(new Date().getTime() + 5*1000)
 }])
-
-cordova-plugin-background-push [COULD TRY THIS TOO!!!
-HTML5 Web Workers]
-
-
-
-
-window.alert("calling push init");
-
-       console.log('calling push init');
-       var push = PushNotification.init({
-           "android": {
-               "senderID": "901561854903"
-           },
-           "browser": {},
-           "ios": {
-               "sound": true,
-               "vibration": true,
-               "badge": true
-           },
-           "windows": {}
-       });
-       console.log('after init');
-       window.alert("after init");
-
-       push.on('registration', function(data) {
-           console.log('registration event: ' + data.registrationId);
-           window.alert("registration event: " + data.registrationId);
-
-           var oldRegId = localStorage.getItem('registrationId');
-           if (oldRegId !== data.registrationId) {
-               // Save new registration ID
-               localStorage.setItem('registrationId', data.registrationId);
-               // Post registrationId to your app server as the value has changed
-           }
-
-           var parentElement = document.getElementById('registration');
-           var listeningElement = parentElement.querySelector('.waiting');
-           var receivedElement = parentElement.querySelector('.received');
-
-           listeningElement.setAttribute('style', 'display:none;');
-           receivedElement.setAttribute('style', 'display:block;');
-       });
-
-       push.on('error', function(e) {
-           console.log("push error = " + e.message);
-           window.alert("push error = " + e.message);
-
-       });
-
-       push.on('notification', function(data) {
-           console.log('notification event');
-           window.alert("notification event");
-
-           navigator.notification.alert(
-               data.message,         // message
-               null,                 // callback
-               data.title,           // title
-               'Ok'                  // buttonName
-           );
-      });
-
-
-      cordova.plugins.notification.local.schedule({
-          title: 'My first notification',
-          text: 'Thats pretty easy...',
-          foreground: true
-      });
-
-      localStorage.setItem("Name", "John");
-      };
-
-      $scope.getLocal = function () {
-      console.log(localStorage.getItem("Name"));
-      };
-
 */
 
 
@@ -133,6 +52,7 @@ window.alert("calling push init");
     });
 
 }, false);
+
 
 //I THINK THAT THIS WILL CALL THE PERSON WITH THE APP WHEN ITS IN THE BACKGROUND:
   document.addEventListener("pause", function pauseCallback() {
@@ -317,86 +237,3 @@ function myFunction4() {
 
 
 }
-
-/*
-HAVE TO EITHER MAKE A BACKEND FOR THIS DATA TO CHECK, OR COULD SEE IF IT FITS
-IN WITH THE REGULAR SIGN IN THAT I BUILT ALREADY***
-*/
-
-//  console.log(localStorage.getItem("StoreName"));
-
-function myFunction6(){
-alert(localStorage.getItem("Token"));
-
-}
-
-
-/*
-$http.post('/storeName', {postal: $scope.postal }).success(function( data)
-               {
-                 $scope.numberLinesZero = false;
-                 console.log("Data is returned: " + data);
-                 $scope.countries = data;
-               }, function(posts) {});
-
-
-function myFunction5(){
-    facebookConnectPlugin.login(['email', 'public_profile'],
-    fbLoginSuccess,
-    function (error){
-    console.log(error);
-    }
-    );
-}
-
-function getUserInfo(){
-  facebookConnectPlugin.api('me/?fields=id,name,email', ['email','public_profile'],
-  function (result) {
-  console.log(result);
-  },
-  function (error) {
-  console.log(error);
-  });
-}
-
-
-_below is what I did and it works
-function initApp(){
-facebookConnectPlugin.login(['email', 'public_profile'],
-fbLoginSuccess,
-function (error){
-console.log(error);
-}
-);
-}
-function getUserInfo(){
-facebookConnectPlugin.api('me/?fields=id,name,email', ['email','public_profile'],
-function (result) {
-console.log(result);
-},
-function (error) {
-console.log(error);
-});
-}
-
-
-
-function myFunction2() {
-
-facebookConnectPlugin.getLoginStatus(
-  function(response){
-      if(response.status === 'connected'){
-          me.logged_in = true;
-      }else{
-          me.logged_in = false;
-      }
-  },
-  function(err){
-      me.logged_in = false;
-      alert('Error while trying to check login status');
-      RequestsService.sendData(err);
-  }
-);
-}
-
-*/
