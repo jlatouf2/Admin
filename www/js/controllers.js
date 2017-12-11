@@ -81,7 +81,322 @@ angular.module('starter.controllers', [])
 
       })
 
-.controller('ContactController', function($scope, $location, $http, $state, $rootScope, AuthService) {
+.controller('ContactController', function($scope, $location, $http,  $state, $rootScope, AuthService, $cordovaDialogs, $cordovaToast, $ionicPlatform, $cordovaLocalNotification) {
+
+  $cordovaDialogs.beep(3);
+
+
+  $scope.dialog = function(){
+
+  $cordovaDialogs.alert('message', 'title', 'button name')
+     .then(function() {
+       // callback success
+     });
+};
+
+
+$scope.getNotif = function(){
+
+  FCMPlugin.getToken(function(token) {
+
+       console.log(token);
+      window.alert(token);
+
+      localStorage.setItem("TokenData", token);
+
+      var myToken = localStorage.getItem("TokenData");
+      window.alert(myToken);
+
+      $http.post('http://192.168.1.115:3000/tokenReturned', {token: localStorage.getItem("TokenData")})
+         .then(function(data) {
+             //First function handles success
+             alert('worked');
+             alert(data);
+             
+             $scope.getToken = data;
+             //$scope.content = response.data;
+         }, function() {
+             //Second function handles error
+             alert('didnt work');
+
+         });
+
+           FCMPlugin.onNotification(function(data) {
+              console.log(data);
+              window.alert(data);
+
+          });
+  });
+
+};
+
+
+
+$scope.dialog333 = function(){
+//  phonegap plugin add phonegap-plugin-push --variable SENDER_ID="901561854903"
+
+
+
+    console.log('calling push init');
+    var push = PushNotification.init({
+        "android": {
+            "senderID": "901561854903"
+        },
+        "browser": {},
+        "ios": {
+            "sound": true,
+            "vibration": true,
+            "badge": true
+        },
+        "windows": {}
+    });
+    console.log('after init');
+
+    push.on('registration', function(data) {
+        console.log('registration event: ' + data.registrationId);
+
+        var oldRegId = localStorage.getItem('registrationId');
+        if (oldRegId !== data.registrationId) {
+            // Save new registration ID
+            localStorage.setItem('registrationId', data.registrationId);
+            // Post registrationId to your app server as the value has changed
+        }
+
+        var parentElement = document.getElementById('registration');
+        var listeningElement = parentElement.querySelector('.waiting');
+        var receivedElement = parentElement.querySelector('.received');
+
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+    });
+
+    push.on('error', function(e) {
+        console.log("push error = " + e.message);
+    });
+
+    push.on('notification', function(data) {
+        console.log('notification event');
+        navigator.notification.alert(
+            data.message,         // message
+            null,                 // callback
+            data.title,           // title
+            'Ok'                  // buttonName
+        );
+   });
+
+ };
+
+
+
+
+
+
+$ionicPlatform.ready(function () {
+
+  // ========== Scheduling
+
+  $scope.scheduleSingleNotification = function () {
+    $cordovaLocalNotification.schedule({
+      id: 1,
+      title: 'Title here',
+      text: 'Text here',
+      data: {
+        customProperty: 'custom value'
+      }
+    }).then(function (result) {
+      // ...
+    });
+  };
+
+  $scope.scheduleMultipleNotifications = function () {
+    $cordovaLocalNotification.schedule([
+      {
+        id: 1,
+        title: 'Title 1 here',
+        text: 'Text 1 here',
+        data: {
+          customProperty: 'custom 1 value'
+        }
+      },
+      {
+        id: 2,
+        title: 'Title 2 here',
+        text: 'Text 2 here',
+        data: {
+          customProperty: 'custom 2 value'
+        }
+      },
+      {
+        id: 3,
+        title: 'Title 3 here',
+        text: 'Text 3 here',
+        data: {
+          customProperty: 'custom 3 value'
+        }
+      }
+    ]).then(function (result) {
+      // ...
+    });
+  };
+
+  $scope.scheduleDelayedNotification = function () {
+    var now = new Date().getTime();
+    var _10SecondsFromNow = new Date(now + 10 * 1000);
+
+    $cordovaLocalNotification.schedule({
+      id: 1,
+      title: 'Title here',
+      text: 'Text here',
+      at: _10SecondsFromNow
+    }).then(function (result) {
+      // ...
+    });
+  };
+
+  $scope.scheduleEveryMinuteNotification = function () {
+    $cordovaLocalNotification.schedule({
+      id: 1,
+      title: 'Title here',
+      text: 'Text here',
+      every: 'minute'
+    }).then(function (result) {
+      // ...
+    });
+  };
+
+  // =========/ Scheduling
+
+  // ========== Update
+
+  $scope.updateSingleNotification = function () {
+    $cordovaLocalNotification.update({
+      id: 1,
+      title: 'Title - UPDATED',
+      text: 'Text - UPDATED'
+    }).then(function (result) {
+      // ...
+    });
+  };
+
+  $scope.updateMultipleNotifications = function () {
+    $cordovaLocalNotification.update([
+      {
+        id: 1,
+        title: 'Title 1 - UPDATED',
+        text: 'Text 1 - UPDATED'
+      },
+      {
+        id: 2,
+        title: 'Title 2 - UPDATED',
+        text: 'Text 2 - UPDATED'
+      },
+      {
+        id: 3,
+        title: 'Title 3 - UPDATED',
+        text: 'Text 3 - UPDATED'
+      }
+    ]).then(function (result) {
+      // ...
+    });
+  };
+
+  // =========/ Update
+
+  // ========== Cancelation
+
+  $scope.cancelSingleNotification = function () {
+    $cordovaLocalNotification.cancel(1).then(function (result) {
+      // ...
+    });
+  };
+
+  $scope.cancelMultipleNotifications = function () {
+    $cordovaLocalNotification.cancel([1, 2]).then(function (result) {
+      // ...
+    });
+  };
+
+  $scope.cancelAllNotifications = function () {
+    $cordovaLocalNotification.cancelAll().then(function (result) {
+      // ...
+    });
+  };
+
+  // =========/ Cancelation
+
+  // ========== Events
+
+  $rootScope.$on('$cordovaLocalNotification:schedule',
+  function (event, notification, state) {
+    // ...
+  });
+
+  $rootScope.$on('$cordovaLocalNotification:trigger',
+  function (event, notification, state) {
+    // ...
+  });
+
+  $rootScope.$on('$cordovaLocalNotification:update',
+  function (event, notification, state) {
+    // ...
+  });
+
+  $rootScope.$on('$cordovaLocalNotification:clear',
+  function (event, notification, state) {
+    // ...
+  });
+
+  $rootScope.$on('$cordovaLocalNotification:clearall',
+  function (event, state) {
+    // ...
+  });
+
+  $rootScope.$on('$cordovaLocalNotification:cancel',
+  function (event, notification, state) {
+    // ...
+  });
+
+  $rootScope.$on('$cordovaLocalNotification:cancelall',
+  function (event, state) {
+    // ...
+  });
+
+  $rootScope.$on('$cordovaLocalNotification:click',
+  function (event, notification, state) {
+    // ...
+  });
+
+  // =========/ Events
+
+});
+
+
+
+
+
+
+/*
+  $cordovaToast
+    .show('Here is a message', 'long', 'center')
+    .then(function(success) {
+      // success
+    }, function (error) {
+      // error
+    });
+
+  $cordovaToast.showShortTop('Here is a message').then(function(success) {
+    // success
+  }, function (error) {
+    // error
+  });
+
+  $cordovaToast.showLongBottom('Here is a message').then(function(success) {
+    // success
+  }, function (error) {
+    // error
+  });
+*/
+
 
           $rootScope.goback2 = function(){ console.log('clicked'); $state.go('home'); };
             //LOCALSTOREAGE IN ANGULARJS:
@@ -184,6 +499,112 @@ angular.module('starter.controllers', [])
       };
 
 
+
+      $scope.this_notification = function(){
+        $scope.blue = 'WORK';
+
+        document.addEventListener("deviceready", function() {
+
+                module.run(function($http, $cordovaPushV5) {
+             var options = {
+            	android: {  senderID: "901561854903" },
+              ios: {   alert: "true",    badge: "true",   sound: "true" },
+              windows: {}
+            };
+
+            // initialize
+            $cordovaPushV5.initialize(options).then(function() {
+              window.alert("device ready1");
+              // start listening for new notifications
+              $cordovaPushV5.onNotification();
+              // start listening for errors
+              $cordovaPushV5.onError();
+               // register to get registrationId
+              $cordovaPushV5.register().then(function(registrationId) {
+                // save `registrationId` somewhere;
+              })
+            });
+
+            // triggered every time notification received
+            $rootScope.$on('$cordovaPushV5:notificationReceived', function(event, data){
+              window.alert("device ready2");
+              // data.message,
+              // data.title,
+            });
+
+            // triggered every time error occurs
+            $rootScope.$on('$cordovaPushV5:errorOcurred', function(event, e){
+              window.alert("device read3");
+              // e.message
+            });
+
+          });
+        }, false);
+
+      };
+
+
+      $scope.this_notification2 = function(){
+        $scope.blue = 'WORK';
+
+        document.addEventListener("deviceready", function() {
+
+              var config = null;
+        var deviceToken = "";
+
+          config =  {
+            android: {
+              senderID: "901561854903"
+            },
+            ios: {
+              alert: 'true',
+              badge: true,
+              sound: 'false',
+              clearBadge: true
+            }
+          };
+
+          $cordovaPushV5.initialize(config).then(function(result) {
+            $cordovaPushV5.onNotification();
+            $cordovaPushV5.onError();
+            $cordovaPushV5.register().then(function(registrationID) {
+              deviceToken = registrationID;
+            }, function(err) {
+              alert(err);
+            });
+          }, function(err) {
+            alert(err);
+          });
+
+        }, false);
+
+      };
+
+
+
+
+
+      $scope.notification_message = function(){
+        $scope.blue = 'WORK';
+        document.addEventListener("deviceready", function() {
+           alert("device ready");
+
+        $cordovaToast
+          .show('Here is a message', 'long', 'center')
+          .then(function(success) {
+            // success
+
+          }, function (error) {
+            // error
+          });
+
+      }, false);
+
+      };
+
+
+
+
       //FACEBOOK SERVICE.JS LOGIN:
       $scope.Servicefacebook = function () { AuthService.facebookLogin(); };
 
@@ -269,6 +690,7 @@ angular.module('starter.controllers', [])
 
 
         //THIS CONFIRMS THE LOGIN FOR FACEBOOK
+        /*
         setTimeout(function() {    AuthService.confirm();
 
           var bob2 = "http://graph.facebook.com/" +$scope.userid+ "/picture?type=square";
@@ -276,7 +698,7 @@ angular.module('starter.controllers', [])
           console.log($scope.userid);
           $scope.black2 = bob2;
         }, 1000);
-
+        */
 
 
           AuthService.confirm();
@@ -329,6 +751,7 @@ angular.module('starter.controllers', [])
       LIKE PEOPLELINE AS WELL
 
   */
+
 
           $rootScope.goback2 = function(){
             console.log('clicked1');
@@ -391,26 +814,38 @@ angular.module('starter.controllers', [])
           };
 
 
+          $scope.$on('$stateChangeSuccess', function () {
+            console.log('statechange');
+
+            console.log('THIS IS THE LINENUMBER: '+localStorage.getItem("LineNumber"));
+            console.log('THIS IS THE STORENAME: '+localStorage.getItem("StoreName"));
+
+            socket.emit('storeName', {postal: $scope.postal },function (data) {
+                  console.log(data);    console.log(data[0].store);
+                  $scope.numberLinesZero = false;
+                  $scope.$apply(function () {   $scope.storewithNames = data;  });
+             });
+
+
+          });
+
+
+
           /*
           $http.post('http://192.168.1.115:3000/storeName', {postal: $scope.postal }).success(function( data)
          {
            $scope.numberLinesZero = false;
            console.log("Data is returned: " + data);
-           $scope.countries = data;
+           $scope.storewithNames = data;
          }, function(posts) {});
         */
 
-        socket.emit('storeName', {postal: $scope.postal },function (data) {
-              console.log(data);    console.log(data[0].store);
-              $scope.numberLinesZero = false;
-              $scope.$apply(function () {   $scope.countries = data;  });
-         });
 
          socket.on('updateStores', function (data) {
                 console.log(data);
                   $scope.numberLinesZero = false;
                $scope.$apply(function () {
-                   $scope.countries = data;
+                   $scope.storewithNames = data;
                   });
          });
 
@@ -429,14 +864,14 @@ angular.module('starter.controllers', [])
                  socket.emit('storeName', {postal: $scope.postal },function (data) {
                      console.log(data); console.log(data[0].store);
                    $scope.numberLinesZero = false;
-                   $scope.$apply(function () { $scope.countries = data; });
+                   $scope.$apply(function () { $scope.storewithNames = data; });
                  });
             }
 
 
             socket.on('updateStores', function (data) {
                    console.log(data);  $scope.numberLinesZero = false;
-                  $scope.$apply(function () {  $scope.countries = data;  });
+                  $scope.$apply(function () {  $scope.storewithNames = data;  });
             });
 
 
@@ -444,7 +879,7 @@ angular.module('starter.controllers', [])
           $scope.searchStores = function(){
                 socket.emit('storenameSearch',  {store: $scope.storesearchName },function (data) {
                   console.log("Data is returned: " + data);
-                     $scope.$apply(function () { $scope.countries = data; });
+                     $scope.$apply(function () { $scope.storewithNames = data; });
                 });
             };
 
@@ -463,7 +898,8 @@ angular.module('starter.controllers', [])
                           $scope.$apply(function () {
                             $rootScope.successful = true;
                                console.log($scope.successful);
-                               $scope.countries.push(data);
+                               console.log('$scope.storewithName is this: '+$scope.storewithNames);
+                               $scope.storewithNames.push(data);
                            $scope.storeName.sname = '';
                           });
 
@@ -473,9 +909,12 @@ angular.module('starter.controllers', [])
               };
 
               socket.on('addStorename', function (data) {
+                     console.log($scope.storewithNames);
                      console.log(data);
-                    $scope.$apply(function () {
-                      $scope.countries.push(data);
+
+                     $scope.$apply(function () {
+
+                      $scope.storewithNames.push(data);
                        });
               });
 
@@ -492,7 +931,7 @@ angular.module('starter.controllers', [])
               console.log($scope.storeName2);
                socket.emit('deleteStore44',  {store:  $scope.storeName2  },function (data) {
                console.log(data);
-                $scope.$apply(function () { $scope.countries = data; });
+                $scope.$apply(function () { $scope.storewithNames = data; });
              });
 
         };
@@ -500,7 +939,7 @@ angular.module('starter.controllers', [])
         socket.on('deleteUpdate', function (data) {
               $scope.$apply(function () {
                 console.log(data);
-                $scope.countries = data;
+                $scope.storewithNames = data;
                  });
         });
 
@@ -524,11 +963,11 @@ angular.module('starter.controllers', [])
 
 .controller('StorelinesCtrl', function($scope, $location, $ionicModal, $cordovaGeolocation, $http, $rootScope, $state, $ionicHistory, AuthService) {
 
-  console.log(localStorage.getItem("StoreName"));
-  console.log(localStorage.getItem("StoreLatitude"));
-  console.log(localStorage.getItem("StoreLongitude"));
+        console.log(localStorage.getItem("StoreName"));
+        console.log(localStorage.getItem("StoreLatitude"));
+        console.log(localStorage.getItem("StoreLongitude"));
 
-$scope.grabStorename = localStorage.getItem("StoreName");
+        $scope.grabStorename = localStorage.getItem("StoreName");
 /*    NOTE:     IF ANYTHING GOES WRONG: CHANGE ALL localStorage.getItem("StoreName") to $scope.grabStorename
 and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('storeNames')  */
 
@@ -561,6 +1000,20 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
 
      };
 
+
+     $scope.$on('$stateChangeSuccess', function () {
+       console.log('STATECHANGE ON!!!' + localStorage.getItem("StoreName"));
+       socket.emit('numberofLines',  {store:  localStorage.getItem("StoreName")  },function (data) {
+         console.log(data); console.log(data.length);
+           $rootScope.numberLines= data.length;   $scope.countries = data;
+           $scope.$apply(function () {
+                    $scope.whiteLines();
+              });
+       });
+      });
+
+
+/*
     socket.emit('numberofLines',  {store:  localStorage.getItem("StoreName")  },function (data) {
       console.log(data); console.log(data.length);
         $rootScope.numberLines= data.length;   $scope.countries = data;
@@ -568,7 +1021,7 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
                  $scope.whiteLines();
            });
     });
-
+    */
 
    /*   --------DELETE MODE-----------     */
    $scope.deleteMode = function(){     $rootScope.deleteButton = true; $scope.closelinemodal1();    };
@@ -667,7 +1120,12 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
 
 .controller('PeoplelineCtrl', function($scope, $location, $http, $ionicModal, $ionicHistory, $rootScope, $state, $cordovaGeolocation, AuthService) {
 
-  console.log(localStorage.getItem("LineNumber"));
+  window.addEventListener("focus", () => socket.connect());
+
+  console.log('THIS IS THE LINENUMBER: '+localStorage.getItem("LineNumber"));
+
+
+  console.log('THIS IS THE STORENAME: '+localStorage.getItem("StoreName"));
 
   $scope.myObj = {
     "color" : "white",
@@ -675,6 +1133,45 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
   };
 
 
+  $scope.nodeValidation = function(){
+    $http.post('http://192.168.1.115:3000/polling', {"email": "jlatouf2@gmail.com"})
+ .then(function(data) {
+     //First function handles success
+     console.log('worked');
+      console.log(data);
+
+     //$scope.content = response.data;
+ }, function(data) {
+
+ });
+
+   };
+   $scope.nodeValidation();
+
+
+/*
+   $scope.pollingStuff = function(){
+     $http.post('http://192.168.1.115:3000/getPeopleLine', {})
+     .then(function(data) {
+       console.log('THIS IS CORRECT CLIENT SIDE DATA:');   console.log(data);
+   }, function(data) { });  };
+*/
+
+
+
+    setTimeout(function() {
+    //  $scope.pollingStuff();
+    }, 3000);
+
+
+
+
+   socket.emit('poll', {},function (data) {
+      console.log('worked!');
+       console.log(data); // $scope.places = data;
+
+
+     });
 
 
           /*      NOTE:   SOLUTION TO THIS PAGE PROBLEM: MAKE THE PERSON GO BACK  STORENAME SCREEN
@@ -757,13 +1254,41 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
             $rootScope.grabStorename = localStorage.getItem("StoreName");
             $rootScope.grabLineNumber = localStorage.getItem("LineNumber");
 
-           socket.emit('getPeopleLine', {store : localStorage.getItem("StoreName"), line: localStorage.getItem("LineNumber"),
-             Adminpassword: $scope.usertoken },function (data) {
-               $scope.$apply(function () { console.log(data);    $scope.people = data; });
+/*
+            This is what I do and it works for me:
 
-          });
+            $scope.$on('$routeChangeSuccess', function () {
+              // do something
+            });
+            Unless you're using ui-router. Then it's:
+
+            $scope.$on('$stateChangeSuccess', function () {
+              // do something
+            });
+*/
+
+
+$scope.$on('$stateChangeSuccess', function () {
+  console.log('statechange');
+
+  console.log('THIS IS THE LINENUMBER: '+localStorage.getItem("LineNumber"));
+  console.log('THIS IS THE STORENAME: '+localStorage.getItem("StoreName"));
+
+  socket.emit('getPeopleLine', {store : localStorage.getItem("StoreName"), line: localStorage.getItem("LineNumber"),
+    Adminpassword: $scope.usertoken },function (data) {
+      $scope.$apply(function () { console.log(data);    $scope.people = data; });
+
+
+ });
+});
+
+
 
               /*
+              setTimeout(function() {
+                }, 3000);
+
+
            socket.emit('getPeopleLine', {store : $scope.grabStorename, line: $scope.grabLineNumber,
              Adminpassword: $scope.usertoken },function (data) {
                $scope.$apply(function () { console.log(data);    $scope.people = data; });
@@ -876,13 +1401,13 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
         }
 
 
-             /* ----------GET PICTURE FOR EACH PERSON -------------- */
+             /* ----------GET PICTURE FOR EACH PERSON --------------
         setTimeout(function() {    AuthService.confirm();
           var bob2 = "http://graph.facebook.com/" +$scope.userid+ "/picture?type=square";
           console.log("This is the data that I am goign to pass: "+ bob2);
           console.log($scope.userid);  $scope.black2 = bob2;
         }, 1000);
-
+*/
 
 
            if ($scope.showfinalCalc == true) {   $scope.finalCalc =$rootScope.finalCalc ; }

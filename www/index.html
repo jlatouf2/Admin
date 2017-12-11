@@ -145,9 +145,9 @@
 
      //SOCKET.IO FUNCTIONS:
   //  var socket = io();fff
-    var socket = io.connect('https://thawing-ocean-11742.herokuapp.com/#/:3000');
+    //var socket = io.connect('https://thawing-ocean-11742.herokuapp.com/#/:3000');
     //http://192.168.1.115: THIS WORKS FOR MOBILE LOGIN.
-    //var socket = io.connect('http://192.168.1.115:3000');
+    var socket = io.connect('http://192.168.1.115:3000');
 //https://thawing-ocean-11742.herokuapp.com/#/home
 
     socket.on('broadcast',function(data){ console.log(data.description); });
@@ -160,7 +160,137 @@
 
     // similar behavior as clicking on a link
     window.location.href = "http://stackoverflow.com";
+
+
+        Using an angular abstraction of ionic.Platform
+
+        //The pause event fires when the native platform puts the application
+        // into the background, typically when the user switches to a different
+        // application.
+        $ionicPlatform.on('pause', function () {
+            // Handle event on pause
+        });
+        // The resume event fires when the native platform
+        //  pulls the application out from the background.
+        $ionicPlatform.on('resume', function () {
+            // Handle event on resume
+        });
+
+
+    "Is there any way to check whether the app is running in foreground or background?"
+
+    Yes
+    1) When an app becomes inactive (runs in the background) Cordova fires the pause event,
+    and when an app becomes active again (brought to the foreground) Cordova fires the resume event.
+    2) From these events, one can use a variable to store the state as "foreground" or "background".
+
+        document.addEventListener("deviceReady", function readyCallback() {
+        var isAppInForeground = true;
+
+        document.addEventListener("pause", function pauseCallback() {
+          isAppInForeground = false;
+        }, false);
+
+        document.addEventListener("resume", function resumeCallback() {
+          isAppInForeground = true;
+        }, false);
+
+      });
+
+      document.addEventListener("deviceReady", function readyCallback() {
+      var isAppInForeground = true;
+
+      document.addEventListener("pause", function pauseCallback() {
+        isAppInForeground = false;
+      }, false);
+
+      document.addEventListener("resume", function resumeCallback() {
+        isAppInForeground = true;
+      }, false);
+
+      });
+
+
 */
+
+
+
+
+document.addEventListener("deviceready", function() {
+
+  module.run(function($http, $cordovaPushV5) {
+      var options = {
+      android: {  senderID: "901561854903" },
+      ios: {   alert: "true",    badge: "true",   sound: "true" },
+      windows: {}
+      };
+
+      // initialize
+      $cordovaPushV5.initialize(options).then(function() {
+      // start listening for new notifications
+      $cordovaPushV5.onNotification();
+      // start listening for errors
+      $cordovaPushV5.onError();
+       // register to get registrationId
+      $cordovaPushV5.register().then(function(registrationId) {
+        // save `registrationId` somewhere;
+      })
+      });
+
+      // triggered every time notification received
+      $rootScope.$on('$cordovaPushV5:notificationReceived', function(event, data){
+      // data.message,
+      // data.title,
+      });
+
+      // triggered every time error occurs
+      $rootScope.$on('$cordovaPushV5:errorOcurred', function(event, e){
+      // e.message
+      });
+
+});
+
+
+}, false);
+
+
+navigator.notification.alert(
+    'You are the winner!',  // message
+    alertDismissed,         // callback
+    'Game Over',            // title
+    'Done'                  // buttonName
+);
+
+
+
+document.addEventListener("deviceready", function() {
+  navigator.notification.beep(2);
+
+  navigator.notification.alert(
+      'You are the 33333!',  // message
+      alertDismissed,         // callback
+      'Game Over',            // title
+      'Done'                  // buttonName
+  );
+
+
+}, false);
+
+navigator.notification.beep(2);
+
+
+
+
+document.addEventListener("deviceready", function() {
+  navigator.notification.beep(2);
+
+  cordova.plugins.notification.local.schedule({
+      title: 'My first notification',
+      text: 'Thats pretty easy...',
+      foreground: true
+  });
+
+}, false);
 
 
     </script>

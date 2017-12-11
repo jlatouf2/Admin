@@ -133,6 +133,7 @@ io.on('connection', function(socket){
             });
       });
 
+/*
       socket.on('addStore', function (data) {
         console.log(data); console.log(data.store);
         console.log(data.latitude);
@@ -151,6 +152,39 @@ io.on('connection', function(socket){
           });
 
       });
+
+*/
+
+socket.on('addStore', function (data) {
+  console.log(data.store);
+    Store.find( {store: data.store})
+      .exec(function(err, post) {
+         if (err) { return next(err); }
+            //callback(posts);
+            if (post.length === 0)  {
+              var store = new Store({
+                store: data.store,  postal: data.postal,
+                latitude: data.latitude, longitude: data.longitude,
+                Adminpassword: data.Adminpassword  });
+
+                store.save(function (err, post) {
+                  if (err) { return next(err); }
+              //   callback(post);
+                io.emit('addStorename', post);
+
+                 console.log(post);
+                });
+
+            } else {
+              console.log(post.length);
+              console.log('STORE IS ALREADY IN DB!');
+
+
+          }
+     });
+});
+
+
 
 
       socket.on('deleteStore44', function (data) {
@@ -244,6 +278,12 @@ io.on('connection', function(socket){
         }
       })
 */
+
+socket.on('poll', function (data, callback) {
+  console.log(data);
+      callback(data);
+});
+
 
       socket.on('getPeopleLine', function (data, callback) {
         PeopleLine.find({ $and: [{store: data.store}, {line: data.line}]})
@@ -463,8 +503,27 @@ var decoded = jwt.verify(token, 'shhhhh');
 console.log('decoded ' + decoded.foo);
 
 */
+
+app.post('/tokenReturned', function(req, res) {
+  console.log('workedit!');
+  console.log(req.body.token);
+  res.send(req.body.token);
+
+});
+
+
+
 app.post('/touchit', function(req, res) {
   console.log('workedit!');
+});
+
+app.post('/numberofLines', function(req, res, data) {
+
+   console.log(data);
+   Storeline.find({store: req.body.store}, function( err, count){
+       console.log( "Number of users:", count );
+        res.send(count);
+     });
 });
 
 
@@ -539,6 +598,91 @@ Blue.create(userData, function (err, user) {
 
 */
 
+
+
+app.post('/addStore', function(req, res, data) {
+
+         console.log(req.body.store);
+        console.log(req.body.latitude);
+
+        var store = new Store({
+          store: req.body.store,  postal: req.body.postal,
+          latitude: req.body.latitude, longitude: req.body.longitude,
+          Adminpassword: req.body.Adminpassword  });
+
+          store.save(function (err, post) {
+            if (err) { return next(err); }
+        //   callback(post);
+        //  io.emit('addStorename', post);
+          res.send(post);
+           console.log(post);
+          });
+
+      });
+
+      app.post('/polling', function(req, res) {
+      res.send('posts');
+        });
+
+
+app.post('/storeName', function(req, res, data) {
+       console.log(data);
+        Store.find( {})
+        .exec(function(err, posts) {
+        if (err) { return next(err); }
+              res.send(posts);
+            console.log(posts );
+      });
+});
+
+
+app.post('/deleteStore44', function(req, res, data) {
+
+   console.log(req.body.store);
+   Store.remove({store: req.body.store}, function(err) {
+       Store.find().exec(function(err, posts) {
+         if (err) { return next(err); }
+            console.log(posts);
+        // callback(posts);
+        res.send(posts);
+      //   io.emit('deleteUpdate', posts);
+       });
+   });
+});
+
+
+app.post('/getPeopleLine', function(req, res) {
+
+  PeopleLine.find({ $and: [{store: req.body.store}, {line: req.body.line}]})
+    .exec(function(err, posts) {
+        if (err) { return next(err); }
+    //  res.send(posts);
+      //res.status(200).send(posts);
+       res.status(200).json(posts);
+        console.log(posts);
+      });
+});
+
+
+app.get('/getData', function(req, res) {
+  console.log('workedit!');
+    res.send('getit!');
+});
+
+
+app.post('/postData', function(req, res, data) {
+  console.log('workedit!');
+  console.log(data);
+  res.send(data);
+});
+
+
+app.post('/postData22', function(req, res, data) {
+  console.log(data);
+  console.log(req.body.responseType);
+
+  res.send(req.body.responseType);
+});
 
 //curl -X POST  http://localhost:3000/backedTouched
 

@@ -56,14 +56,14 @@
       </tr>
   </thead>
       <tbody style="background-color:white; border:none">
-            <tr ng-hide="numberLinesZero" style="text-align: center;" ng-repeat="country in countries | filter:search | orderBy:'store'">
+            <tr ng-hide="numberLinesZero" style="text-align: center;" ng-repeat="storewithName in storewithNames | filter:search | orderBy:'store'">
                 <td>
-                  <a  style="background-color:white; border:none"  href="#/storelines"   ng-click="grabStuff(country.store)" class="list-group-item ">
-                  <span style="color:black;font-weight: bold;">{{country.store}} <br>
+                  <a  style="background-color:white; border:none"  href="#/storelines"   ng-click="grabStuff(storewithName.store)" class="list-group-item ">
+                  <span style="color:black;font-weight: bold;">{{storewithName.store}} <br>
                 </td>
 
                 <td  style="width:20%"  ng-show="deleteButton">
-                  <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteName2(country.store)">Delete</button>
+                  <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteName2(storewithName.store)">Delete</button>
                 </td>
             </tr>
 
@@ -73,7 +73,7 @@
                       THE PAGE OR ADD STORE YOURSELF  </span>
                 </td>
                 <td  style="width:80px"  ng-show="deleteButton">
-                  <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteLine(country.line)">Delete</button>
+                  <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteLine(storewithName.line)">Delete</button>
                 </td>
             </tr>
 

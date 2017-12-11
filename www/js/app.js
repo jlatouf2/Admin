@@ -1,3 +1,4 @@
+'use strict'
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
@@ -5,7 +6,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic', 'starter.controllers',  'ngCordova'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope,   $cordovaPushV5) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -20,8 +21,58 @@ angular.module('starter', ['ionic', 'starter.controllers',  'ngCordova'])
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+
+    $cordovaPushV5.initialize(
+                {
+                    android: {
+                        senderID: "951079272607"  //fcm
+                       //senderID : "402556160618" //gcm
+                    }
+                }
+            ).then(function (result) {
+                $cordovaPushV5.onNotification();
+                 $cordovaPushV5.onError();
+                console.log("About to register");
+                $cordovaPushV5.register().then(function (device_token) {
+                    console.log("Register success with device_token " + device_token);
+
+                    //registerDevice();
+                }, function (err) {
+                    // handle error
+                    console.log("Error registering device");
+                });
+            });
+
+            $rootScope.$on('$cordovaPushV5:notificationReceived', function(event, notification) {
+                //Never reaches here for Android in background, but works fine for iOS when in background
+                //Reaches here for Android when in foreground
+    console.log("jsjsadsa")
+               console.log('Received some notification: '+ JSON.stringify([notification]));
+
+                $cordovaPushV5.finish().then(function (result) {
+                    console.log('finished notificationReceived RESULT: ' + result);
+                }, function (err) {
+                    // handle error
+                    console.log('finished notificationReceived ERROR: ' + err);
+
+                });
+            });
+
+            $rootScope.$on('$cordovaPushV5:errorOccurred', function(event, error) {
+                // handle error
+                console.log('cordovaPushV5:errorOccurred ERROR: ' + error);
+            });
+
+
+
+
+
   });
+
 })
+
+
+
 
 
 .config(function($stateProvider, $urlRouterProvider) {

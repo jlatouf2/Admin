@@ -1,0 +1,50 @@
+{
+  "project_info": {
+    "project_number": "901561854903",
+    "firebase_url": "https://fleet-authority-182015.firebaseio.com",
+    "project_id": "fleet-authority-182015",
+    "storage_bucket": "fleet-authority-182015.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901561854903:android:b2a71c2f5d3cc3db",
+        "android_client_info": {
+          "package_name": "com.tested.myapp2439485068"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901561854903-3jfderii3et0rca76f74he6dqt9d9ek8.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "901561854903-s3tjepdlp5a267pob7ucsohr7hmp5ucr.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "901561854903-rb6dnoqj33a4mbi0p44st9cruhk99kpm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVOkTcID9Z0ZtBzjH4yQqOKzz7ph92Psk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

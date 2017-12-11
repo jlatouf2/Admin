@@ -46,7 +46,7 @@
 <!--https://thawing-ocean-11742.herokuapp.com/signup22 -->
 
     <button ng-click="myFunction()">LoginStuff</button>
-    
+
     <button ng-click="Servicefacebook()">LoginStuff22</button>
 
 
@@ -55,9 +55,46 @@
     <button ng-click="gettoken()">Get Token</button>
 
     <button ng-click="back()">Back</button>
+<br><br>
 
+<button ng-click="this_notification()">NOTIFICATION1</button>
 
 <br><br>
+
+<button ng-click="notification_message()">NOTIFICATION2</button>
+  {{blue}}
+
+<br><br>
+
+<button ng-click="dialog()">DIALOG</button>
+
+<br><br>
+
+this_notification2
+<button onclick="window.plugins.toast.showShortTop('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showShortTop</button>
+<br><br>
+
+<button ng-click="this_notification2()">NOTIFICATION4</button>
+
+<br><br>
+
+<button ng-click="scheduleSingleNotificationo()">NOTIFICATION5</button>
+
+<br><br>
+
+<button ng-click="scheduleMultipleNotifications()">NOTIFICATION6</button>
+
+<br><br>
+
+<button ng-click="scheduleDelayedNotification()">NOTIFICATION7</button>
+
+<br><br>
+<button ng-click="getNotif()">GET TOKEN</button>
+
+{{getToken}}
+<br><br>
+
+
 
 <a href="https://thawing-ocean-11742.herokuapp.com/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
 <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
