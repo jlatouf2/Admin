@@ -83,7 +83,7 @@ angular.module('starter.controllers', [])
 
 .controller('ContactController', function($scope, $location, $http,  $state, $rootScope, AuthService, $cordovaDialogs, $cordovaToast, $ionicPlatform, $cordovaLocalNotification) {
 
-  $cordovaDialogs.beep(3);
+//  $cordovaDialogs.beep(3);
 
 
   $scope.dialog = function(){
@@ -91,6 +91,108 @@ angular.module('starter.controllers', [])
      .then(function() {
       });
 };
+
+/*
+curl -X POST --header "Authorization: key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ" \
+    --Header "Content-Type: application/json" \
+    https://fcm.googleapis.com/fcm/send \
+    -d "{\"to\":\"eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S\",\"notification\":{\"title\":\"Its your turn in line\", \"body\": \"Your turn\"},\"priority\":10}"
+
+
+    $scope.sendHttpFirebase33 = function(){
+      $http({
+      url : "https://fcm.googleapis.com/fcm/send",
+      method : 'POST',
+      headers : { Content-Type : 'application/json', Authorization: key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ   }
+      }).success(function(data){
+          alert("login Successfully");
+      }).error(function(error){
+          alert("login error");
+      });
+
+    };
+
+    req.setRequestHeader('Authorization', 'Basic [base64 encoded password here]' );
+
+    var req = {
+     method: 'POST',
+     url: 'http://example.com',
+     headers: {
+       'Content-Type': undefined
+     },
+     data: { test: 'test' }
+    }
+
+    $http(req).then(function(){...}, function(){...});
+
+*/
+
+$scope.sendHttpFirebase = function(){
+  $http.post('https://fcm.googleapis.com/fcm/send', {  username: 'some username',  password: 'some password' },
+  {  headers: { 'Content-Type': 'application/json', 'Authorization': 'key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ'  } })
+  .success(function(data){
+      alert("login Successfully");
+  }).error(function(error){
+    console.log(error);
+      alert("login error");
+  });
+
+};
+
+
+$scope.sendHttpFirebase33 = function(){
+  $http({
+  url : "https://fcm.googleapis.com/fcm/send",
+  method : 'POST',
+  headers : { 'Content-Type' : 'application/json',
+  'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   }
+  }).success(function(data){
+      alert("login Successfully");
+      console.log(data);
+
+  }).error(function(error){
+      alert("login error");
+  });
+
+};
+
+//data: JSON.stringify({"to": "<instance ID>", "notification": {"title":"Test","body":"Test"}}),
+
+$scope.sendHttpFirebase44 = function(){
+  $http({
+  url : "https://fcm.googleapis.com/fcm/send",
+  method : 'POST',
+  headers : { 'Content-Type' : 'application/json',
+  'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
+  data: ({"to": "eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S", "notification": {"title":"Test","body":"Test"}})
+
+  }).success(function(data){
+      alert("login Successfully");
+      console.log(data);
+
+  }).error(function(error){
+      alert("login error");
+      console.log(error);
+
+  });
+};
+
+
+/*
+https://gcm-http.googleapis.com/gcm/send
+Content-Type:application/json
+Authorization:key=AIzaSyZ-1u...0GBYzPu7Udno5aA
+
+{ "data": {
+    "score": "5x1",
+    "time": "15:10"
+  },
+  "to" : "eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S"
+}
+*/
+
+
+
 
 
 $scope.getNotif = function(){

@@ -22,56 +22,10 @@ angular.module('starter', ['ionic', 'starter.controllers',  'ngCordova'])
       StatusBar.styleDefault();
     }
 
-    $cordovaPushV5.initialize(
-                {
-                    android: {
-                        senderID: "951079272607"  //fcm
-                       //senderID : "402556160618" //gcm
-                    }
-                }
-            ).then(function (result) {
-                $cordovaPushV5.onNotification();
-                 $cordovaPushV5.onError();
-                console.log("About to register");
-                $cordovaPushV5.register().then(function (device_token) {
-                    console.log("Register success with device_token " + device_token);
-
-                    //registerDevice();
-                }, function (err) {
-                    // handle error
-                    console.log("Error registering device");
-                });
-            });
-
-            $rootScope.$on('$cordovaPushV5:notificationReceived', function(event, notification) {
-                //Never reaches here for Android in background, but works fine for iOS when in background
-                //Reaches here for Android when in foreground
-    console.log("jsjsadsa")
-               console.log('Received some notification: '+ JSON.stringify([notification]));
-
-                $cordovaPushV5.finish().then(function (result) {
-                    console.log('finished notificationReceived RESULT: ' + result);
-                }, function (err) {
-                    // handle error
-                    console.log('finished notificationReceived ERROR: ' + err);
-
-                });
-            });
-
-            $rootScope.$on('$cordovaPushV5:errorOccurred', function(event, error) {
-                // handle error
-                console.log('cordovaPushV5:errorOccurred ERROR: ' + error);
-            });
-
-
-
-
 
   });
 
 })
-
-
 
 
 
