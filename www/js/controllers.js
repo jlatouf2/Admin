@@ -212,7 +212,7 @@ angular.module('starter.controllers', [])
               var myToken = localStorage.getItem("TokenData");
               window.alert(myToken);
 
-              $http.post('http://192.168.1.115:3000/tokenReturned', {token: localStorage.getItem("TokenData")})
+              $http.post('https://thawing-ocean-11742.herokuapp.com/tokenReturned', {token: localStorage.getItem("TokenData")})
                  .then(function(data) {
                      //First function handles success
                      alert('worked');
@@ -311,7 +311,7 @@ angular.module('starter.controllers', [])
 
           //    $scope.back();    store : $scope.storeName.sname, postal: $scope.postal,
 
-          $http.post('http://192.168.1.115:3000/facebookSignupLogin', {userID: $scope.userID, name: $scope.name, email: $scope.email})
+          $http.post('https://thawing-ocean-11742.herokuapp.com/facebookSignupLogin', {userID: $scope.userID, name: $scope.name, email: $scope.email})
              .then(function(data) {
                  //First function handles success
                  alert('worked');
@@ -400,7 +400,7 @@ angular.module('starter.controllers', [])
 
        //STEP 3)  POSTS DATA TO BACKEND TO CHECK IF IN DATABASE:
 
-        $http.post('http://192.168.1.115:3000/facebookSignupLogin', {userID: $scope.userID, name: $scope.name, email: $scope.email})
+        $http.post('https://thawing-ocean-11742.herokuapp.com/facebookSignupLogin', {userID: $scope.userID, name: $scope.name, email: $scope.email})
           .then(function(data) {
               //First function handles success
               alert('worked');
@@ -893,7 +893,7 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
 
 
   $scope.nodeValidation = function(){
-    $http.post('http://192.168.1.115:3000/polling', {"email": "jlatouf2@gmail.com"})
+    $http.post('https://thawing-ocean-11742.herokuapp.com/polling', {"email": "jlatouf2@gmail.com"})
  .then(function(data) {
      //First function handles success
      console.log('worked');
@@ -953,7 +953,7 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
           */
 
           $scope.nodeValidation = function(){
-            $http.post('http://192.168.1.115:3000/stuffwhite', {"email": "jlatouf2@gmail.com"})
+            $http.post('https://thawing-ocean-11742.herokuapp.com/stuffwhite', {"email": "jlatouf2@gmail.com"})
          .then(function(data) {
              //First function handles success
              console.log('worked');
@@ -1469,7 +1469,7 @@ setInterval(function() {
       },1000);
 */
 
-$http.post('http://192.168.1.115:3000/findUserTokens', {})
+$http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
  .then(function(data) {
      //First function handles success
      console.log('worked');
@@ -1493,7 +1493,7 @@ $http.post('http://192.168.1.115:3000/findUserTokens', {})
                   var myToken = localStorage.getItem("TokenData");
                   window.alert(myToken);
 
-                  $http.post('http://192.168.1.115:3000/addNotificationtoken', {token: localStorage.getItem("TokenData")})
+                  $http.post('https://thawing-ocean-11742.herokuapp.com/addNotificationtoken', {token: localStorage.getItem("TokenData")})
                      .then(function(data) {
                          //First function handles success
                          alert('worked');
@@ -1555,7 +1555,7 @@ $http.post('http://192.168.1.115:3000/findUserTokens', {})
             /* ----------POSITION BUTTON! -------------- */
             $scope.positionButton = function(){
 
-              $http.post('http://192.168.1.115:3000/findUserTokensPeopleLine', {})
+              $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokensPeopleLine', {})
                .then(function(data) {
                    //First function handles success
                    console.log('worked');
@@ -1573,7 +1573,7 @@ $http.post('http://192.168.1.115:3000/findUserTokens', {})
             /* ----------DISPLACEMENT BUTTON! -------------- */
             $scope.displacementButton = function(){
 
-              $http.post('http://192.168.1.115:3000/findUserTokens', {})
+              $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
                .then(function(data) {
                    //First function handles success
                    console.log('worked');
@@ -1589,7 +1589,7 @@ $http.post('http://192.168.1.115:3000/findUserTokens', {})
             };
 
 
-            $http.post('http://192.168.1.115:3000/findUserTokensPeopleLine', {})
+            $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokensPeopleLine', {})
              .then(function(data) {
                  //First function handles success
                  console.log('worked');
