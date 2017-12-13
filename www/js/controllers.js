@@ -39,6 +39,14 @@ angular.module('starter.controllers', [])
 
 .controller('firstController', function($scope, $location, $http, $rootScope, $ionicModal, AuthService) {
 
+  //alert(localStorage.getItem("TokenData"));
+
+      //  NOTE: THIS IS THE NOTIFICAITON KEY:
+    // localStorage.setItem("TokenData", 'blackbox');
+
+        $scope.noteToken = localStorage.getItem("TokenData");
+      //     $scope.noteToken ="BLACK";
+
           $scope.email = "jlatouf2@gmail.com";
           $scope.password = "jarredl";
           $scope.blue = function(){  console.log('white;');};
@@ -46,7 +54,7 @@ angular.module('starter.controllers', [])
         $scope.loginModal = function(){  $("#myModal").modal("show"); };
 
           /*   --------LOGIN FUNCTION-----------     */
-        $scope.ServiceFunction5 = function () { AuthService.LoginExample3($scope.email, $scope.password); $scope.closeLogin1(); };
+        $scope.ServiceFunction5 = function () { AuthService.LoginExample3($scope.email, $scope.password, $scope.noteToken); $scope.closeLogin1(); };
 
         $scope.ServiceFunction2 = function () { AuthService.loginExample2($scope.firstname, $scope.lastnamE); };
 
@@ -77,158 +85,155 @@ angular.module('starter.controllers', [])
           $scope.modal1.show();
         };
 
-
-
-      })
+    })
 
 .controller('ContactController', function($scope, $location, $http,  $state, $rootScope, AuthService, $cordovaDialogs, $cordovaToast, $ionicPlatform, $cordovaLocalNotification) {
 
-//  $cordovaDialogs.beep(3);
+        //  $cordovaDialogs.beep(3);
 
 
-  $scope.dialog = function(){
-  $cordovaDialogs.alert('message', 'title', 'button name')
-     .then(function() {
-      });
-};
+          $scope.dialog = function(){
+          $cordovaDialogs.alert('message', 'title', 'button name')
+             .then(function() {
+              });
+        };
 
-/*
-curl -X POST --header "Authorization: key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ" \
-    --Header "Content-Type: application/json" \
-    https://fcm.googleapis.com/fcm/send \
-    -d "{\"to\":\"eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S\",\"notification\":{\"title\":\"Its your turn in line\", \"body\": \"Your turn\"},\"priority\":10}"
-
-
-    $scope.sendHttpFirebase33 = function(){
-      $http({
-      url : "https://fcm.googleapis.com/fcm/send",
-      method : 'POST',
-      headers : { Content-Type : 'application/json', Authorization: key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ   }
-      }).success(function(data){
-          alert("login Successfully");
-      }).error(function(error){
-          alert("login error");
-      });
-
-    };
-
-    req.setRequestHeader('Authorization', 'Basic [base64 encoded password here]' );
-
-    var req = {
-     method: 'POST',
-     url: 'http://example.com',
-     headers: {
-       'Content-Type': undefined
-     },
-     data: { test: 'test' }
-    }
-
-    $http(req).then(function(){...}, function(){...});
-
-*/
-
-$scope.sendHttpFirebase = function(){
-  $http.post('https://fcm.googleapis.com/fcm/send', {  username: 'some username',  password: 'some password' },
-  {  headers: { 'Content-Type': 'application/json', 'Authorization': 'key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ'  } })
-  .success(function(data){
-      alert("login Successfully");
-  }).error(function(error){
-    console.log(error);
-      alert("login error");
-  });
-
-};
+        /*
+        curl -X POST --header "Authorization: key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ" \
+            --Header "Content-Type: application/json" \
+            https://fcm.googleapis.com/fcm/send \
+            -d "{\"to\":\"eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S\",\"notification\":{\"title\":\"Its your turn in line\", \"body\": \"Your turn\"},\"priority\":10}"
 
 
-$scope.sendHttpFirebase33 = function(){
-  $http({
-  url : "https://fcm.googleapis.com/fcm/send",
-  method : 'POST',
-  headers : { 'Content-Type' : 'application/json',
-  'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   }
-  }).success(function(data){
-      alert("login Successfully");
-      console.log(data);
+            $scope.sendHttpFirebase33 = function(){
+              $http({
+              url : "https://fcm.googleapis.com/fcm/send",
+              method : 'POST',
+              headers : { Content-Type : 'application/json', Authorization: key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ   }
+              }).success(function(data){
+                  alert("login Successfully");
+              }).error(function(error){
+                  alert("login error");
+              });
 
-  }).error(function(error){
-      alert("login error");
-  });
+            };
 
-};
+            req.setRequestHeader('Authorization', 'Basic [base64 encoded password here]' );
 
-//data: JSON.stringify({"to": "<instance ID>", "notification": {"title":"Test","body":"Test"}}),
+            var req = {
+             method: 'POST',
+             url: 'http://example.com',
+             headers: {
+               'Content-Type': undefined
+             },
+             data: { test: 'test' }
+            }
 
-$scope.sendHttpFirebase44 = function(){
-  $http({
-  url : "https://fcm.googleapis.com/fcm/send",
-  method : 'POST',
-  headers : { 'Content-Type' : 'application/json',
-  'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-  data: ({"to": "eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S", "notification": {"title":"Test","body":"Test"}})
+            $http(req).then(function(){...}, function(){...});
 
-  }).success(function(data){
-      alert("login Successfully");
-      console.log(data);
+        */
 
-  }).error(function(error){
-      alert("login error");
-      console.log(error);
+        $scope.sendHttpFirebase = function(){
+          $http.post('https://fcm.googleapis.com/fcm/send', {  username: 'some username',  password: 'some password' },
+          {  headers: { 'Content-Type': 'application/json', 'Authorization': 'key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ'  } })
+          .success(function(data){
+              alert("login Successfully");
+          }).error(function(error){
+            console.log(error);
+              alert("login error");
+          });
 
-  });
-};
-
-
-/*
-https://gcm-http.googleapis.com/gcm/send
-Content-Type:application/json
-Authorization:key=AIzaSyZ-1u...0GBYzPu7Udno5aA
-
-{ "data": {
-    "score": "5x1",
-    "time": "15:10"
-  },
-  "to" : "eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S"
-}
-*/
+        };
 
 
-
-
-
-$scope.getNotif = function(){
-
-  FCMPlugin.getToken(function(token) {
-
-       console.log(token);
-      window.alert(token);
-
-      localStorage.setItem("TokenData", token);
-
-      var myToken = localStorage.getItem("TokenData");
-      window.alert(myToken);
-
-      $http.post('http://192.168.1.115:3000/tokenReturned', {token: localStorage.getItem("TokenData")})
-         .then(function(data) {
-             //First function handles success
-             alert('worked');
-             alert(data);
-
-             $scope.getToken = data;
-             //$scope.content = response.data;
-         }, function() {
-             //Second function handles error
-             alert('didnt work');
-
-         });
-
-           FCMPlugin.onNotification(function(data) {
+        $scope.sendHttpFirebase33 = function(){
+          $http({
+          url : "https://fcm.googleapis.com/fcm/send",
+          method : 'POST',
+          headers : { 'Content-Type' : 'application/json',
+          'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   }
+          }).success(function(data){
+              alert("login Successfully");
               console.log(data);
-              window.alert(data);
+
+          }).error(function(error){
+              alert("login error");
+          });
+
+        };
+
+        //data: JSON.stringify({"to": "<instance ID>", "notification": {"title":"Test","body":"Test"}}),
+
+        //      NOTE: THIS WORKED!!!!
+
+        $scope.sendHttpFirebase44 = function(){
+          $http({
+          url : "https://fcm.googleapis.com/fcm/send",
+          method : 'POST',
+          headers : { 'Content-Type' : 'application/json',
+          'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
+          data: ({"to": "eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S", "notification": {"title":"Test","body":"Test"}})
+
+          }).success(function(data){
+              alert("login Successfully");
+              console.log(data);
+
+          }).error(function(error){
+              alert("login error");
+              console.log(error);
 
           });
-  });
+        };
 
-};
+
+        /*
+        https://gcm-http.googleapis.com/gcm/send
+        Content-Type:application/json
+        Authorization:key=AIzaSyZ-1u...0GBYzPu7Udno5aA
+
+        { "data": {
+            "score": "5x1",
+            "time": "15:10"
+          },
+          "to" : "eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S"
+        }
+        */
+
+         $scope.getNotif = function(){
+
+          FCMPlugin.getToken(function(token) {
+
+               console.log(token);
+              window.alert(token);
+
+              localStorage.setItem("TokenData", token);
+
+
+              var myToken = localStorage.getItem("TokenData");
+              window.alert(myToken);
+
+              $http.post('http://192.168.1.115:3000/tokenReturned', {token: localStorage.getItem("TokenData")})
+                 .then(function(data) {
+                     //First function handles success
+                     alert('worked');
+                     alert(data);
+
+                     $scope.getToken = data;
+                     //$scope.content = response.data;
+                 }, function() {
+                     //Second function handles error
+                     alert('didnt work');
+
+                 });
+
+                   FCMPlugin.onNotification(function(data) {
+                      console.log(data);
+                      window.alert(data);
+
+                  });
+          });
+
+        };
 
 
           $rootScope.goback2 = function(){ console.log('clicked'); $state.go('home'); };
@@ -250,6 +255,10 @@ $scope.getNotif = function(){
           };
 
 
+              $scope.noteToken = localStorage.getItem("TokenData");
+
+              console.log($scope.noteToken);
+
         $scope.fname = "Jarred"; $scope.lname = "Latouf"; $scope.email = "jlatouf2@gmail.com";
         $scope.password = "jarredl"; $scope.passwordConf = "jarredl";
 
@@ -267,7 +276,7 @@ $scope.getNotif = function(){
         $scope.ServiceFunction3 = function () { AuthService.RegisterExample($scope.firstname, $scope.lastname); };
 
         $scope.ServiceFunction4 = function () { AuthService.RegisterExample4($scope.fname.fname1, $scope.lname.lname1, $scope.email.email1,
-          $scope.password.password1, $scope.passwordConf.passwordConf1); };
+          $scope.password.password1, $scope.passwordConf.passwordConf1, $scope.noteToken ); };
 
        /*  $scope.ServiceFunction5 = function () {console.log("clicked22");AuthService.LoginExample3($scope.email, $scope.password);}; */
 
@@ -1408,4 +1417,191 @@ setInterval(function() {
               });
         };
 
-    });
+    })
+
+.controller('MessagingCtrl', function($scope, $location, $http, $timeout,  $state ) {
+
+          console.log('this worked!');
+
+        //  $scope.email = "jlatouf2@gmail.com";
+        //  $scope.password = "jarredl";
+        //CHANGE LOGIN AND SIGNUP FORMS TO HAVE ANOTHER VALUE: NOTIFICATIONKEY, THEN IT WORKS FINE, SO
+        //YOU MUST GET IT IN THE HOME SCREEN., AND I ALREADY DO....
+        //notificationkey
+      //  $scope.storeName ={sname:"blue"};
+
+
+
+
+
+        $scope.sendFirebasehttp = function(){
+          $http({
+          url : "https://fcm.googleapis.com/fcm/send",
+          method : 'POST',
+          headers : { 'Content-Type' : 'application/json',
+          'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
+          data: ({"to": "eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S", "notification": {"title":"Test","body":"Test"}})
+
+          }).success(function(data){
+              alert("login Successfully");
+              console.log(data);
+
+          }).error(function(error){
+              alert("login error");
+              console.log(error);
+
+          });
+        };
+
+/*
+        $timeout(function(){
+          $http.post('http://192.168.1.115:3000/findUserTokens', {})
+           .then(function(data) {
+               //First function handles success
+               console.log('worked');
+               console.log(data.data);
+              // alert(data);
+               $scope.usercontents = data.data;
+           }, function() {
+               //Second function handles error
+               alert('didnt work');
+             });
+      },1000);
+*/
+
+$http.post('http://192.168.1.115:3000/findUserTokens', {})
+ .then(function(data) {
+     //First function handles success
+     console.log('worked');
+     console.log(data.data);
+    // alert(data);
+     $scope.usercontents = data.data;
+ }, function() {
+     //Second function handles error
+     console.log('didnt work');
+   });
+
+
+        $scope.getTokenFirebase = function(){
+
+              FCMPlugin.getToken(function(token) {
+
+                   console.log(token);     window.alert(token);
+
+                  localStorage.setItem("TokenData", token);
+
+                  var myToken = localStorage.getItem("TokenData");
+                  window.alert(myToken);
+
+                  $http.post('http://192.168.1.115:3000/addNotificationtoken', {token: localStorage.getItem("TokenData")})
+                     .then(function(data) {
+                         //First function handles success
+                         alert('worked');
+                         alert(data);
+                         $scope.getToken = data;
+                         //$scope.content = response.data;
+                     }, function() {
+                         alert('didnt work');
+                     });
+
+
+
+                       FCMPlugin.onNotification(function(data) {
+                          console.log(data);
+                          window.alert(data);
+                      });
+              });
+
+        };
+
+
+        $scope.grabStuff = function(notificationkey, email){
+              console.log( notificationkey);   console.log( email);
+                var not = notificationkey; console.log(not);
+
+              if (window.confirm("Are you sure you would like to send a notification to !") == true) {
+                  console.log( "You pressed OK!");
+
+                    $http({
+                    url : "https://fcm.googleapis.com/fcm/send",
+                    method : 'POST',
+                    headers : { 'Content-Type' : 'application/json',
+                    'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
+                    data: ({"to": not, "notification": {"title":"Lineups","body":"Your Turn is up!"}})
+
+                    }).success(function(data){
+                        alert("Successfully Passed Notification");
+                        console.log(data);
+
+                    }).error(function(error){
+                        alert("That user does not have a notifivation key:");
+                        console.log(error);
+
+                    });
+              } else {
+                  console.log( "You pressed Cancel!");
+
+              }
+
+         };
+
+
+     })
+
+.controller('AnalyticsCtrl', function($scope, $location, $http, $rootScope ) {
+
+
+
+            /* ----------POSITION BUTTON! -------------- */
+            $scope.positionButton = function(){
+
+              $http.post('http://192.168.1.115:3000/findUserTokensPeopleLine', {})
+               .then(function(data) {
+                   //First function handles success
+                   console.log('worked');
+                   console.log(data.data);
+                  // alert(data);
+                   $scope.usercontents = data.data;
+                   $rootScope.numberLinesAnalytics = true;
+
+               }, function() {
+                   //Second function handles error
+                   console.log('didnt work');
+                 });
+             };
+
+            /* ----------DISPLACEMENT BUTTON! -------------- */
+            $scope.displacementButton = function(){
+
+              $http.post('http://192.168.1.115:3000/findUserTokens', {})
+               .then(function(data) {
+                   //First function handles success
+                   console.log('worked');
+                   console.log(data.data);
+                  // alert(data);
+                   $scope.usercontents = data.data;
+                   $rootScope.numberLinesAnalytics = false;
+
+               }, function() {
+                   //Second function handles error
+                   console.log('didnt work');
+                 });
+            };
+
+
+            $http.post('http://192.168.1.115:3000/findUserTokensPeopleLine', {})
+             .then(function(data) {
+                 //First function handles success
+                 console.log('worked');
+                 console.log(data.data);
+                // alert(data);
+                 $scope.usercontents = data.data;
+                 $rootScope.numberLinesAnalytics = true;
+             }, function() {
+                 //Second function handles error
+                 console.log('didnt work');
+               });
+
+
+
+     });

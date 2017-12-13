@@ -12,6 +12,9 @@ var PeopleLine = new Schema({
     longitude: String,
     latitude: String,
     distance: String,
+    notificationkey: {
+      type: String
+    },
     created: {
         type: Date,
         default: Date.now

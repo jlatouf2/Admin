@@ -2,11 +2,35 @@
 //window.alert('message');
 
 
-
-
-
-
 document.addEventListener("deviceready", function() {
+          console.log(token);     window.alert(token);
+        FCMPlugin.getToken(function(token) {
+          localStorage.setItem("TokenData", token);
+          var myToken = localStorage.getItem("TokenData");
+          window.alert(myToken);
+
+          $http.post('http://192.168.1.115:3000/tokenReturned', {token: localStorage.getItem("TokenData")})
+            .then(function(data) {
+                //First function handles success
+                alert('worked');
+                alert(data);
+
+                $scope.getToken = data;
+                //$scope.content = response.data;
+            }, function() {
+                //Second function handles error
+                alert('didnt work');
+            });
+
+        FCMPlugin.onNotification(function(data) {
+       console.log(data);
+       window.alert(data);
+
+   });
+ });
+
+}, false);
+
 
 /*
 window.cordova.plugins.notification.local.schedule([{
@@ -14,6 +38,11 @@ window.cordova.plugins.notification.local.schedule([{
    at: new Date(new Date().getTime() + 5*1000)
 }])
 */
+
+/*
+document.addEventListener("deviceready", function() {
+
+
 
 
     FCMPlugin.getToken(function(token) {
@@ -33,11 +62,11 @@ window.cordova.plugins.notification.local.schedule([{
             console.log(data);
             window.alert(data);
 
-            /*  NOTE:  HERE IS WHERE YOU WOULD HAVE YOUR CONDITIONAL
+            NOTE:  HERE IS WHERE YOU WOULD HAVE YOUR CONDITIONAL
             STATMENT THAT COULD THEN SEND THE DATA [or registration tokens]
             BACK TO THE SERVER WITH AN HTTP REQUEST:
             ex: if (data.username == 'John') {http data back}
-            */
+
 
             //data.wasTapped == true means in Background :  Notification was received on device tray and tapped by the user.
             //data.wasTapped == false means in foreground :  Notification was received in foreground. Maybe the user needs to be notified.
@@ -52,7 +81,7 @@ window.cordova.plugins.notification.local.schedule([{
     });
 
 }, false);
-
+  */
 
 //I THINK THAT THIS WILL CALL THE PERSON WITH THE APP WHEN ITS IN THE BACKGROUND:
   document.addEventListener("pause", function pauseCallback() {

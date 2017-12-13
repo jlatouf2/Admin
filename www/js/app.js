@@ -62,6 +62,17 @@ angular.module('starter', ['ionic', 'starter.controllers',  'ngCordova'])
             controller: 'ProfileCtrl'
         })
 
+        .state('messaging', {
+            url: '/messaging',
+            templateUrl: 'templates/messaging.html',
+            controller: 'MessagingCtrl'
+        })
+
+      .state('analytics', {
+          url: '/analytics',
+          templateUrl: 'templates/analytics.html',
+          controller: 'AnalyticsCtrl'
+      })
         .state('home', {
             url: "/home",
             templateUrl: "templates/home.html",

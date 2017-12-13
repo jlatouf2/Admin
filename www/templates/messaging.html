@@ -1,0 +1,106 @@
+<ion-view view-title="Messaging">
+    <ion-content>
+
+      <!-- HEADER -->
+  <div style="color:white; text-align: center; background-color: #4881ea; vertical-align: middle;
+    line-height: 50px;   font-size: 15px;" >
+      <span style="margin-left:50px"> </span>
+      <span  style="">Messaging </span>
+    <button type="button" class="btn btn-default" ng-click="openstoremodal2()" style="line-height: 20px;
+      background-color: #4881ea;  border-style: none; float: right; font-size: 25px; margin-top:5px; margin-right:10px">
+      <span style="color:white" class="glyphicon glyphicon-plus"></span>
+    </button>
+  </div>
+
+  <h1 class="bob3" style="text-align:center;">Please select person for notification</h1>
+
+<!--
+<button ng-click="sendFirebasehttp()">
+SendFirebasehttp
+</button>
+<br><br>
+
+<button ng-click="getTokenFirebase()">
+GetFirebaseToken
+</button>
+
+<br><br>
+
+<button ng-click="findallNotificationtokens()">
+findallNotificationtokens
+</button>
+
+
+<br><br>
+-->
+
+<div class="bar bar-header item-input-inset">
+  <label class="item-input-wrapper" >
+    <i class="icon ion-ios-search placeholder-icon"></i>
+    <input type="search" ng-model="storeName.sname"  placeholder="Please add a Store Name">
+  </label>
+  <button class="button button-clear" ng-click="addStore1()" style="color:black">
+    Search
+  </button>
+</div>
+
+
+
+<!--
+{{storeName.sname}}
+<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
+  <thead>
+      <tr >
+        		<th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+              Email</th>
+        	<th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+            NotificationKey</th>
+      </tr>
+  </thead>
+  <tr style="" ng-repeat="usercontent in usercontents">
+    <td style="width:50%;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.email }}</td>
+    <td style="width:50%; max-width:200px; border: 1px solid black; border-collapse: collapse;">{{ usercontent.notificationkey }}</td>
+  </tr>
+</table>
+-->
+
+
+
+<div style="" class="table-responsive">
+<table class="table  table-hover">
+  <thead>
+  </thead>
+      <tbody style="background-color:white; border:none; ">
+            <tr ng-hide="numberLinesZero" style="word-wrap: break-word; text-align: center;" ng-repeat="usercontent in usercontents | filter:search | orderBy:'store'">
+                <td  style="">
+                  <a  style="background-color:white; border:none"    ng-click="grabStuff(usercontent.notificationkey, usercontent.email)" class="list-group-item ">
+                  <span style="color:black;font-weight: bold; ">{{ usercontent.email}}</span> <br>
+
+                </td>
+            </tr>
+      </tbody>
+</table>
+</div>
+
+
+
+<!--
+<button onclick="myFunction()">Try it</button>
+<p id="demo"></p>
+
+<label class="item item-input">
+  <span class="input-label" style="font-size:30px">Email: </span>
+  <input type="text" style="font-size:20px" ng-model="email">
+</label>
+<label class="item item-input">
+  <span class="input-label" style="font-size:30px">Password:</span>
+  <input type="password" style="font-size:20px" ng-model="password">
+</label>
+-->
+
+<div style="height:40px;">
+</div>
+
+
+</ion-content>
+</ion-view>

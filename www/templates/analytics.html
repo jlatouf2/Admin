@@ -1,0 +1,158 @@
+<ion-view view-title="Messaging">
+    <ion-content>
+
+      <!-- HEADER -->
+  <div style="color:white; text-align: center; background-color: #4881ea; vertical-align: middle;
+    line-height: 50px;   font-size: 15px;" >
+      <span style="margin-left:50px"> </span>
+      <span  style="">Analytics </span>
+    <button type="button" class="btn btn-default" ng-click="openstoremodal2()" style="line-height: 20px;
+      background-color: #4881ea;  border-style: none; float: right; font-size: 25px; margin-top:5px; margin-right:10px">
+      <span style="color:white" class="glyphicon glyphicon-plus"></span>
+    </button>
+  </div>
+
+  <h1 class="bob3" style="text-align:center;">Analytics</h1>
+
+<!--
+<button ng-click="sendFirebasehttp()">
+SendFirebasehttp
+</button>
+<br><br>
+
+<button ng-click="getTokenFirebase()">
+GetFirebaseToken
+</button>
+
+<br><br>
+
+<button ng-click="findallNotificationtokens()">
+findallNotificationtokens
+</button>
+
+
+<br><br>
+-->
+
+
+
+<!--
+
+<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
+  <thead>
+      <tr >
+        		<th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+              Firstname</th>
+        	<th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+            Lastname</th>
+            <th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+              Email</th>
+          <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+            NotificationKey</th>
+
+      </tr>
+  </thead>
+  <tr style="" ng-repeat="usercontent in usercontents">
+    <td style="width:25%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.firstname }}</td>
+    <td style="width:25%; text-align: center; max-width:200px; border: 1px solid black; border-collapse: collapse;">{{ usercontent.lastname }}</td>
+    <td style="width:25%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.email }}</td>
+    <td style="width:25%; text-align: center; max-width:200px; border: 1px solid black; border-collapse: collapse;">{{ usercontent._id }}</td>
+  </tr>
+</table>
+-->
+
+
+
+
+<div class="container" ng-show="numberLinesAnalytics">
+  <h2 class="bob3" style="text-align: center;">People Data</h2>
+  <p style="text-align: center;">This shows the data for the people in Lines in Each Store</p>
+  <ul class="nav nav-tabs"  style="text-align:center;">
+    <li class="active" style=" width:50%;"><a data-toggle="tab" ng-click="positionButton()" href="">PEOPLE DATA</a></li>
+    <li style=" width:50%;"><a data-toggle="tab" href="" ng-click="displacementButton()">USER DATA</a></li>
+  </ul>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+          Identification</th>
+        <th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+          Email</th>
+        <th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+          Store</th>
+      <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+        Line</th>
+        <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+          Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="" ng-repeat="usercontent in usercontents | filter:search | orderBy:'usercontent._id'">
+        <td style="width:20%; text-align: center; max-width:200px; border: 1px solid black; border-collapse: collapse;">{{ usercontent._id }}</td>
+        <td style="width:20%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.email }}</td>
+        <td style="width:20%; text-align: center; max-width:200px; border: 1px solid black; border-collapse: collapse;">{{ usercontent.store }}</td>
+        <td style="width:20%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.line }}</td>
+        <td style="width:20%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.created }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+
+
+<div class="container"  ng-hide="numberLinesAnalytics">
+  <h2 class="bob3" style="text-align: center;">User Data</h2>
+  <p style="text-align: center;">This shows the data for the people that in Database</p>
+  <ul class="nav nav-tabs"  style="text-align:center;">
+    <li class="active" style=" width:50%;"><a data-toggle="tab" ng-click="positionButton()" href="">PEOPLE DATA</a></li>
+    <li style=" width:50%;"><a data-toggle="tab" href="" ng-click="displacementButton()">USER DATA</a></li>
+  </ul>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+          Identification</th>
+        <th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+          Email</th>
+        <th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+          Firstname</th>
+      <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+        Lastname</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  style="" ng-repeat="usercontent in usercontents | filter:search | orderBy:'usercontent._id'">
+        <td style="width:25%; text-align: center; max-width:200px; border: 1px solid black; border-collapse: collapse;">{{ usercontent._id }}</td>
+        <td style="width:25%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.email }}</td>
+        <td style="width:25%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.firstname }}</td>
+        <td style="width:25%; text-align: center; max-width:200px; border: 1px solid black; border-collapse: collapse;">{{ usercontent.lastname }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<!--
+<button onclick="myFunction()">Try it</button>
+<p id="demo"></p>
+
+<label class="item item-input">
+  <span class="input-label" style="font-size:30px">Email: </span>
+  <input type="text" style="font-size:20px" ng-model="email">
+</label>
+<label class="item item-input">
+  <span class="input-label" style="font-size:30px">Password:</span>
+  <input type="password" style="font-size:20px" ng-model="password">
+</label>
+-->
+
+<div style="margin-bottom:40px;">
+</div>
+
+
+</ion-content>
+</ion-view>

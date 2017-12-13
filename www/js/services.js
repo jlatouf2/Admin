@@ -55,12 +55,13 @@ angular.module('starter').factory('AuthService' ,
     }
 
 
-    function RegisterExample4(fname, lname, email, password,  passwordConf){
+    function RegisterExample4(fname, lname, email, password,  passwordConf, noteToken){
           console.log('fname: ' + fname); console.log('lname: ' + lname);
           console.log('email: ' + email); console.log('password: ' + password);
-          console.log('passwordConf: ' + passwordConf);
+          console.log('passwordConf: ' + passwordConf); console.log('noteToken: ' + noteToken);
 //http://192.168.1.115:3000/signup22
-            $http.post('https://thawing-ocean-11742.herokuapp.com/signup22', { fname: fname, lname: lname, email : email, password : password, passwordConf: passwordConf } )
+//https://thawing-ocean-11742.herokuapp.com/signup22
+            $http.post('http://192.168.1.115:3000/signup22', { fname: fname, lname: lname, email : email, password : password, passwordConf: passwordConf, noteToken: noteToken } )
             .success(function( data) {
               console.log (data);
               $location.path('/profile');
@@ -72,9 +73,10 @@ angular.module('starter').factory('AuthService' ,
               $rootScope.fullName= data.firstname +" "+ data.lastname;
               $rootScope.userid= data._id;  $rootScope.userEmail = data.email;
               $rootScope.userPassword = data.password;
+              $rootScope.usertoken = data.notificationkey;
+
               }, function() {});
     }
-
 
 
 
@@ -130,10 +132,10 @@ angular.module('starter').factory('AuthService' ,
     //var socket = io.connect('http://192.168.1.115:3000');
 //https://thawing-ocean-11742.herokuapp.com/#/home
 
-    function LoginExample3(email, password){
-        console.log('email: ' + email); console.log('password: ' + password);
+    function LoginExample3(email, password, noteToken){
+        console.log('email: ' + email); console.log('password: ' + password); console.log('noteToken: ' + noteToken);
 //'http://192.168.1.115:3000/login22999'
-      $http.post('https://thawing-ocean-11742.herokuapp.com/login22999', {email : email, password : password} )
+      $http.post('http://192.168.1.115:3000/login22999', {email : email, password : password, noteToken : noteToken} )
          .success(function( data) {
            console.log (data);
            console.log (data.user);
@@ -142,13 +144,14 @@ angular.module('starter').factory('AuthService' ,
 
            $location.path('/profile');
 
-
             $rootScope.userdata = data;
             //Its refered to as local because its stored in the database as local:
             $rootScope.fullName= data.user.firstname +" "+ data.user.lastname;
             $rootScope.userid= data.user._id; $rootScope.useremail = data.user.email;
             $rootScope.userPassword = data.user.password;
-            $rootScope.usertoken = data.token;
+          //  $rootScope.usertoken = data.token;
+          $rootScope.usertoken = data.user.notificationkey;
+
             }, function() {});
     }
 

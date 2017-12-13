@@ -457,6 +457,9 @@ app.post('/deletePeop', function (req, res, next) {
 /*---------- SIGNUP FUNCTION: --------------*/
 
 app.post('/signup22', function (req, res, next) {
+  console.log(req.body.noteToken);
+//var noteTokenvar = req.body.noteToken;
+
       if (req.body.password !== req.body.passwordConf) {
           var err = new Error('Passwords do not match.');
           err.status = 400;
@@ -471,13 +474,14 @@ app.post('/signup22', function (req, res, next) {
         var userData = {
           email: req.body.email, firstname: req.body.fname,
           lastname: req.body.lname, password: req.body.password,
-          passwordConf: req.body.passwordConf
+          passwordConf: req.body.passwordConf, notificationkey: req.body.noteToken
         };
         //use schema.create to insert data into the db
         Blue.create(userData, function (err, user) {
           if (err) { return next(err);
           } else {
             res.send(user);
+            console.log(user);
           //  return res.redirect('/profile');
           }
         });
@@ -527,9 +531,66 @@ app.post('/numberofLines', function(req, res, data) {
 });
 
 
+//NOTE: THIS ONE WORKS!!!!
+
+//curl -X POST  http://localhost:3000/addNotificationtoken3
+
+app.post('/addNotificationtoken3', function(req, res) {
+Blue.findOne({ email: 'jlatouf2@gmail.com' })
+.exec(function(err, posts) {
+    if (err) { return next(err); }
+//  res.send(posts);
+//res.status(200).send(posts);
+//  posts.notificationkey = 'small';
+//  posts.save();
+
+res.status(200).json(posts);
+console.log(posts);
+  });
+});
+
+//curl -X POST  http://localhost:3000/findUsers
+
+app.post('/findUserTokens', function(req, res) {
+Blue.find({})
+.exec(function(err, posts) {
+    if (err) { return next(err); }
+//  res.send(posts);
+//res.status(200).send(posts);
+//  posts.notificationkey = 'small';
+//  posts.save();
+
+//res.send(posts);
+
+res.status(200).json(posts);
+console.log(posts);
+  });
+});
+
+
+//curl -X POST  http://localhost:3000/findUsers
+
+app.post('/findUserTokensPeopleLine', function(req, res) {
+PeopleLine.find({})
+.exec(function(err, posts) {
+    if (err) { return next(err); }
+//  res.send(posts);
+//res.status(200).send(posts);
+//  posts.notificationkey = 'small';
+//  posts.save();
+
+//res.send(posts);
+
+res.status(200).json(posts);
+console.log(posts);
+  });
+});
+
 
 app.post('/login22999', function(req, res) {
   console.log('PASSED TO BACKEND!');
+  console.log(req.body.noteToken);
+var noteTokenvar = req.body.noteToken;
   Blue.findOne({ email: req.body.email }, function(err, user) {
     if (err) throw err;
 
@@ -563,6 +624,9 @@ app.post('/login22999', function(req, res) {
           //mything.NewField = 'foo';
     //      user.tokens = token;
 
+      //NOTIFICAITON KEY SAVED:
+         user.notificationkey = noteTokenvar;
+          user.save();
 
           res.send({'user': user, 'token': token});
 
@@ -649,6 +713,112 @@ app.post('/deleteStore44', function(req, res, data) {
        });
    });
 });
+
+
+//curl -X POST  http://localhost:3000/addNotificationtoken
+// curl -X POST -H 'Content-Type: application/json' -d '{"email":"jlatouf2@gmail.com","password":"jarredl"}' http://localhost:3000/backedTouched
+
+// curl -X POST -H 'Content-Type: application/json' -d '{"email":"jlatouf2@gmail.com", "token" : "DFKDJFI3K3J3"}' http://localhost:3000/addNotificationtoken
+/*
+Tank.findById(id, function (err, tank) {
+  if (err) return handleError(err);
+
+  tank.set({ size: 'large' });
+  tank.save(function (err, updatedTank) {
+    if (err) return handleError(err);
+    res.send(updatedTank);
+  });
+});
+findOne
+
+app.post('/peoplelineInfo', function (req, res, next) {
+  var newUser2 = PeopleLine({
+    email : req.body.email, line: req.body.line,
+    position: req.body.position,  store: req.body.store,
+    fullname : req.body.fullName,  longitude: req.body.longitude,
+    latitude: req.body.latitude,  distance: req.body.distance
+  });
+
+  newUser2.save(function (err, post) {
+    if (err) {return next(err); }
+    res.send(post);     console.log(post);
+  });
+});
+
+*/
+//curl -X POST  http://localhost:3000/addNotificationtoken
+
+app.post('/addNotificationtoken', function(req, res) {
+//  Tank.find({ size: 'small' }).where('createdDate').gt(oneYearAgo).exec(callback);
+console.log(req.body.token);
+console.log(req.body.email);
+//Blue.find({ $and: [{store: req.body.store}, {line: req.body.line}]})
+
+  //  Blue.save({ notificationkey: 'small' }).where({email:'jlatouf2@gmail.com'})
+//  PeopleLine.find({ $and: [{store: req.body.store}, {line: req.body.line}]})
+
+var blueUser = Blue({
+  notificationkey : 'small'
+
+});
+    Blue.findOne({ email: 'jlatouf2@gmail.com' }, function(err, user) {
+      if (err) { return next(err); }
+        console.log(user);
+
+        blueUser.save(function(err, post) {
+        if (err) { return next(err); }
+
+        console.log(post);
+        res.send(post);
+    });
+  });
+
+});
+
+//curl -X POST  http://localhost:3000/addNotificationtoken2
+/*
+Model.findOne({ name: 'bourne' }, function (err, doc){
+  doc.name = 'jason bourne';
+  doc.visits.$inc();
+  doc.save();
+});
+*/
+
+app.post('/addNotificationtoken2', function(req, res) {
+  //Blue.find({ $and: [{email: 'jlatouf2@gmail.com'}]})
+  PeopleLine.findOne({ email: 'jlatouf2@gmail.com' })
+
+    .exec(function(err, posts) {
+        if (err) { return next(err); }
+    //  res.send(posts);
+      //res.status(200).send(posts);
+          posts.notificationkey = 'small';
+          posts.save();
+
+      res.status(200).json(posts);
+        console.log(posts);
+      });
+});
+
+
+          //NOTE: THIS ONE WORKS!!!!
+
+//curl -X POST  http://localhost:3000/addNotificationtoken3
+
+app.post('/addNotificationtoken3', function(req, res) {
+  Blue.findOne({ email: 'jlatouf2@gmail.com' })
+    .exec(function(err, posts) {
+        if (err) { return next(err); }
+    //  res.send(posts);
+      //res.status(200).send(posts);
+        //  posts.notificationkey = 'small';
+        //  posts.save();
+
+      res.status(200).json(posts);
+        console.log(posts);
+      });
+});
+
 
 
 app.post('/getPeopleLine', function(req, res) {

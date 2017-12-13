@@ -16,12 +16,17 @@ var Blue = new Schema({
       type: String,
       trim: true
     },
+    notificationkey: {
+      type: String
+    },
     password: {
       type: String,
       required: true,
     },
     passwordConf: {
-      type: String    }
+      type: String
+    }
+
 });
 
 Blue.pre('save', function (next) {
