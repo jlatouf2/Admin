@@ -3,56 +3,16 @@
 angular.module('starter').factory('AuthService' ,
   function ($rootScope, $http, $location) {
 
-        $rootScope.lineups2 = ['Jarred', 'Jacob', 'Johna!'];
-        $rootScope.storesAvailable = ['BestBuy', 'Kmart', 'Target', 'Zehrs'];
-        $rootScope.peopleLine = ['Marcus', 'Dom', 'Brain'];
-        $rootScope.lineNumber = [1, 2, 3];
+    $rootScope.lineups2 = ['Jarred', 'Jacob', 'Johna!']; $rootScope.storesAvailable = ['BestBuy', 'Kmart', 'Target', 'Zehrs'];
+    $rootScope.peopleLine = ['Marcus', 'Dom', 'Brain'];     $rootScope.lineNumber = [1, 2, 3];
 
         return ({
-          loginExample2: loginExample2,
-          RegisterExample: RegisterExample,
           RegisterExample4: RegisterExample4,
           LoginExample3: LoginExample3,
           logout: logout,
           confirm: confirm,
           facebookLogin: facebookLogin
         });
-
-
-
-    function loginExample2(email, password){
-        console.log('email' + email);  console.log('password' + password);
-
-        $http.post('/login', {email : email, password : password} )
-           .success(function( data) {
-              console.log (data);
-              $location.path('/profile');
-              console.log(data.user.local); console.log(data.user.local.email); console.log(data.user.local.password);
-              $rootScope.userdata = data;
-
-              //Its refered to as local because its stored in the database as local:
-              $rootScope.userInfo= data.user.local; $rootScope.userEmail = data.user.local.email;
-              $rootScope.userPassword = data.user.local.password;
-              }, function() {});
-    }
-
-
-    function RegisterExample(email, password, fname, lname){
-          console.log('firstname' + email);   console.log('lastname' + password);
-
-            $http.post('/signup', {email : email, password : password } )
-            .success(function( data) {
-              console.log (data);
-              $location.path('/profile');
-              console.log(data.user.local); console.log(data.user.local.email); console.log(data.user.local.password);
-
-              $rootScope.userdata = data;
-              $rootScope.userName = data.user.local;
-              console.log('This is the username in $rootScope: ' + $rootScope.userName);
-
-              }, function() {});
-
-    }
 
 
     function RegisterExample4(fname, lname, email, password,  passwordConf, noteToken){

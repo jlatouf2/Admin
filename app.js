@@ -153,6 +153,26 @@ io.on('connection', function(socket){
 
       });
 
+
+      socket.on('deleteStore44', function (data, callback) {
+         Store.findOne({ $and: [{email: data.email}, {store: data.store}]})
+          .exec(function(err, posts) {
+              if (err) { return next(err); }
+                  //  res.send(posts);
+                    //res.status(200).send(posts);
+                    //   posts.storeAdmin = 1;
+                      //  posts.save();
+                    if (posts.storeAdmin === 1) {
+                    //  res.status(200).json(posts);
+                    //    console.log(posts);
+
+            } else {
+              console.log("This email does not have StoreAdmin");
+              callback('SORRY, YOU DO NOT HAVE AUTHORITY TO DELETE THAT STORE');
+            }
+          });
+      });
+
 */
 
 socket.on('addStore', function (data) {
@@ -165,7 +185,8 @@ socket.on('addStore', function (data) {
               var store = new Store({
                 store: data.store,  postal: data.postal,
                 latitude: data.latitude, longitude: data.longitude,
-                Adminpassword: data.Adminpassword  });
+                Adminpassword: data.Adminpassword, email: data.email,
+                  storeAdmin : '1'});
 
                 store.save(function (err, post) {
                   if (err) { return next(err); }
@@ -186,6 +207,13 @@ socket.on('addStore', function (data) {
 
 
 
+/*
+
+      ADMIN WILL WORK B/C WHEN YOU DELETE YOU ARE SIMPLE CHECKING FOR STOREADMIN =1 OR LINEADMIN=1,
+      YOU ARE NOT CHECKING FOR STORENAME: SO JUST HAVE
+
+      ******YOU COULD DESIGN ANOTHER WEBSITE THAT ALLOWS YOU TO LOGIN AS ADMIN AND CHANGE/DELETE anything
+      WITH DIFFERENT BACKEND [APP.JS] ********
 
       socket.on('deleteStore44', function (data) {
          console.log(data);
@@ -198,6 +226,44 @@ socket.on('addStore', function (data) {
              });
          });
       });
+
+*/
+
+    socket.on('deleteStore44', function (data, callback) {
+  //    Store.find({store: data.store, email: data.email})
+    //   Store.findOne({ $and: [{email: data.email}, {store: data.store}]})
+    Store.findOne({store: data.store, email: data.email}, function( err, posts){
+
+        //.exec(function(err, posts) {
+            if (err) { return next(err); }
+                  //   posts.storeAdmin = 1;
+                    //  posts.save();
+                    console.log(posts);
+
+                    console.log(posts.store);
+                    console.log(posts.email);
+
+                    console.log(posts.storeAdmin);
+
+                  if (posts.storeAdmin == '1') {
+
+                Store.remove({store: data.store}, function(err) {
+                    Store.find().exec(function(err, posts) {
+                      if (err) { return next(err); }
+                         console.log(posts);
+                     // callback(posts);
+                      io.emit('deleteUpdate', posts);
+                    });
+                });
+            //  io.emit('deleteUpdate', posts);
+
+          } else {
+            console.log("This email does not have StoreAdmin");
+            callback('SORRY, YOU DO NOT HAVE AUTHORITY TO DELETE THAT STORE');
+          }
+        });
+    });
+
 
 
       socket.on('numberofLines', function (data, callback) {
@@ -231,6 +297,7 @@ socket.on('addStore', function (data) {
         console.log(data);
         console.log("number sent to DB: " + data.line);
         console.log("token: " + data.Adminpassword);
+        console.log("lineAdmin: " + data.lineAdmin);
 
               Storeline.count({ $and: [{store: data.store}, {line: data.line}]}   )
                 .exec(function(err, count) {
@@ -243,7 +310,7 @@ socket.on('addStore', function (data) {
 
                   var storeline = new Storeline({
                   store: data.store, line: data.line,
-                  Adminpassword: data.Adminpassword   });
+                      lineAdmin: data.lineAdmin});
 
                   storeline.save(function (err, post) {
                     if (err) { return next(err); }
@@ -372,7 +439,7 @@ socket.on('poll', function (data, callback) {
       });
 
 
-
+/*
       socket.on('deleteselectedLine', function (data) {
         console.log('store: '+data.store);
         console.log('line: '+data.line);
@@ -382,10 +449,80 @@ socket.on('poll', function (data, callback) {
             //callback(posts);
              io.emit('deleteLinesUpdate', posts);
                console.log(posts);
-               // Add a javascript object to this with store: data.store so
-               //that it will work right.
-          });
+           });
         });
+      });
+
+
+      //curl -X POST  http://localhost:3000/getBlack
+
+      app.post('/getBlack', function(req, res) {
+        Storeline.find({ store: 'bobby' }).where({line: '2'})
+        .exec(function(err, users) {
+        if (err) throw err;
+        if (users.lineAdmin == '1') {
+          console.log(users);
+
+        }
+        // show the admins in the past month
+        console.log(users);
+        });
+      });
+
+            NOTE:     1) CHECK IF YOUR StoreAdmin
+                      2) CHECK IF YOUR LineAdmin
+                      3) Check your email with email of person you select....
+*/
+
+
+      socket.on('deleteselectedLine', function (data, callback) {
+        //CHECK STORE FOR ADMIN
+       Store.findOne({store: data.store, email: data.email}, function( err, posts){
+             if (err) { return next(err); }
+                  //   posts.storeAdmin = 1;
+                    //  posts.save();
+                    console.log(posts); console.log(posts.store);
+                    console.log(posts.email); console.log(posts.storeAdmin);
+
+                  if (posts.storeAdmin == '1') {
+                        Storeline.remove({ $and: [{store: data.store}, {line: data.line}]},
+                          function(err,removed) {
+                          Storeline.find({store: data.store}).exec(function(err, posts) {
+                            if (err) { return next(err); }
+                            //callback(posts);
+                             io.emit('deleteLinesUpdate', posts);
+                               console.log(posts);
+                           });
+                        });
+                 } else {
+                    console.log("This email does not have StoreAdmin");
+                    //CHECK STORELINE FOR LINE
+                    Storeline.findOne({line: data.line, email: data.email, store: data.store},
+                       function( err, posts){
+                         if (err) { return next(err); }
+                         console.log(posts);
+                             //posts.lineAdmin = 1;
+                            //  posts.save();
+                          //  console.log(posts);
+                            //console.log(posts.lineAdmin);
+
+                          if (posts.lineAdmin == '1') {
+                            Storeline.remove({ $and: [{store: data.store}, {line: data.line}]},
+                              function(err,removed) {
+                              Storeline.find({store: data.store}).exec(function(err, posts) {
+                                if (err) { return next(err); }
+                                //callback(posts);
+                                 io.emit('deleteLinesUpdate', posts);
+                                   console.log(posts);
+                               });
+                            });
+                      } else {
+                        console.log("This email does not have StoreAdmin");
+                          callback('SORRY, YOU DO NOT HAVE AUTHORITY TO DELETE THAT LINE');
+                        }
+                    });
+                }
+          });
       });
 
 
@@ -423,7 +560,8 @@ socket.on('poll', function (data, callback) {
       });
 
 
-});
+
+    });
 
 
 
@@ -513,6 +651,22 @@ app.post('/tokenReturned', function(req, res) {
   console.log(req.body.token);
   res.send(req.body.token);
 
+});
+
+//curl -X POST -H 'Content-Type: application/json' -d '{"email":"davidwalshr","password":"fsomethingt"}' http://localhost:3000/getBlack
+//curl -X POST  http://localhost:3000/getBlack
+
+app.post('/getBlack', function(req, res) {
+  Storeline.find({ store: 'bobby' }).where({line: '2'})
+  .exec(function(err, users) {
+  if (err) throw err;
+  if (users.lineAdmin == '1') {
+    console.log(users);
+
+  }
+  // show the admins in the past month
+  console.log(users);
+  });
 });
 
 
@@ -819,10 +973,62 @@ app.post('/addNotificationtoken3', function(req, res) {
       });
 });
 
+//curl -X POST  http://localhost:3000/adminStore
+// curl -X POST -H 'Content-Type: application/json' -d '{"email":"jlatouf2@gmail.com", "token" : "DFKDJFI3K3J3"}' http://localhost:3000/adminStore
+
+// curl -X POST -H 'Content-Type: application/json' -d '{"email":"jlatouf2@gmail.com", "store" : "bobby"}' http://localhost:3000/adminStore
+
+
+//paste on deletebutton of StorePage/Linepage/Peoplepage
+//SO USE THIS FUNCTION ON DELETE OF ANYPAGE DATA, AND JUST SEND THE EMAIL OF THE PERSON AND IT WILL WORK!!1
+app.post('/adminStore', function(req, res) {
+   PeopleLine.findOne({ $and: [{email: req.body.email}, {store: req.body.store}]})
+//PeopleLine.findOne({ $and: [{email: req.body.email}]})
+  //Blue.findOne({ email: 'jlatouf2@gmail.com' })
+    .exec(function(err, posts) {
+        if (err) { return next(err); }
+    //  res.send(posts);
+      //res.status(200).send(posts);
+      //    posts.storeAdmin = 1;
+      //    posts.save();
+      if (posts.storeAdmin === 1) {
+        res.status(200).json(posts);
+          console.log(posts);
+      } else {
+        console.log("This email does not have StoreAdmin");
+      }
+
+      });
+});
+
+
+//THIS WILL WORK FOR LINE AND PEOPLEDELETE:
+app.post('/adminLine', function(req, res) {
+   PeopleLine.findOne({ $and: [{email: req.body.email}, {storeAdmin: 1}]})
+    .exec(function(err, posts) {
+        if (err) { return next(err); }
+      if (posts) {
+            res.status(200).json(posts);
+              console.log(posts);
+      } else {
+
+            PeopleLine.findOne({ $and: [{email: req.body.email}, {lineAdmin: 1}]})
+             .exec(function(err, posts) {
+                 if (err) { return next(err); }
+               if (posts) {
+                 res.status(200).json(posts);
+                   console.log('THIS EMAIL IS LINEADMIN');
+               } else {
+                 console.log("This email does not have LineAdmin");
+
+              }
+             });
+        }
+      });
+});
 
 
 app.post('/getPeopleLine', function(req, res) {
-
   PeopleLine.find({ $and: [{store: req.body.store}, {line: req.body.line}]})
     .exec(function(err, posts) {
         if (err) { return next(err); }

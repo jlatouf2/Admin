@@ -56,8 +56,6 @@ angular.module('starter.controllers', [])
           /*   --------LOGIN FUNCTION-----------     */
         $scope.ServiceFunction5 = function () { AuthService.LoginExample3($scope.email, $scope.password, $scope.noteToken); $scope.closeLogin1(); };
 
-        $scope.ServiceFunction2 = function () { AuthService.loginExample2($scope.firstname, $scope.lastnamE); };
-
         /*   --------LOGOUT MODAL-----------     */
         $scope.logoutFunction = function(){  AuthService.logout(); };
 
@@ -271,9 +269,6 @@ angular.module('starter.controllers', [])
          // AuthService.loginExample($scope.loginForm.username, $scope.loginForm.password)
 
         //THESE PASS TO SERVICES.JS
-        $scope.ServiceFunction2 = function () { AuthService.loginExample2($scope.firstname, $scope.lastname); };
-
-        $scope.ServiceFunction3 = function () { AuthService.RegisterExample($scope.firstname, $scope.lastname); };
 
         $scope.ServiceFunction4 = function () { AuthService.RegisterExample4($scope.fname.fname1, $scope.lname.lname1, $scope.email.email1,
           $scope.password.password1, $scope.passwordConf.passwordConf1, $scope.noteToken ); };
@@ -650,7 +645,7 @@ angular.module('starter.controllers', [])
                   if ( $scope.storeName.sname == '') {
                     console.log('Please enter a name');
                       } else{
-                      socket.emit('addStore',  {store : $scope.storeName.sname, postal: $scope.postal, latitude: localStorage.getItem("StoreLatitude"),
+                      socket.emit('addStore',  {store : $scope.storeName.sname, email: $scope.useremail, postal: $scope.postal, latitude: localStorage.getItem("StoreLatitude"),
                         longitude: localStorage.getItem("StoreLongitude"), Adminpassword: $scope.usertoken },function (data) {
                           console.log(data.store);
 
@@ -690,7 +685,8 @@ angular.module('starter.controllers', [])
               console.log($scope.storeName2);
                socket.emit('deleteStore44',  {store:  $scope.storeName2  },function (data) {
                console.log(data);
-                $scope.$apply(function () { $scope.storewithNames = data; });
+               alert(data);
+              //  $scope.$apply(function () { $scope.storewithNames = data; });
              });
 
         };
@@ -721,6 +717,14 @@ angular.module('starter.controllers', [])
 
 
 .controller('StorelinesCtrl', function($scope, $location, $ionicModal, $cordovaGeolocation, $http, $rootScope, $state, $ionicHistory, AuthService) {
+/*
+1) function that checks storeAdmin in store
+2) function that checks lineAdmin in line
+3)
+
+*/
+
+
 
         console.log(localStorage.getItem("StoreName"));
         console.log(localStorage.getItem("StoreLatitude"));
@@ -811,7 +815,7 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
              console.log('Please get store name!');
                } else{
 
-              socket.emit('addLine1',  {store : localStorage.getItem("StoreName"), line: $scope.addNumberDB, Adminpassword: $scope.usertoken },function (data) {
+              socket.emit('addLine1',  {store : localStorage.getItem("StoreName"), line: $scope.addNumberDB, lineAdmin: "1" },function (data) {
                 console.log(data);
                 //    THIS ADD SUCCESS BAR:
                 $rootScope.successful = true; $scope.countries.push(data);
@@ -841,7 +845,8 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
           console.log("line is: "+name);   console.log("store name: "+ $scope.grabStorename);
              socket.emit('deleteselectedLine',  {line : name, store: localStorage.getItem("StoreName")},function (data) {
             console.log(data);
-                $scope.$apply(function () {  $scope.countries = data;  });
+              //  $scope.$apply(function () {  $scope.countries = data;  });
+              alert(data);
             });
         };
 
@@ -954,27 +959,27 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
 
           $scope.nodeValidation = function(){
             $http.post('https://thawing-ocean-11742.herokuapp.com/stuffwhite', {"email": "jlatouf2@gmail.com"})
-         .then(function(data) {
-             //First function handles success
-             console.log('worked');
-              console.log(data);
-              console.log(data.data);
-              console.log(data.data[0]);
-              console.log(data.data[1]);
-              $scope.validationData = data.data;
+             .then(function(data) {
+                 //First function handles success
+                 console.log('worked');
+                  console.log(data);
+                  console.log(data.data);
+                  console.log(data.data[0]);
+                  console.log(data.data[1]);
+                  $scope.validationData = data.data;
 
-             //$scope.content = response.data;
-         }, function(data) {
-             //Second function handles error
-             console.log('didnt work');
-             console.log(data);
-             console.log(data.data);
-             console.log(data.data[0]);
-             console.log(data.data[1]);
-             $scope.validationData = data.data;
+                 //$scope.content = response.data;
+             }, function(data) {
+                 //Second function handles error
+                 console.log('didnt work');
+                 console.log(data);
+                 console.log(data.data);
+                 console.log(data.data[0]);
+                 console.log(data.data[1]);
+                 $scope.validationData = data.data;
 
 
-         });
+             });
 
            };
 
@@ -1422,6 +1427,7 @@ setInterval(function() {
 .controller('MessagingCtrl', function($scope, $location, $http, $timeout,  $state ) {
 
           console.log('this worked!');
+
 
         //  $scope.email = "jlatouf2@gmail.com";
         //  $scope.password = "jarredl";

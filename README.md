@@ -1,5 +1,11 @@
 Ionic App Base
 ==============
+  TO DELETE PEOEPLE FROM PERSON LINE:
+NOTE:     1) CHECK IF YOUR StoreAdmin
+          2) CHECK IF YOUR LineAdmin
+          3) Check your email with email of person you select....
+
+
 
 A starting project for Ionic that optionally supports using custom SCSS.
 
@@ -16,7 +22,8 @@ A starting project for Ionic that optionally supports using custom SCSS.
 -       To update the app for future releases:
 
 ******  REMEMBER TO CHANGE THE VERSIONCODE TO A HIGHER NUMBER, MAY NEED HIGHER THAN 3******
-1)ionic cordova build android --release -- -- --versionCode=7
+1)ionic cordova build android --release -- -- --versionCode=8
+[change name to HelloWorld]
 
 2)Sign your release build with the key from your keystore. In below example the keystore is in the root of your project, but of course it's also possible to define another path:
 

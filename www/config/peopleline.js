@@ -15,6 +15,13 @@ var PeopleLine = new Schema({
     notificationkey: {
       type: String
     },
+    storeAdmin:{
+      type: String
+    },
+    lineAdmin:{
+      type: Number
+    },
+
     created: {
         type: Date,
         default: Date.now
