@@ -21,7 +21,7 @@ angular.module('starter').factory('AuthService' ,
           console.log('passwordConf: ' + passwordConf); console.log('noteToken: ' + noteToken);
 //http://192.168.1.115:3000/signup22
 //https://thawing-ocean-11742.herokuapp.com/signup22
-            $http.post('https://thawing-ocean-11742.herokuapp.com/signup22', { fname: fname, lname: lname, email : email, password : password, passwordConf: passwordConf, noteToken: noteToken } )
+            $http.post('http://192.168.1.115:3000/signup22', { fname: fname, lname: lname, email : email, password : password, passwordConf: passwordConf, noteToken: noteToken } )
             .success(function( data) {
               console.log (data);
               $location.path('/profile');
@@ -34,10 +34,13 @@ angular.module('starter').factory('AuthService' ,
               $rootScope.userid= data._id;  $rootScope.userEmail = data.email;
               $rootScope.userPassword = data.password;
               $rootScope.usertoken = data.notificationkey;
-
-              }, function() {});
-    }
-
+              $rootScope.failedLogin = false;
+            }).error(function (data) {
+                          console.log(data);
+                          $rootScope.failedLogin = true;
+                            $rootScope.message = data;
+             });
+        }
 
 
     function facebookLogin(){
@@ -95,7 +98,8 @@ angular.module('starter').factory('AuthService' ,
     function LoginExample3(email, password, noteToken){
         console.log('email: ' + email); console.log('password: ' + password); console.log('noteToken: ' + noteToken);
 //'http://192.168.1.115:3000/login22999'
-      $http.post('https://thawing-ocean-11742.herokuapp.com/login22999', {email : email, password : password, noteToken : noteToken} )
+//'https://thawing-ocean-11742.herokuapp.com/login22999'
+      $http.post('http://192.168.1.115:3000/login22999', {email : email, password : password, noteToken : noteToken} )
          .success(function( data) {
            console.log (data);
            console.log (data.user);
@@ -112,7 +116,13 @@ angular.module('starter').factory('AuthService' ,
           //  $rootScope.usertoken = data.token;
           $rootScope.usertoken = data.user.notificationkey;
 
-            }, function() {});
+          $rootScope.failedLogin = false;
+
+        }).error(function (data) {
+                      console.log(data);
+                      $rootScope.failedLogin = true;
+                        $rootScope.message = data;
+         });
     }
 
 

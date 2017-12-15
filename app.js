@@ -598,13 +598,16 @@ app.post('/signup22', function (req, res, next) {
   console.log(req.body.noteToken);
 //var noteTokenvar = req.body.noteToken;
 
-      if (req.body.password !== req.body.passwordConf) {
-          var err = new Error('Passwords do not match.');
-          err.status = 400;
-          res.send("passwords dont match");
-          return next(err);
-        }
 
+      if (req.body.password !== req.body.passwordConf) {
+        //  var err = new Error('Passwords do not match.');
+        //  err.status = 400;
+        //  res.send("passwords dont match");
+        res.status(401).send({success: false, msg: 'Passwords dont match.'});
+        console.log('Passwords dont match');
+        //  return next(err);
+      } else {
+        console.log('blue');
       if (req.body.email && req.body.fname &&
           req.body.lname && req.body.password &&
           req.body.passwordConf) {
@@ -615,16 +618,117 @@ app.post('/signup22', function (req, res, next) {
           passwordConf: req.body.passwordConf, notificationkey: req.body.noteToken
         };
         //use schema.create to insert data into the db
-        Blue.create(userData, function (err, user) {
-          if (err) { return next(err);
-          } else {
-            res.send(user);
-            console.log(user);
-          //  return res.redirect('/profile');
-          }
-        });
+
+
+        Blue.findOne({ email: req.body.email }, function(err, user) {
+                if (err) throw err;
+
+                if (user) {
+                  console.log('username didnt work');
+                  res.status(401).send({success: false, msg: 'Authentication failed. User already exists!'});
+                }  else {
+
+                Blue.create(userData, function (err, user) {
+                  if (err) { return next(err); }
+
+                  res.status(200).send(user);
+                    console.log(user);
+                  //  return res.redirect('/profile');
+
+                });
+
+                   }
+          })
+
+      } else {
+            res.status(401).send({success: false, msg: 'Please fill in all Userdata.'});
       }
+
+       }
 });
+
+
+/*
+
+Blue.findOne({ email: req.body.email }, function(err, user) {
+  if (err) throw err;
+
+  if (user) {
+    console.log('username didnt work');
+    res.status(401).send({success: false, msg: 'Authentication failed. User already exists!'});
+  } else {
+
+
+
+  app.post('/signup22', function (req, res, next) {
+    console.log(req.body.noteToken);
+  //var noteTokenvar = req.body.noteToken;
+
+
+        if (req.body.password !== req.body.passwordConf) {
+            var err = new Error('Passwords do not match.');
+            err.status = 400;
+            res.send("passwords dont match");
+            return next(err);
+          }
+
+  });
+
+
+
+
+
+
+  app.post('/signup22', function (req, res, next) {
+    console.log(req.body.noteToken);
+  //var noteTokenvar = req.body.noteToken;
+
+
+        if (req.body.password !== req.body.passwordConf) {
+          //  var err = new Error('Passwords do not match.');
+          //  err.status = 400;
+          //  res.send("passwords dont match");
+          res.status(401).send({success: false, msg: 'Passwords dont match.'});
+          console.log('Passwords dont match');
+          //  return next(err);
+        } else {
+          console.log('blue');
+        if (req.body.email && req.body.fname &&
+            req.body.lname && req.body.password &&
+            req.body.passwordConf) {
+
+          var userData = {
+            email: req.body.email, firstname: req.body.fname,
+            lastname: req.body.lname, password: req.body.password,
+            passwordConf: req.body.passwordConf, notificationkey: req.body.noteToken
+          };
+          //use schema.create to insert data into the db
+
+
+          Blue.create(userData, function (err, user) {
+            if (err) { return next(err);
+            } else {
+              res.send(user);
+              console.log(user);
+            //  return res.redirect('/profile');
+            }
+          });
+
+
+        } else {
+              res.status(401).send({success: false, msg: 'Please fill in all Userdata.'});
+
+        }
+
+         }
+  });
+
+
+
+*/
+
+
+
 
 /*---------- LOGIN FUNCTION: --------------*/
 
@@ -749,6 +853,7 @@ var noteTokenvar = req.body.noteToken;
     if (err) throw err;
 
     if (!user) {
+      console.log('username didnt work');
       res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
     } else {
       // check if password matches
@@ -785,6 +890,7 @@ var noteTokenvar = req.body.noteToken;
           res.send({'user': user, 'token': token});
 
         } else {
+          console.log('didnt work password');
           res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
         }
       });

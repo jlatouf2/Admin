@@ -1610,4 +1610,23 @@ $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
 
 
 
-     });
+     })
+
+ .controller('Login2Ctrl', function($scope, $location, $http, $rootScope, AuthService ) {
+
+   $scope.noteToken = localStorage.getItem("TokenData");
+
+          //   $scope.email.email1 = "jlatouf2@gmail.com";
+          //   $scope.password.password1 = "jarredl";
+
+         $scope.email = {email1 : "jlatouf2@gmail.com333"};
+         $scope.password = {password1 : "jarredl"};
+
+
+
+
+             /*   --------LOGIN FUNCTION-----------     */
+           $scope.ServiceFunction5 = function () { AuthService.LoginExample3($scope.email.email1, $scope.password.password1, $scope.noteToken); };
+
+
+       });
