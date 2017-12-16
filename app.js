@@ -175,7 +175,7 @@ io.on('connection', function(socket){
 
 */
 
-socket.on('addStore', function (data) {
+socket.on('addStore', function (data, callback) {
   console.log(data.store);
     Store.find( {store: data.store})
       .exec(function(err, post) {
@@ -200,7 +200,8 @@ socket.on('addStore', function (data) {
               console.log(post.length);
               console.log('STORE IS ALREADY IN DB!');
 
-
+              callback('STORE IS ALREADY IN DB!')
+            //  res.status(401).send({success: false, msg: 'Passwords dont match.'});
           }
      });
 });
@@ -293,7 +294,7 @@ socket.on('addStore', function (data) {
       });
 
 
-      socket.on('addLine1', function (data) {
+      socket.on('addLine1', function (data, callback) {
         console.log(data);
         console.log("number sent to DB: " + data.line);
         console.log("token: " + data.Adminpassword);
@@ -306,6 +307,7 @@ socket.on('addStore', function (data) {
                  console.log( "Number of users:", count );
                 if (count == 1) {
                   console.log('fcn ended b/c its in table');
+                  callback('fcn ended b/c its in table');
               } else {
 
                   var storeline = new Storeline({
@@ -368,6 +370,8 @@ socket.on('poll', function (data, callback) {
           });
       });
 
+
+/*        ***************** NOTE: PLEASE KEEP THIS!!! ********************
       socket.on('addperson11', function (data) {
         var newUser2 = PeopleLine({
           email : data.email, line: data.line,
@@ -383,6 +387,37 @@ socket.on('poll', function (data, callback) {
           console.log(post);
         });
       });
+      /*        ***************** NOTE: PLEASE KEEP THIS!!! ********************
+
+*/
+
+socket.on('addperson11', function (data, callback) {
+  PeopleLine.findOne({store: data.store, line: data.line, email: data.email}).exec(function(err, posts) {
+        if (err) { return next(err); }
+          if (posts) {
+            console.log(posts);
+            callback('SORRY! THAT EMAIL IS ALREADY IN THE DATABASE!');
+
+          } else {
+            var newUser2 = PeopleLine({
+              email : data.email, line: data.line,
+              position: data.position,  store: data.store,
+              fullname : data.fullName,  longitude: data.longitude,
+              latitude: data.latitude,  distance: data.distance
+            });
+
+            newUser2.save(function (err, post) {
+              if (err) {return next(err); }
+            //  callback(post);
+                io.emit('updatePeople', post);
+              console.log(post);
+            });
+          }
+        });
+});
+
+
+
 
 
       socket.on('optimizeData', function (data) {
@@ -526,38 +561,38 @@ socket.on('poll', function (data, callback) {
       });
 
 
-      socket.on('addPerson244', function (data, callback) {
-        console.log(data.number);
-        number = data.number;
-            PeopleLine.find({store: data.store, line: data.line})
-            .sort('created')
-            .exec(function(err, posts) {
-            if (err) { return next(err); }
-             console.log(posts);
+        socket.on('addPerson244', function (data, callback) {
+          console.log(data.number);
+          number = data.number;
+              PeopleLine.find({store: data.store, line: data.line})
+              .sort('created')
+              .exec(function(err, posts) {
+              if (err) { return next(err); }
+               console.log(posts);
 
-              //gets certain timestamp:
-              var blue = posts[number].created;
-              console.log(blue);
-              var  white = blue.addSeconds(1);
-              console.log(white);
+                //gets certain timestamp:
+                var blue = posts[number].created;
+                console.log(blue);
+                var  white = blue.addSeconds(1);
+                console.log(white);
 
 
-             var newUser2 = PeopleLine({
-               email : data.email, line: data.line,
-               position: data.position,  store: data.store,
-               fullname : data.fullName,  longitude: data.longitude,
-               latitude: data.latitude,  distance: data.distance,
-               created: white
-             });
+               var newUser2 = PeopleLine({
+                 email : data.email, line: data.line,
+                 position: data.position,  store: data.store,
+                 fullname : data.fullName,  longitude: data.longitude,
+                 latitude: data.latitude,  distance: data.distance,
+                 created: white
+               });
 
-             newUser2.save(function (err, post) {
-               if (err) {return next(err); }
-               callback(post);     console.log(post);
-             });
+               newUser2.save(function (err, post) {
+                 if (err) {return next(err); }
+                 callback(post);     console.log(post);
+               });
 
-             });
+               });
 
-      });
+        });
 
 
 
@@ -566,12 +601,12 @@ socket.on('poll', function (data, callback) {
 
 
 
-      //CORS REQUEST WORKED!
-      app.use(function(req, res, next) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        next();
-      });
+  //CORS REQUEST WORKED!
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 
 
@@ -597,8 +632,6 @@ app.post('/deletePeop', function (req, res, next) {
 app.post('/signup22', function (req, res, next) {
   console.log(req.body.noteToken);
 //var noteTokenvar = req.body.noteToken;
-
-
       if (req.body.password !== req.body.passwordConf) {
         //  var err = new Error('Passwords do not match.');
         //  err.status = 400;
@@ -646,87 +679,6 @@ app.post('/signup22', function (req, res, next) {
 
        }
 });
-
-
-/*
-
-Blue.findOne({ email: req.body.email }, function(err, user) {
-  if (err) throw err;
-
-  if (user) {
-    console.log('username didnt work');
-    res.status(401).send({success: false, msg: 'Authentication failed. User already exists!'});
-  } else {
-
-
-
-  app.post('/signup22', function (req, res, next) {
-    console.log(req.body.noteToken);
-  //var noteTokenvar = req.body.noteToken;
-
-
-        if (req.body.password !== req.body.passwordConf) {
-            var err = new Error('Passwords do not match.');
-            err.status = 400;
-            res.send("passwords dont match");
-            return next(err);
-          }
-
-  });
-
-
-
-
-
-
-  app.post('/signup22', function (req, res, next) {
-    console.log(req.body.noteToken);
-  //var noteTokenvar = req.body.noteToken;
-
-
-        if (req.body.password !== req.body.passwordConf) {
-          //  var err = new Error('Passwords do not match.');
-          //  err.status = 400;
-          //  res.send("passwords dont match");
-          res.status(401).send({success: false, msg: 'Passwords dont match.'});
-          console.log('Passwords dont match');
-          //  return next(err);
-        } else {
-          console.log('blue');
-        if (req.body.email && req.body.fname &&
-            req.body.lname && req.body.password &&
-            req.body.passwordConf) {
-
-          var userData = {
-            email: req.body.email, firstname: req.body.fname,
-            lastname: req.body.lname, password: req.body.password,
-            passwordConf: req.body.passwordConf, notificationkey: req.body.noteToken
-          };
-          //use schema.create to insert data into the db
-
-
-          Blue.create(userData, function (err, user) {
-            if (err) { return next(err);
-            } else {
-              res.send(user);
-              console.log(user);
-            //  return res.redirect('/profile');
-            }
-          });
-
-
-        } else {
-              res.status(401).send({success: false, msg: 'Please fill in all Userdata.'});
-
-        }
-
-         }
-  });
-
-
-
-*/
-
 
 
 
@@ -780,7 +732,6 @@ app.post('/touchit', function(req, res) {
 });
 
 app.post('/numberofLines', function(req, res, data) {
-
    console.log(data);
    Storeline.find({store: req.body.store}, function( err, count){
        console.log( "Number of users:", count );
@@ -942,11 +893,12 @@ app.post('/addStore', function(req, res, data) {
            console.log(post);
           });
 
-      });
+});
 
-      app.post('/polling', function(req, res) {
-      res.send('posts');
-        });
+
+app.post('/polling', function(req, res) {
+res.send('posts');
+  });
 
 
 app.post('/storeName', function(req, res, data) {
@@ -1203,6 +1155,7 @@ app.post('/facebookSignupLogin', function(req, res) {
       Blue.create(userData, function (err, user) {
         if (err) { throw err;
         } else {
+
           res.send(user);
         //  return res.redirect('/profile');
         }
@@ -1217,6 +1170,8 @@ app.post('/facebookSignupLogin', function(req, res) {
       console.log('user is already in database');
 
       console.log(user);
+      console.log(user.email);
+      console.log(user.firstname);
       res.send(user);
     }
   });

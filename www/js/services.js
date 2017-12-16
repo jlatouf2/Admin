@@ -31,7 +31,7 @@ angular.module('starter').factory('AuthService' ,
 
               $rootScope.userdata = data;
               $rootScope.fullName= data.firstname +" "+ data.lastname;
-              $rootScope.userid= data._id;  $rootScope.userEmail = data.email;
+              $rootScope.userid= data._id;  $rootScope.useremail = data.email;
               $rootScope.userPassword = data.password;
               $rootScope.usertoken = data.notificationkey;
               $rootScope.failedLogin = false;
@@ -44,47 +44,56 @@ angular.module('starter').factory('AuthService' ,
 
 
     function facebookLogin(){
-       document.addEventListener("deviceready", function() {
-       try {
-      if (window.cordova.platformId === "browser") {
-               var appId = xxxx6138889xxxx; var version = "v2.0";      //tried for v.2.0 to v.2.7
-              facebookConnectPlugin.browserInit(appId, version);
-      }
 
-      //STEP 2)  LOGIN SUCCESS, WHICH THEN GETS FACEBOOK USER INFORMATION:
-       var fbLoginSuccess = function (userData) {
+         document.addEventListener("deviceready", function() {
+           try {
+           if (window.cordova.platformId === "browser") {
+                 var appId = xxxx6138889xxxx; var version = "v2.0";      //tried for v.2.0 to v.2.7
+                facebookConnectPlugin.browserInit(appId, version);
+              }
+
+        //STEP 2)  LOGIN SUCCESS, WHICH THEN GETS FACEBOOK USER INFORMATION:
+         var fbLoginSuccess = function (userData) {
           //  window.alert("worked" + JSON.stringify(userData));
-
-        facebookConnectPlugin.api('me/?fields=id,name,email', ['email','public_profile'],
+            facebookConnectPlugin.api('me/?fields=id,name,email', ['email','public_profile'],
 
             function (userData) {
-               window.alert(userData.id); window.alert(userData.name);  window.alert(userData.email);
-               $rootScope.userID = userData.id; $rootScope.name = userData.name;  $rootScope.email = userData.email;
+               window.alert(userData.id);
+               window.alert(userData.name);
+               window.alert(userData.email);
+               $rootScope.userID = userData.id;
+               $rootScope.name = userData.name;
+               $rootScope.email = userData.email;
 
-      //STEP 3)  POSTS DATA TO BACKEND TO CHECK IF IN DATABASE:
+        //STEP 3)  POSTS DATA TO BACKEND TO CHECK IF IN DATABASE:
+         $http.post('http://192.168.1.115:3000/facebookSignupLogin',
+         {userID: $rootScope.userID, name: $rootScope.name, email: $rootScope.email})
+             .success(function(data) {
+                 window.alert(data);
+                 window.alert(data.email);
+                 window.alert(data.firstname);
+                 window.alert(data._id);
 
-       $http.post('http://192.168.1.115:3000/facebookSignupLogin', {userID: $rootScope.userID, name: $rootScope.name, email: $rootScope.email})
-         .then(function(data) {
+                  //PLEASE NOTE: TO GET THE FACEBOOK PICTURE THIS WAY I NEEDS
+                  //TO GET THE USERID, BUT I DONT HAVE USERID SAVED IN THIS DATABASE
+                  //SO
+                     $location.path('/profile');
+                     $rootScope.userdata = data;
+                 $rootScope.useremail = data.email;   $rootScope.fullName = data.firstname;
+                 $rootScope.userid = data._id;
+                  //$rootScope.usertoken = data.user.notificationkey;
 
-             window.alert(data);
-
-              //PLEASE NOTE: TO GET THE FACEBOOK PICTURE THIS WAY I NEEDS
-              //TO GET THE USERID, BUT I DONT HAVE USERID SAVED IN THIS DATABASE
-              //SO
-
-             $rootScope.useremail = data.email;   $rootScope.fullName = data.firstname;
-             $rootScope.userid = data.facebook.id;
-
-             //$scope.content = response.data;
-
-         }, function() {  window.alert('didnt work'); });   },
-               function (error) { console.error(error);  }  );
+                }).error(function (data) { console.log(data); });
+              },
+                 function (error) { console.error(error);  }  );
         };
+
        //STEP 1) FACEBOOK LOGIN SCREEN:
         facebookConnectPlugin.login(["email" ], fbLoginSuccess,
             function (error) { window.alert("" + error); } );
-      } catch (e){ window.alert(e); }
-      }, false);
+
+        } catch (e){ window.alert(e); }
+        }, false);
 
     }
 
@@ -130,7 +139,7 @@ angular.module('starter').factory('AuthService' ,
             $rootScope.userdata = null;
             $rootScope.useremail = null;  $rootScope.username = null;
             $rootScope.userid = null;     $rootScope.usertoken = null;
-            $rootScope.userEmail = null;  $rootScope.fullName = null;
+            $rootScope.useremail = null;  $rootScope.fullName = null;
             $rootScope.userid = null;     $rootScope.userPassword = null;
 
             $rootScope.imageSaved = false;

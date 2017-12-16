@@ -46,9 +46,9 @@ angular.module('starter', ['ionic', 'starter.controllers',  'ngCordova'])
             templateUrl: 'templates/peopleline.html',
             controller: 'PeoplelineCtrl'
         })
-        .state('login', {
-            url: '/login',
-            templateUrl: 'templates/login.html',
+        .state('other', {
+            url: '/other',
+            templateUrl: 'templates/other.html',
             controller: 'ContactController'
         })
         .state('signup', {
@@ -73,11 +73,11 @@ angular.module('starter', ['ionic', 'starter.controllers',  'ngCordova'])
           templateUrl: 'templates/analytics.html',
           controller: 'AnalyticsCtrl'
       })
-      
-      .state('login2', {
-          url: '/login2',
-          templateUrl: 'templates/login2.html',
-          controller: 'Login2Ctrl'
+
+      .state('login', {
+          url: '/login',
+          templateUrl: 'templates/login.html',
+          controller: 'LoginCtrl'
       })
 
         .state('home', {

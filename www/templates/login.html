@@ -1,118 +1,67 @@
-
 <ion-view view-title="Browse">
   <ion-content>
-<!--
-<br><br>
-<div class="form-group row">
-  <div class="col-xs-3">
-      <label for="ex1">Email: jarredl</label>
-      <input class="form-control" id="ex1"   ng-model="firstname" type="text">
+
+  <h1 class="bob3" style="text-align: center;"><u> Login </u></h1>
+
+
+
+  <!-- SUCCESS BUTTON -->
+
+  <div ng-show="failedLogin" class="alert alert-danger" style="text-align:center">
+    <strong >{{message.msg}}</strong>
   </div>
-  <div class="col-xs-3">
-      <label for="ex2">Password: paassword2</label>
-      <input class="form-control" id="ex2"   ng-model="lastname" type="text">
-  </div>
-  <div class="col-xs-4">
-      <button style="margin-top:30px" ng-click="ServiceFunction2()" > Login</button>
-  </div>
-</div>
+  <br>
 
-<button ng-click="fbPass()">Press Me.</button>
-
-<button ng-click="Pass2()">Deal.</button> <br><br>
-
-<button ng-click="setLocal()">SET LOCAL STORAGE</button> <br>
-<button ng-click="getLocal()">SHOW LOCAL STORAGE</button> <br>
-<button ng-click="removeLocal()">REMOVE PROJECT</button> <br>
-<button ng-click="getLocalbyKey()">GET BY KEY</button> <br>
-
-
-<table class="table table-bordered" >
-          <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Quantity</th>
-          </tr>
-          <tr ng-repeat="item in foodItems" ng-class="{'selected':$index == 0}" >
-                   ........
-              <td>{{$index}}</td>
-               <td>{{item.name}}</td>
-              <td>{{item.price}}</td>
-              <td>{{item.quantity}}</td>
-          </tr>
-      </table>
--->
-<!--https://thawing-ocean-11742.herokuapp.com/signup22 -->
-
-    <button ng-click="myFunction()">LoginStuff</button>
-
-    <button ng-click="Servicefacebook()">LoginStuff22</button>
+           <div class="list">
+             <label class="item item-input item-stacked-label">
+               <span class="input-label bob3" style="font-size:30px">Email</span>
+               <input type="text" ng-model="email.email1" placeholder="john@suhr.com" style="font-size:20px">
+             </label>
+             <label class="item item-input item-stacked-label">
+               <span class="input-label bob3" style="font-size:30px">password</span>
+               <input type="password" ng-model="password.password1" placeholder="*******" style="font-size:20px">
+             </label>
+             <!--
+             <label class="item" sty>
+               <button class="button button-block button-positive"  ng-click="ServiceFunction5()" >Log in</button>
+             </label>
+           -->
+           </div>
 
 
-    <button ng-click="savetoken()">SaveToken</button>
+           <div class="bob3" style="width:300px; margin: 0 auto; ">
+               <br> <br>
+               <a type="button" style="width:300px;" class="btn btn-primary" ng-click="ServiceFunction5()">
+                 <span  style="font-size: 25px;"> Log In </span>
+               </a>
 
-    <button ng-click="gettoken()">Get Token</button>
+               </br> </br>
+               <button  type="button" ng-click="Servicefacebook()" style="width:300px; margin: 0 auto; background-color:#3b5998" class="bob3 btn btn-primary">
+                 <spans  style="font-size: 25px;"> Facebook Login </span>
+               </button>
+           </div>
 
-    <button ng-click="back()">Back</button>
-<br><br>
+           <!--
+           {{email.email1}}
+           {{password.password1}}
 
-<button ng-click="this_notification()">NOTIFICATION1</button>
+           <div class="list bob3" >
+             <label class="item item-input">
+               <span class="input-label" style="font-size:30px">Email: </span>
+               <input type="text" style="font-size:20px" ng-model="email">
+             </label>
+             <label class="item item-input">
+               <span class="input-label" style="font-size:30px">Password:</span>
+               <input type="password" style="font-size:20px" ng-model="password">
 
-<br><br>
-
-<button ng-click="notification_message()">NOTIFICATION2</button>
-  {{blue}}
-
-<br><br>
-
-<button ng-click="dialog()">DIALOG</button>
-
-<br><br>
-
-this_notification2
-<button onclick="window.plugins.toast.showShortTop('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showShortTop</button>
-<br><br>
-
-<button ng-click="this_notification2()">NOTIFICATION4</button>
-
-<br><br>
-
-<button ng-click="scheduleSingleNotificationo()">NOTIFICATION5</button>
-
-<br><br>
-
-<button ng-click="scheduleMultipleNotifications()">NOTIFICATION6</button>
-
-<br><br>
-
-<button ng-click="scheduleDelayedNotification()">NOTIFICATION7</button>
-
-<br><br>
-<button ng-click="getNotif()">GET TOKEN</button>
-
-{{getToken}}
-<br><br>
-
-<button ng-click="sendHttpFirebase()">FirebaseHttp</button>
-
-
-<br><br>
-
-<button ng-click="sendHttpFirebase33()">sendHttpFirebase33</button>
-
-
-<br><br>
-
-<button ng-click="sendHttpFirebase44()">sendHttpFirebase44</button>
-
-
-<br><br>
+             </label>
+             <label class="item">
+               <button class="button button-block button-positive" menu-close href="#/storenames" ng-click="ServiceFunction5()" >Log in</button>
+             </label>
+           </div>
+         -->
 
 
 
-<a href="https://thawing-ocean-11742.herokuapp.com/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
-<a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
-<a href="/auth/twitter" class="btn btn-info"><span class="fa fa-twitter"></span> Twitter</a>
-</ion-content>
+  </ion-content>
 </ion-view>

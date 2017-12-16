@@ -27,10 +27,22 @@
               <!--        NOTE: THIS IS THE BUTTON FOR ADDING A PERSON -->
         <!--     <button style="background-color:teal" class="btn btn-default btn"  ng-click="openpeoplemodal3()">Add to Lineup</button>  -->
 
+
+          <!-- SUCCESS BAR -->
+
+          <div ng-show="successful"  class="alert alert-success" style="text-align:center">
+            <strong>Success! Line Added</strong>
+          </div>
+
+          <div ng-show="failedLog"  class="alert alert-danger" style="text-align:center">
+            <strong >{{failedData}}</strong>
+          </div>
+
+
           <!-- Add Yourself Text ! -->
 
+
         <div style="padding-left:50px; padding-right:50px">
-            <h4 style="text-align:center">Please press this button to add Yourself to Lineup:</h4>
                 <!-- ADD YOURSELF BUTTON! -->
              <div>
             <!--  <button class="btn btn-default btn"  ng-click="openpeoplemodal2()">Add Yourself</button> -->

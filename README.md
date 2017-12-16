@@ -47,34 +47,11 @@ https://example.herokuapp.com/ | https://git.heroku.com/example.git
 
 
 
+$ cordova plugin add cordova-plugin-facebook4 --save --variable APP_ID="1597048060389960" --variable APP_NAME="IOSAPP"
 
     TO MAKE THE FACEBOOK LOGIN RUN:
-
 1) cordova plugin add cordova-plugin-facebook4 --save --variable APP_ID="2042335766002685" --variable APP_NAME="Androidexample02"
 2) create ionic project
 3) add Android
 4) facebookConnectPlugin.login(["email" ], first THEN:
 5) facebookConnectPlugin.api('me/?fields=id,name,email', ['email','public_profile'],
-
-
-## Using this project
-
-We recommend using the [Ionic CLI](https://github.com/ionic-team/ionic-cli) to create new Ionic projects that are based on this project but use a ready-made starter template.
-
-For example, to start a new Ionic project with the default tabs interface, make sure the `ionic` utility is installed:
-
-```bash
-$ npm install -g ionic cordova
-```
-
-Then run:
-
-```bash
-$ ionic start myProject tabs --type=ionic1
-```
-
-More info on this can be found on the Ionic [Getting Started](https://ionicframework.com/getting-started) page and the [Ionic CLI](https://github.com/ionic-team/ionic-cli) repo.
-
-## Issues
-
-Issues have been disabled on this repo. If you do find an issue or have a question, consider posting it on the [Ionic Forum](https://forum.ionicframework.com/). If there is truly an error, follow our guidelines for [submitting an issue](https://ionicframework.com/submit-issue/) to the main Ionic repository.

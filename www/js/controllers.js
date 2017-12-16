@@ -647,17 +647,24 @@ angular.module('starter.controllers', [])
                       } else{
                       socket.emit('addStore',  {store : $scope.storeName.sname, email: $scope.useremail, postal: $scope.postal, latitude: localStorage.getItem("StoreLatitude"),
                         longitude: localStorage.getItem("StoreLongitude"), Adminpassword: $scope.usertoken },function (data) {
-                          console.log(data.store);
 
-                          $scope.$apply(function () {
+                      /*     console.log(data.store);
+                        $scope.$apply(function () {
                             $rootScope.successful = true;
                                console.log($scope.successful);
                                console.log('$scope.storewithName is this: '+$scope.storewithNames);
                                $scope.storewithNames.push(data);
-                           $scope.storeName.sname = '';
-                          });
+                           $sc
+                           ope.storeName.sname = '';
+                          });     */
+                          $scope.failedLogin = true;
 
-                        setTimeout(function(){ stopSuccessBar(); }, 3000);
+                          console.log(data);
+                          $scope.$apply(function () {
+                          $scope.failedData = data;
+                            });
+                            setTimeout(function(){ $rootScope.failedLogin = false; console.log('BLUE'); }, 3000);
+                          //  $scope.storeName.sname == '';
                       });
                    }
               };
@@ -665,11 +672,13 @@ angular.module('starter.controllers', [])
               socket.on('addStorename', function (data) {
                      console.log($scope.storewithNames);
                      console.log(data);
+                     $rootScope.successful = true;
 
                      $scope.$apply(function () {
-
                       $scope.storewithNames.push(data);
                        });
+                   setTimeout(function(){ stopSuccessBar(); }, 3000);
+
               });
 
 
@@ -716,7 +725,7 @@ angular.module('starter.controllers', [])
     })
 
 
-.controller('StorelinesCtrl', function($scope, $location, $ionicModal, $cordovaGeolocation, $http, $rootScope, $state, $ionicHistory, AuthService) {
+.controller('StorelinesCtrl', function($scope, $location, $ionicModal, $timeout, $cordovaGeolocation, $http, $rootScope, $state, $ionicHistory, AuthService) {
 /*
 1) function that checks storeAdmin in store
 2) function that checks lineAdmin in line
@@ -818,8 +827,19 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
               socket.emit('addLine1',  {store : localStorage.getItem("StoreName"), line: $scope.addNumberDB, lineAdmin: "1" },function (data) {
                 console.log(data);
                 //    THIS ADD SUCCESS BAR:
-                $rootScope.successful = true; $scope.countries.push(data);
+                  $scope.failedData = data;
+                $scope.failedLog = true;
+
+                //  setTimeout(function(){ stopFailureBar(); }, 3000);
+                  $timeout(function () {
+                          $scope.failedLog = false;
+                        }, 3000);
+
+                /*
+                $rootScope.successful = true;
+                $scope.countries.push(data);
               setTimeout(function(){ stopSuccessBar(); }, 3000);
+              */
               });
              }
        };
@@ -829,9 +849,14 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
        socket.on('addLineStuff', function (data) {
          if(localStorage.getItem("StoreName") == data.store) {
               console.log(data); $rootScope.successful = true;  $scope.countries.push(data)
-               setTimeout(function(){ stopSuccessBar(); }, 3000);
+
+              $timeout(function () {
+                      $rootScope.successful = false;
+                    }, 3000);
+
               }
        });
+
 
 
        /*   --------TIMEOUT-----------     */
@@ -882,7 +907,7 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
        })
 
 
-.controller('PeoplelineCtrl', function($scope, $location, $http, $ionicModal, $ionicHistory, $rootScope, $state, $cordovaGeolocation, AuthService) {
+.controller('PeoplelineCtrl', function($scope, $location, $http, $ionicModal, $ionicHistory, $rootScope, $timeout, $state, $cordovaGeolocation, AuthService) {
 
   window.addEventListener("focus", () => socket.connect());
 
@@ -1042,7 +1067,7 @@ $scope.$on('$stateChangeSuccess', function () {
     Adminpassword: $scope.usertoken },function (data) {
       $scope.$apply(function () { console.log(data);    $scope.people = data; });
 
-
+$scope.findGPS();
  });
 });
 
@@ -1103,7 +1128,8 @@ $scope.$on('$stateChangeSuccess', function () {
 
           //   $scope.$applyAsync(function () {
                $rootScope.latitude33 = lat33;        $rootScope.longitude33 = long33;
-              console.log(lat33 + '   ' + long33);    $scope.findDistance();
+              console.log(lat33 + '   ' + long33);
+              $scope.findDistance();
 
                 }, function(err) {  console.log(err)  });
               }, 1000);
@@ -1186,10 +1212,12 @@ $scope.$on('$stateChangeSuccess', function () {
                    latitude: $scope.latitude, distance: $scope.finalCalc,
                    Adminpassword: $scope.usertoken },function (data) {
 
-                     $scope.$apply(function () {
-                       console.log(data);   console.log(data.email);
-                        $scope.people.push(data);
-                      });
+          $scope.failedData = data;
+                $scope.failedLog = true;
+                      $timeout(function () {
+                                $scope.failedLog = false;
+                            }, 3000);
+
                });
                 $scope.closepeoplemodal1();
            };
@@ -1199,6 +1227,10 @@ $scope.$on('$stateChangeSuccess', function () {
                console.log($scope.grabStorename);  console.log(data.store);
              if ($scope.grabStorename == data.store && $scope.grabLineNumber == data.line) {
                $scope.$apply(function () { console.log(data); $scope.people.push(data); });
+
+                $scope.successful = true;
+               $timeout(function () { $scope.successful = false;  }, 3000);
+
              }
          });
 
@@ -1332,7 +1364,8 @@ setInterval(function() {
                  var lat55  = position.coords.latitude;  var long55 = position.coords.longitude;
                  $scope.latitude33 = lat55;        $scope.longitude33 = long55;
               $rootScope.latitude55 = lat55;        $rootScope.longitude55 = long55;
-              console.log(lat55 + '   ' + long55);    $scope.findDistance();
+              console.log(lat55 + '   ' + long55);
+               $scope.findDistance();
 
               //ADDS DATA TO BACKEND:
               socket.emit('optimizeData', {store : $scope.grabStorename, line: $scope.grabLineNumber,
@@ -1612,7 +1645,7 @@ $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
 
      })
 
- .controller('Login2Ctrl', function($scope, $location, $http, $rootScope, AuthService ) {
+ .controller('LoginCtrl', function($scope, $location, $http, $rootScope, AuthService ) {
 
    $scope.noteToken = localStorage.getItem("TokenData");
 
@@ -1622,11 +1655,10 @@ $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
          $scope.email = {email1 : "jlatouf2@gmail.com333"};
          $scope.password = {password1 : "jarredl"};
 
-
-
-
              /*   --------LOGIN FUNCTION-----------     */
            $scope.ServiceFunction5 = function () { AuthService.LoginExample3($scope.email.email1, $scope.password.password1, $scope.noteToken); };
 
+                 //FACEBOOK SERVICE.JS LOGIN:
+        $scope.Servicefacebook = function () { AuthService.facebookLogin();  };
 
        });

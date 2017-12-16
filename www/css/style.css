@@ -93,5 +93,57 @@
 
 .bob3 {
     font-family: Playball;
+}
 
+
+@font-face {
+    font-family: 'Playball1'; /*a name to be used later*/
+    src: url('./majestic/Majestic Personal Use.ttf'); /*URL to font*/
+}
+
+
+.bob4 {
+    font-family: Playball1;
+}
+
+
+@font-face {
+    font-family: 'Playball2'; /*a name to be used later*/
+    src: url('./lemonism/fontinfo.txt'); /*URL to font*/
+}
+
+
+.bob5 {
+    font-family: Playball2;
+}
+
+
+@font-face {
+    font-family: 'Playball3'; /*a name to be used later*/
+    src: url('./new_athletic_m54/New Athletic M54.ttf'); /*URL to font*/
+}
+
+
+.bob6 {
+    font-family: Playball3;
+}
+
+@font-face {
+    font-family: 'Univeristy'; /*a name to be used later*/
+    src: url('./University.otf'); /*URL to font*/
+}
+
+
+.bob7 {
+    font-family: Univeristy;
+}
+
+@font-face {
+    font-family: 'Crimson'; /*a name to be used later*/
+    src: url('./crimson/TTF/Crimson-Bold.ttf'); /*URL to font*/
+}
+
+
+.bob8 {
+    font-family: Crimson;
 }

@@ -10,17 +10,15 @@
       <div class="item item-text-wrap">
 
         <!------- PAGE INFO --------->
-            This page shows the people available in this line.
-
-              <div class="bob3 item item-text-wrap" style="font-size: 25px; ">
-                Please either: <br>
+              <div class="bob3 item item-text-wrap" style="font-size: 25px; text-align:center;">
+              <u>  Please either: </u> <br><br>
                 1) Add Yourself to line  <br>
                 2) Select a Person
               </div>
 
               <!------- ADD YOURSELF --------->
                 <div class="bob3 item item-text-wrap" style="font-size: 25px; text-align:center;">
-                  Please either: <br>
+                  <u> Add Yourself to line </u> <br><br>
                     {{fullName || "Full Name"}} {{userdata.facebook.name}}<br>
                   Email: {{useremail || "User Email"}}<br>
                   ID: {{userid || "User ID"}}<br>
@@ -29,7 +27,7 @@
                   <p id="demo2" style="font-weight: bold;"></p>
                   Displacement: {{finalCalc}}
 
-                  <div style="font-size: 20px;   text-align:center ">
+                  <div style="font-size: 20px;   text-align:center "> <br>
                 Press to Add to Table:  <br>
                 <button type="button" style="width:200px" ng-click="addPeopletoDB()" data-dismiss="modal" class="btn btn-primary">Add Data</button> <br>
 
@@ -41,7 +39,9 @@
 
               <!------- ADD NAME TO LINEUP IF YOUR ADMINISTRATOR --------->
 
-                <div class="bob3 item item-text-wrap" style="font-size: 25px; "> <br>
+
+                <div class="bob3 item item-text-wrap" style="font-size: 25px; text-align:center;">
+                  <u>Add Name </u><br><br>
                   As Administrator you can Add Name to Lineup in certain Position:
                 </div>
 
@@ -61,9 +61,8 @@
 
                 <!------- DELETE MODE! --------->
                 <div class="bob3" style="font-size: 20px;   text-align:center ">
-                <span style="font-size:25px;">  Press to Enter Delete Mode: </span>
-                  <button type="button" style="width:150px;" ng-click="deleteMode()" data-dismiss="modal" class="btn btn-danger">Delete Mode</button> <br>
-                  Please Note: As Administrator you can delete any person from line.
+                  Press to Enter Delete Mode  <br>
+                  <button type="button" style="width:200px;" ng-click="deleteMode()" data-dismiss="modal" class="btn btn-danger">Delete Mode</button> <br>
                 </div>
 
       </div>
