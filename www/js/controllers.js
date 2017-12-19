@@ -128,8 +128,69 @@ angular.module('starter.controllers', [])
             }
 
             $http(req).then(function(){...}, function(){...});
+AAAArB07vu4:APA91bF_CAv67EAI9nLhRuEH9Nn7g6qgYmjM9q1jrtbapQkcV-VjaJjH1EflaeT3qG5PXfRmMZSo03hawocRY44PPxx2hDowLDRxKoQRL1_0V-ACAUTmHdAPz9z2gdPQiPGEpVAnBbn3
+
+ebscnOSXK3M:APA91bExZnbU7nz0k-SUp6gfyE_aUpQJ0YZ2scbyuEFB7evKZcQbgUwf77X6-vyrS0yTlBR0qU-h-ZdYfct6IOcUgW5AUWYKQwrTIN1b8qiWKKp4DFbfbQfOt0ney9i4A2uHaNSK_LjQ
+ebscnOSXK3M:APA91bGe5tvhwPVrqiAJzEEo49unfXzT9C1meA-z70EG_ZcQmcfVeLSp7etEgjghhZajfv1ZmbDN_H1WJ4YwZfK0UJo-5jRSbLMunhFThn8VQhR31OrJe-wt3Hy8Z5as5N1qjm5xnti7
+
+SO TO FIX:
+1) YOU CAN STILL HAVE DIFFERNT PROJECTS/APPS FOR IOS AND ANDROID, YOU JUST HAVE TO HAVE THE
+SAME FIREBASE  PLIST INSTALLED IN EACH ONE.... IN THIS CASE THERE ARE TWO DIFFERENT ONES [MY PROJECT / WHITE]
+
+2) ADD THE GET FCMPlugin.getToken(function(token){  alert(token); }); into the login and signup so THAT
+new tokens are generated each time the user logs in or signs up!!!!!
+
+3) also have to add message box to send messages that you want to send
+
+4) As well as add button that allows you to send to all people
+[cannot be just adding FCMPlugin.subscribeToTopic('topicExample'); to login and signup,
+because that will send to all people in all stores
+-have to only show users in certain stores; can take from PeopleLine]
 
         */
+
+
+        // NOTE: THIS WORKS FOR IOS:
+        $scope.sendFirebasehttp12 = function(){
+          $http({
+          url : "https://fcm.googleapis.com/fcm/send",
+          method : 'POST',
+          headers : { 'Content-Type' : 'application/json',
+          'Authorization': "key=AAAArB07vu4:APA91bF_CAv67EAI9nLhRuEH9Nn7g6qgYmjM9q1jrtbapQkcV-VjaJjH1EflaeT3qG5PXfRmMZSo03hawocRY44PPxx2hDowLDRxKoQRL1_0V-ACAUTmHdAPz9z2gdPQiPGEpVAnBbn3"   },
+          data: ({"to": "ebscnOSXK3M:APA91bGe5tvhwPVrqiAJzEEo49unfXzT9C1meA-z70EG_ZcQmcfVeLSp7etEgjghhZajfv1ZmbDN_H1WJ4YwZfK0UJo-5jRSbLMunhFThn8VQhR31OrJe-wt3Hy8Z5as5N1qjm5xnti7", "notification": {"title":"Test","body":"Test", "sound":"default"}})
+
+          }).success(function(data){
+              alert("login Successfully");
+              console.log(data);
+
+          }).error(function(error){
+              alert("login error");
+              console.log(error);
+
+          });
+        };
+
+        // NOTE: THIS WORKS FOR ANDROID:
+
+        $scope.sendFirebasehttp99 = function(){
+          $http({
+          url : "https://fcm.googleapis.com/fcm/send",
+          method : 'POST',
+          headers : { 'Content-Type' : 'application/json',
+          'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
+          data: ({"to": "eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S", "notification": {"title":"Test","body":"Test", "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY",  "icon":"fcm_push_icon"},  "priority":"high"})
+
+          }).success(function(data){
+              alert("login Successfully");
+              console.log(data);
+
+          }).error(function(error){
+              alert("login error");
+              console.log(error);
+
+          });
+        };
+
 
         $scope.sendHttpFirebase = function(){
           $http.post('https://fcm.googleapis.com/fcm/send', {  username: 'some username',  password: 'some password' },
@@ -226,6 +287,8 @@ angular.module('starter.controllers', [])
 
                    FCMPlugin.onNotification(function(data) {
                       console.log(data);
+                      window.alert('THIS WAS SELECTED ON NOTIFICATION!!')
+
                       window.alert(data);
 
                   });
@@ -1547,6 +1610,8 @@ $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
 
                        FCMPlugin.onNotification(function(data) {
                           console.log(data);
+                          window.alert('THIS WAS SELECTED ON NOTIFICATION!!')
+
                           window.alert(data);
                       });
               });

@@ -24,6 +24,7 @@ document.addEventListener("deviceready", function() {
 
         FCMPlugin.onNotification(function(data) {
        console.log(data);
+       window.alert('THIS WAS SELECTED ON NOTIFICATION!!')
        window.alert(data);
 
    });

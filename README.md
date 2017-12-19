@@ -46,8 +46,41 @@ Creating ⬢ example... done
 https://example.herokuapp.com/ | https://git.heroku.com/example.git
 
 
+-TO MAKE IOS BUILDS:
+1) ionic cordova build IOS
+2)1) ionic cordova run IOS
+3) if signing error: click on xcode.project file and it go to xcode to add it then it will work
 
-$ cordova plugin add cordova-plugin-facebook4 --save --variable APP_ID="1597048060389960" --variable APP_NAME="IOSAPP"
+
+
+-TO MAKE NOTIFICATION PUSHES RUN:
+https://medium.com/@t1tan1um/fcm-integration-for-cordova-hybrid-apps-c679f5fc1988
+cordova create pushSample
+cd pushSample
+cordova platform add android
+- cordova plugin add cordova-plugin-fcm
+
+-make sure has right plist file
+-make sure copy plist file into other plist file:-TURN ON NOTIFICATIONS WITH XCODE platforms/ios/myprojectname/resorces/resorces/plist
+-TURN ON NOTIFICATIONS WITH XCODE
+
+****ALSO FOR THIS MASTER TO WORK YOU PROB HAVE TO GO OVER THE MEDIUM STEPS AGAIN,
+ADD THE API KEYS TO THE DIFFERENT PROJECT, AND THEN REPLACE THE PLIST FILE IN IOS.****
+
+
+APP ID PREFIX: LJ4JD54F4Q
+
+Name:  IosAuthKey
+Key ID: AVPRLXTSK8
+Services APN
+
+
+-TO PUT ON IOS APP STORE:
+1) MAKE APP WORK ON TEST PHONE
+2) GO TO CODE AND CLICK ON PRODUCT, ARCHIVE THEN UPLOAD TO APP STORE.
+
+-TO UPDATE VERSION:
+-JUST GO TO NEW VERSION IN XCODE AND USE ARCHIVE AGAIN, THEN SELECT IT IN BUILD ON ITUNES CONNECT
 
     TO MAKE THE FACEBOOK LOGIN RUN:
 1) cordova plugin add cordova-plugin-facebook4 --save --variable APP_ID="2042335766002685" --variable APP_NAME="Androidexample02"
