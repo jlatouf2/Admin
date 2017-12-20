@@ -147,6 +147,15 @@ new tokens are generated each time the user logs in or signs up!!!!!
 because that will send to all people in all stores
 -have to only show users in certain stores; can take from PeopleLine]
 
+ebscnOSXK3M:APA91bExZnbU7nz0k-SUp6gfyE_aUpQJ0YZ2scbyuEFB7evKZcQbgUwf77X6-vyrS0yTlBR0qU-h-ZdYfct
+6IOcUgW5AUWYKQwrTIN1b8qiWKKp4DFbfbQfOt0ney9i4A2uHaNSK_LjQ
+
+'Authorization': "key=AAAArB07vu4:APA91bF_CAv67EAI9nLhRuEH9Nn7g6qgYmjM9q1jrtbapQkcV-VjaJjH1EflaeT3qG5PXfRmMZSo03hawocRY44PPxx2hDowLDRxKoQRL1_0V-ACAUTmHdAPz9z2gdPQiPGEpVAnBbn3"   },
+dkRfuoXOL4E:APA91bHXi2pO5FPJVPOzdwy_fnI_wNgujZmy3cTkcLxBIt8-T4A0e9hEbsltWzAtISNba-0mhXBbB8EmbR-Xk4_HPy2tFxRFOZ2lEszlgbnmeTKFwtKX0MooGpUJ-PX5K5kwyPgFagco
+
+eB5FgtGIjdU:APA91bEupK-OnFexvqq0D4P2ycwRJfaqO4RGCIcyIF1zqsUvbH3jThACqhVKpMs84Ufb8QlKAJ1LcY2h0uYKYo_Pw09a8h57g86FI6xuwcZqaC4XxNkFXIlTrfPXR9PxUcPwMjaN2Y_m
+
+-
         */
 
 
@@ -156,8 +165,8 @@ because that will send to all people in all stores
           url : "https://fcm.googleapis.com/fcm/send",
           method : 'POST',
           headers : { 'Content-Type' : 'application/json',
-          'Authorization': "key=AAAArB07vu4:APA91bF_CAv67EAI9nLhRuEH9Nn7g6qgYmjM9q1jrtbapQkcV-VjaJjH1EflaeT3qG5PXfRmMZSo03hawocRY44PPxx2hDowLDRxKoQRL1_0V-ACAUTmHdAPz9z2gdPQiPGEpVAnBbn3"   },
-          data: ({"to": "ebscnOSXK3M:APA91bGe5tvhwPVrqiAJzEEo49unfXzT9C1meA-z70EG_ZcQmcfVeLSp7etEgjghhZajfv1ZmbDN_H1WJ4YwZfK0UJo-5jRSbLMunhFThn8VQhR31OrJe-wt3Hy8Z5as5N1qjm5xnti7", "notification": {"title":"Test","body":"Test", "sound":"default"}})
+          'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
+          data: ({"to": "dkRfuoXOL4E:APA91bHXi2pO5FPJVPOzdwy_fnI_wNgujZmy3cTkcLxBIt8-T4A0e9hEbsltWzAtISNba-0mhXBbB8EmbR-Xk4_HPy2tFxRFOZ2lEszlgbnmeTKFwtKX0MooGpUJ-PX5K5kwyPgFagco", "notification": {"title":"Test","body":"Test", "sound":"default"}})
 
           }).success(function(data){
               alert("login Successfully");

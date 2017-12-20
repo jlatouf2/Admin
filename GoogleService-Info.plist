@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>901561854903-temigujkllu9dd6v55170s94sgq485rn.apps.googleusercontent.com</string>
+	<string>901561854903-4ggmafcos21cedfdt99mucspabms2hah.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.901561854903-temigujkllu9dd6v55170s94sgq485rn</string>
+	<string>com.googleusercontent.apps.901561854903-4ggmafcos21cedfdt99mucspabms2hah</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDh2MAsmeu_8CCXkOB-hV8MhfK0sxhM_88</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.myapp2439485068.ios</string>
+	<string>com.tested.myapp2439485068</string>
 	<key>PROJECT_ID</key>
 	<string>fleet-authority-182015</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:901561854903:ios:6e258f13a97a3156</string>
+	<string>1:901561854903:ios:b2a71c2f5d3cc3db</string>
 	<key>DATABASE_URL</key>
 	<string>https://fleet-authority-182015.firebaseio.com</string>
 </dict>
