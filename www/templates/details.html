@@ -1,0 +1,41 @@
+<ion-view view-title="Details">
+  <ion-content>
+
+
+    <h1 class="bob3" style="text-align: center;"><u> Details View </u></h1>
+
+
+
+<h1 class="bob3" style="text-align:center;"> Email: {{detailEmail || "User Email"}} </h1>
+<h1 class="bob3" style="text-align:center;"> Store: {{detailStore || "Store"}} </h1>
+<h1 class="bob3" style="text-align:center;"> Line: {{detailLine || "Line"}} </h1>
+<h1 class="bob3" style="text-align:center;"> Created: {{detailCreated || "Created"}} </h1>
+<h1 class="bob3" style="text-align:center;"> NotificationKey: {{detailNotification || "NotificationKey"}} </h1>
+
+<br><br><br>
+
+<div style="padding:25px">
+<div style="border: 5px solid black; ">
+<h1 class="bob3" style="text-align: center; "><u> Send Personal Notification </u></h1>
+
+
+<div class="bar bar-header item-input-inset">
+  <label class="item-input-wrapper" >
+    <i class="icon ion-ios-search placeholder-icon"></i>
+    <input type="search" ng-model="message.body"  placeholder="Please add a Store Name">
+  </label>
+</div>
+
+
+<div class="bob3" style="width:300px; margin: 0 auto; ">
+    <br> <br>
+    <button  type="button" style="width:300px;" class="btn btn-primary" ng-click="sendMessage()">
+      <span class="bob3" style="font-size: 25px;"> Notification Message </span>
+    </button>
+</div>
+</div>
+</div>
+
+
+</ion-content>
+</ion-view>

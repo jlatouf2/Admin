@@ -354,21 +354,21 @@ socket.on('poll', function (data, callback) {
 });
 
 
-      socket.on('getPeopleLine', function (data, callback) {
-        PeopleLine.find({ $and: [{store: data.store}, {line: data.line}]})
-          .exec(function(err, posts) {
-              if (err) { return next(err); }
-            callback(posts);  console.log(posts);
-            });
-      });
+socket.on('getPeopleLine', function (data, callback) {
+  PeopleLine.find({ $and: [{store: data.store}, {line: data.line}]})
+    .exec(function(err, posts) {
+        if (err) { return next(err); }
+      callback(posts);  console.log(posts);
+      });
+});
 
-      socket.on('getLineCoordinates', function (data, callback) {
-        Store.find( {store: data.store})
-          .exec(function(err, posts) {
-            if (err) { return next(err); }
-          callback(posts);  console.log(posts);
-          });
-      });
+socket.on('getLineCoordinates', function (data, callback) {
+  Store.find( {store: data.store})
+    .exec(function(err, posts) {
+      if (err) { return next(err); }
+    callback(posts);  console.log(posts);
+    });
+});
 
 
 /*        ***************** NOTE: PLEASE KEEP THIS!!! ********************
@@ -392,6 +392,7 @@ socket.on('poll', function (data, callback) {
 */
 
 socket.on('addperson11', function (data, callback) {
+  console.log(data.notificationkey);
   PeopleLine.findOne({store: data.store, line: data.line, email: data.email}).exec(function(err, posts) {
         if (err) { return next(err); }
           if (posts) {
@@ -403,7 +404,8 @@ socket.on('addperson11', function (data, callback) {
               email : data.email, line: data.line,
               position: data.position,  store: data.store,
               fullname : data.fullName,  longitude: data.longitude,
-              latitude: data.latitude,  distance: data.distance
+              latitude: data.latitude,  distance: data.distance,
+              notificationkey: data.notificationkey
             });
 
             newUser2.save(function (err, post) {
@@ -418,16 +420,14 @@ socket.on('addperson11', function (data, callback) {
 
 
 
-
-
-      socket.on('optimizeData', function (data) {
-        PeopleLine.find({ $and: [{store: data.store}, {line: data.line}, {email: data.email}]})
-          .exec(function(err, posts) {
-              if (err) { return next(err); }
-            //callback(posts);
-            console.log(posts);
-            });
-      });
+socket.on('optimizeData', function (data) {
+  PeopleLine.find({ $and: [{store: data.store}, {line: data.line}, {email: data.email}]})
+    .exec(function(err, posts) {
+        if (err) { return next(err); }
+      //callback(posts);
+      console.log(posts);
+      });
+});
 
 
 //     Storeline.remove({ $and: [{store: data.store}, {line: data.line}]}, function(err,removed) {

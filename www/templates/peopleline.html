@@ -16,8 +16,9 @@
 
         <p ng-show="blue" id="demo2" style="font-weight: bold;"></p>
 
-        <button ng-click="nodeValidation()">Validation</button>
+      <!--   <button ng-click="nodeValidation()">Validation</button>
         {{validationData}}
+        -->
               <!-- TITLE / INFORMATION ! -->
 
 
@@ -99,7 +100,7 @@
               -->
   							<tbody>
     								<tr ng-hide="numberLinesZero2" style="text-align: ;" ng-class="{'selected':$index == 0}"  ng-repeat="person in people | filter:search | orderBy:'person.created'" >
-    									<td > <a style="background-color:white; border:none; "  href="" ng-click="findDistance22($index)" class="list-group-item active ">
+    									<td > <a style="background-color:white; border:none; "  href="#/details" ng-click="findDistance22($index,  person.email, person.store, person.line, person.created, person.notificationkey )" class="list-group-item active ">
                         <div >
                           <!--    <img ng-show= "imageSaved" class="img-circle" style="display:block; float: left; weight:50px; height:50px;  border-style: dotted; " src="{{black2}}" > -->
                           <img ng-hide="imageSaved" class="img-circle" style="display:block; weight:50px; height:50px; float: left; border-style: dotted; " src="img/images-3.jpeg" >
@@ -117,7 +118,7 @@
     								</tr>
 
                     <tr ng-show="numberLinesZero2" style="text-align: left;"   ng-repeat="person in people | filter:search | orderBy:'person.distance'" >
-    									<td> <a style="background-color:white; border:none; text-align: left" href="/#/profile2" ng-click="checkPeopleFcn(person.local.email)" class="list-group-item active ">
+    									<td> <a style="background-color:white; border:none; text-align: left" href="/#/details" ng-click="checkPeopleFcn(person.local.email)" class="list-group-item active ">
                           <div>
                         <!--    <img ng-show= "imageSaved" class="img-circle" style="display:block; float: left;  weight:50px; height:50px;  border-style: dotted; " src="{{black2}}" >   -->
                             <img ng-hide="imageSaved" class="img-circle" style="display:block; weight:50px; height:50px; float: left; border-style: dotted; " src="img/images-3.jpeg" >

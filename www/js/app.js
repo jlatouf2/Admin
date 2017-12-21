@@ -79,6 +79,12 @@ angular.module('starter', ['ionic', 'starter.controllers',  'ngCordova'])
           templateUrl: 'templates/login.html',
           controller: 'LoginCtrl'
       })
+      
+      .state('details', {
+          url: '/details',
+          templateUrl: 'templates/details.html',
+          controller: 'DetailsCtrl'
+      })
 
         .state('home', {
             url: "/home",

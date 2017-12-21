@@ -156,6 +156,10 @@ dkRfuoXOL4E:APA91bHXi2pO5FPJVPOzdwy_fnI_wNgujZmy3cTkcLxBIt8-T4A0e9hEbsltWzAtISNb
 eB5FgtGIjdU:APA91bEupK-OnFexvqq0D4P2ycwRJfaqO4RGCIcyIF1zqsUvbH3jThACqhVKpMs84Ufb8QlKAJ1LcY2h0uYKYo_Pw09a8h57g86FI6xuwcZqaC4XxNkFXIlTrfPXR9PxUcPwMjaN2Y_m
 
 -
+dKdSxY9WtXU:APA91bHyBJfXoFC2IrbqMy_9JnkscNR_kqmq111w6pRdqgyMoFayOFaoreoF0xhi05gf7y1ulsuKSvP79k149j5aDRtElMAhuZ8k2MhpDmjCq8Gr9h5W0D5O3WzI1PJim8ITy-6Wwb9W
+
+dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa-9FulavrtAL0liBBXIn_NHdtB490_su4WAg8K4DN64N22WeNItunOf2g3vrO6SMcVT-qAh3O
+
         */
 
 
@@ -166,7 +170,7 @@ eB5FgtGIjdU:APA91bEupK-OnFexvqq0D4P2ycwRJfaqO4RGCIcyIF1zqsUvbH3jThACqhVKpMs84Ufb
           method : 'POST',
           headers : { 'Content-Type' : 'application/json',
           'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-          data: ({"to": "dkRfuoXOL4E:APA91bHXi2pO5FPJVPOzdwy_fnI_wNgujZmy3cTkcLxBIt8-T4A0e9hEbsltWzAtISNba-0mhXBbB8EmbR-Xk4_HPy2tFxRFOZ2lEszlgbnmeTKFwtKX0MooGpUJ-PX5K5kwyPgFagco", "notification": {"title":"Test","body":"Test", "sound":"default"}})
+          data: ({"to": "dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa-9FulavrtAL0liBBXIn_NHdtB490_su4WAg8K4DN64N22WeNItunOf2g3vrO6SMcVT-qAh3O", "notification": {"title":"Test","body":"Test", "sound":"default"}})
 
           }).success(function(data){
               alert("login Successfully");
@@ -1137,7 +1141,51 @@ $scope.$on('$stateChangeSuccess', function () {
 
   socket.emit('getPeopleLine', {store : localStorage.getItem("StoreName"), line: localStorage.getItem("LineNumber"),
     Adminpassword: $scope.usertoken },function (data) {
-      $scope.$apply(function () { console.log(data);    $scope.people = data; });
+      $scope.$apply(function () { console.log(data);    $scope.people = data;  });
+
+/*vTO MAKE THE AUTO MESSAGE:
+  1) HAVE TO TAKE DATA IN ARRAY, THEN MANUALLY SORT THE DATA BASED ON WHICH BUTTON IS PRESSED....
+      IE... IF POSITION BUTTON IS PRESS AND IF DISPLACEMENT BUTTON IS PRESSED....
+  2) press button, then it passes info*/
+
+  console.log(data);
+  data.sort(function (a, b) {
+      return a.created.localeCompare(b.created);
+  });
+
+console.log(data);
+console.log(data[0]);
+/* ADD AUTO NOTIFICATION HERE so:
+1) data[0].notification is passed
+
+$scope.grabStuff = function(notificationkey, email){
+      console.log( notificationkey);   console.log( email);
+        var not = notificationkey; console.log(not);
+
+      if (window.confirm("Are you sure you would like to send a notification to !") === true) {
+          console.log( "You pressed OK!");
+            $http({
+            url : "https://fcm.googleapis.com/fcm/send",
+            method : 'POST',
+            headers : { 'Content-Type' : 'application/json',
+            'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
+            data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"}})
+                    //"Your Turn is up"
+            }).success(function(data){
+                alert("Successfully Passed Notification");
+                console.log(data);
+
+            }).error(function(error){
+                alert("That user does not have a notifivation key:");
+                console.log(error);
+            });
+      } else {
+          console.log( "You pressed Cancel!");
+
+      }
+ };
+
+*/
 
 $scope.findGPS();
  });
@@ -1145,7 +1193,127 @@ $scope.findGPS();
 
 
 
+
+//THIS WILL AUTOMATICALL MESSAGE THE
+
+$scope.findDistance22 = function(index, email, store, line, created, notificationkey){
+  console.log('finddistance22');
+
+  console.log(email);
+  console.log(store);
+  console.log(line);
+  console.log(created);
+
+  console.log(notificationkey);
+
+$rootScope.detailEmail = email;
+$rootScope.detailStore = store;
+$rootScope.detailLine = line;
+$rootScope.detailCreated = created;
+$rootScope.detailNotification = notificationkey;
+
+
+    console.log(index);
+    if (index === 0) {
+          console.log('the number is 0');
+          /*
+          $scope.grabStuff = function(notificationkey, email){
+                console.log( notificationkey);   console.log( email);
+                  var not = notificationkey; console.log(not);
+                if (window.confirm("Are you sure you would like to send a notification to !") == true) {
+                    console.log( "You pressed OK!");
+                      $http({
+                      url : "https://fcm.googleapis.com/fcm/send",
+                      method : 'POST',
+                      headers : { 'Content-Type' : 'application/json',
+                      'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
+                      data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"}})
+                              //"Your Turn is up"
+                      }).success(function(data){
+                          alert("Successfully Passed Notification");
+                          console.log(data);
+
+                      }).error(function(error){
+                          alert("That user does not have a notifivation key:");
+                          console.log(error);
+                      });
+                } else {
+                    console.log( "You pressed Cancel!");
+                }
+           };
+          */
+    }
+};
+
+$timeout(function () { $scope.findDistance22();  }, 3000);
+
+
+
+var array = [
+    { id: 1, start: "2016-12-07T13:00:00", subject: "test1" },
+    { id: 2, start: "2016-12-07T09:00:00", subject: "test2" },
+    { id: 3, start: "2016-12-07T10:00:00", subject: "test3" },
+    { id: 4, start: "2016-12-07T07:00:00", subject: "test4" },
+    { id: 5, start: "2016-12-07T14:00:00", subject: "test5" }
+];
+
+array.sort(function (a, b) {
+    return a.start.localeCompare(b.start);
+});
+
+console.log(array);
+
+
+
+
+        //THIS IS THE ONE THAT WORKS!
+
+var array2 = [
+  { _id: '5a3a97c33f3d3b707c13831f', line: '2', store: 'Bedboye3',  __v: 0, created: "2017-12-20T17:02:59.694Z" },
+  { _id: '5a3afbe53444f0753d51c16f', email: 'jlatouf2@gmail.com77', line: '2', store: 'Bedboye3', __v: 0, created: '2017-12-21T00:10:13.245Z' },
+  { _id: '5a3b01743444f0753d51c170', email: 'jlatouf2@gmail.com22', line: '2', store: 'Bedboye3',
+  distance: '0.0015307120357972858',   __v: 0, created: '2017-12-21T00:33:56.482Z' } ]
+
+  array2.sort(function (a, b) {
+      return a.created.localeCompare(b.created);
+  });
+
+  console.log(array2);
+
+/*
+works like this:
+1)setInterval function that repeats every minute, and checks to see if anyone is in line:
+[actually it checks the array, and sees if it returns zero]
+
+2) then it sends notification to array[0]
+3) then it after the person deletes the person with: (person[0]) in a function, on success
+it  calls the setinterval function
+(runs in a loop, it stops if)
+
+*/
+
+
+
+
+
+var cars = [
+{type:"Volvo", year:2016},
+{type:"Saab", year:2001},
+{type:"BMW", year:2010}];
+
+cars.sort(function(a, b){return a.year - b.year});
+
+console.log(cars);
               /*
+              function: has array data,
+                1) then gets notificatoin of first person in array and sends notificiation
+                2) message recieved from 2nd person, then it goes to peopleline cont and it
+                asks user to delete himself when he is ready [ or auto deletes]
+                3) then ON SUCCESS OF THIS DELETE FUNCTION: IT CALLS THE function
+                    T0 START AGAIN [THE ARRAY AND NOTIFICAITON FUNCTION]
+
+
+
               setTimeout(function() {
                 }, 3000);
 
@@ -1281,7 +1449,7 @@ $scope.findGPS();
             console.log("finalCalc: "+ $scope.finalCalc);
             socket.emit('addperson11', {store : $scope.grabStorename, line: $scope.grabLineNumber,
                    email: $scope.useremail, fullname: $scope.fullName,  longitude: $scope.longitude,
-                   latitude: $scope.latitude, distance: $scope.finalCalc,
+                   latitude: $scope.latitude, distance: $scope.finalCalc,  notificationkey: $rootScope.usertoken,
                    Adminpassword: $scope.usertoken },function (data) {
 
           $scope.failedData = data;
@@ -1474,13 +1642,8 @@ setInterval(function() {
                       }
                  }
 
-
                }
            });
-
-
-
-
 
 
          /* ----------DELETE MODE -------------- */
@@ -1529,7 +1692,7 @@ setInterval(function() {
 
     })
 
-.controller('MessagingCtrl', function($scope, $location, $http, $timeout,  $state ) {
+.controller('MessagingCtrl', function($scope, $location, $http ) {
 
           console.log('this worked!');
 
@@ -1542,7 +1705,20 @@ setInterval(function() {
       //  $scope.storeName ={sname:"blue"};
 
 
-
+      $scope.$on('$stateChangeSuccess', function () {
+        console.log('statechange');
+           $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
+           .then(function(data) {
+               //First function handles success
+               console.log('worked');
+               console.log(data.data);
+              // alert(data);
+               $scope.usercontents = data.data;
+           }, function() {
+               //Second function handles error
+               console.log('didnt work');
+             });
+       });
 
 
         $scope.sendFirebasehttp = function(){
@@ -1564,33 +1740,61 @@ setInterval(function() {
           });
         };
 
-/*
-        $timeout(function(){
-          $http.post('http://192.168.1.115:3000/findUserTokens', {})
-           .then(function(data) {
-               //First function handles success
-               console.log('worked');
-               console.log(data.data);
-              // alert(data);
-               $scope.usercontents = data.data;
-           }, function() {
-               //Second function handles error
-               alert('didnt work');
-             });
-      },1000);
-*/
+    /*
+            $timeout(function(){
+              $http.post('http://192.168.1.115:3000/findUserTokens', {})
+               .then(function(data) {
+                   //First function handles success
+                   console.log('worked');
+                   console.log(data.data);
+                  // alert(data);
+                   $scope.usercontents = data.data;
+               }, function() {
+                   //Second function handles error
+                   alert('didnt work');
+                 });
+          },1000);
 
-$http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
- .then(function(data) {
-     //First function handles success
-     console.log('worked');
-     console.log(data.data);
-    // alert(data);
-     $scope.usercontents = data.data;
- }, function() {
-     //Second function handles error
-     console.log('didnt work');
-   });
+          $timeout(function () {
+                  $scope.failedLog = false;
+                }, 3000);
+
+          $scope.storeName ={sname:""};
+
+       $scope.addStore1 = function(name){
+             if ( $scope.storeName.sname == '') {
+               console.log('Please enter a name');
+                 } else{
+                 socket.emit('addStore',  {store : $scope.storeName.sname, email: $scope.useremail, postal: $scope.postal, latitude: localStorage.getItem("StoreLatitude"),
+                   longitude: localStorage.getItem("StoreLongitude"), Adminpassword: $scope.usertoken },function (data) {
+
+                     $scope.failedLogin = true;
+
+                     console.log(data);
+                     $scope.$apply(function () {
+                     $scope.failedData = data;
+                       });
+                       setTimeout(function(){ $rootScope.failedLogin = false; console.log('BLUE'); }, 3000);
+                     //  $scope.storeName.sname == '';
+                 });
+              }
+         };
+
+    */
+
+
+        $scope.message ={body:"Your turn is up!"};
+
+        $scope.addStore1 = function(name){
+           if ( $scope.message.body == '') {
+             console.log('Please enter a name');
+               } else{
+                 localStorage.setItem("messageBody", $scope.message.body);
+                 console.log("MESSAGE ADDED!:"+ localStorage.getItem("messageBody"));
+
+
+            }
+        };
 
 
         $scope.getTokenFirebase = function(){
@@ -1614,10 +1818,7 @@ $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
                      }, function() {
                          alert('didnt work');
                      });
-
-
-
-                       FCMPlugin.onNotification(function(data) {
+                        FCMPlugin.onNotification(function(data) {
                           console.log(data);
                           window.alert('THIS WAS SELECTED ON NOTIFICATION!!')
 
@@ -1632,16 +1833,15 @@ $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
               console.log( notificationkey);   console.log( email);
                 var not = notificationkey; console.log(not);
 
-              if (window.confirm("Are you sure you would like to send a notification to !") == true) {
+              if (window.confirm("Are you sure you would like to send a notification to !") === true) {
                   console.log( "You pressed OK!");
-
                     $http({
                     url : "https://fcm.googleapis.com/fcm/send",
                     method : 'POST',
                     headers : { 'Content-Type' : 'application/json',
                     'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-                    data: ({"to": not, "notification": {"title":"Lineups","body":"Your Turn is up!"}})
-
+                    data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"}})
+                            //"Your Turn is up"
                     }).success(function(data){
                         alert("Successfully Passed Notification");
                         console.log(data);
@@ -1649,13 +1849,11 @@ $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
                     }).error(function(error){
                         alert("That user does not have a notifivation key:");
                         console.log(error);
-
                     });
               } else {
                   console.log( "You pressed Cancel!");
 
               }
-
          };
 
 
@@ -1721,18 +1919,74 @@ $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
 
  .controller('LoginCtrl', function($scope, $location, $http, $rootScope, AuthService ) {
 
-   $scope.noteToken = localStorage.getItem("TokenData");
+            $scope.noteToken = localStorage.getItem("TokenData");
 
-          //   $scope.email.email1 = "jlatouf2@gmail.com";
-          //   $scope.password.password1 = "jarredl";
+            //   $scope.email.email1 = "jlatouf2@gmail.com";
+            //   $scope.password.password1 = "jarredl";
 
-         $scope.email = {email1 : "jlatouf2@gmail.com333"};
-         $scope.password = {password1 : "jarredl"};
+           $scope.email = {email1 : "jlatouf2@gmail.com333"};
+           $scope.password = {password1 : "jarredl"};
 
-             /*   --------LOGIN FUNCTION-----------     */
-           $scope.ServiceFunction5 = function () { AuthService.LoginExample3($scope.email.email1, $scope.password.password1, $scope.noteToken); };
+               /*   --------LOGIN FUNCTION-----------     */
+             $scope.ServiceFunction5 = function () { AuthService.LoginExample3($scope.email.email1, $scope.password.password1, $scope.noteToken); };
 
-                 //FACEBOOK SERVICE.JS LOGIN:
-        $scope.Servicefacebook = function () { AuthService.facebookLogin();  };
+                   //FACEBOOK SERVICE.JS LOGIN:
+          $scope.Servicefacebook = function () { AuthService.facebookLogin();  };
 
-       });
+       })
+
+
+ .controller('DetailsCtrl', function($scope, $location, $http ) {
+
+              // $scope.noteToken = localStorage.getItem("TokenData");
+
+          console.log($scope.detailEmail);
+          console.log($scope.detailStore);
+          console.log($scope.detailLine);
+          console.log($scope.detailNotification);
+
+
+
+//THIS IS MESSAGE TEXTAREA
+           $scope.message ={body:"Your turn is up!"};
+
+           $scope.addStore1 = function(){
+              if ( $scope.message.body === '') {
+                console.log('Please enter a name');
+                  } else{
+                    localStorage.setItem("messageBody", $scope.message.body);
+                    console.log("MESSAGE ADDED!:"+ localStorage.getItem("messageBody"));
+
+
+               }
+           };
+
+//THIS IS MESSAGE BUTTON:
+
+         $scope.sendMessage = function(){
+                 var not = $scope.detailNotification; console.log(not);
+
+               if (window.confirm("Are you sure you would like to send a notification to !") === true) {
+                   console.log( "You pressed OK!");
+                     $http({
+                     url : "https://fcm.googleapis.com/fcm/send",
+                     method : 'POST',
+                     headers : { 'Content-Type' : 'application/json',
+                     'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
+                     data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"}})
+                             //"Your Turn is up"
+                     }).success(function(data){
+                         alert("Successfully Passed Notification");
+                         console.log(data);
+
+                     }).error(function(error){
+                         alert("That user does not have a notifivation key:");
+                         console.log(error);
+                     });
+               } else {
+                   console.log( "You pressed Cancel!");
+
+               }
+          };
+
+    });

@@ -33,6 +33,39 @@ document.addEventListener("deviceready", function() {
 }, false);
 
 
+
+
+document.addEventListener("pause", function pauseCallback() {
+  isAppInForeground = false;
+}, false);
+
+
+  document.addEventListener("resume", function resumeCallback() {
+    //isAppInForeground = true;
+    FCMPlugin.onNotification(function(data){
+        if(data.wasTapped){
+          alert("I am tapped" + JSON.stringify(data) );
+        }else{
+          //Notification was received in foreground. Maybe the user needs to be notified.
+          alert( "I am not tapped" +JSON.stringify(data) );
+          window.location.href = "#/storelines";
+
+        }
+    },
+    function(msg){
+     alert( "Success callback " +msg);
+    },
+    function(err){
+      alert( "Error callback " +err );
+
+    });
+
+     window.alert("DEVICE RESUMED3333");
+    var socket = io.connect('http://192.168.1.115:3000');
+    window.location.href = "#/home";
+
+  }, false);
+
 /*
 window.cordova.plugins.notification.local.schedule([{
    text:"test",
@@ -42,52 +75,9 @@ window.cordova.plugins.notification.local.schedule([{
 
 /*
 document.addEventListener("deviceready", function() {
-
-
-
-
-    FCMPlugin.getToken(function(token) {
-        //this is the fcm token which can be used
-        //to send notification to specific device
-        console.log(token);
-        window.alert(token);
-
-        localStorage.setItem("TokenData", token);
-
-        var myToken = localStorage.getItem("TokenData");
-        window.alert(myToken);
-
-        //FCMPlugin.onNotification( onNotificationCallback(data), successCallback(msg), errorCallback(err) )
-        //Here you define your application behaviour based on the notification data.
-        FCMPlugin.onNotification(function(data) {
-            console.log(data);
-            window.alert(data);
-
-            NOTE:  HERE IS WHERE YOU WOULD HAVE YOUR CONDITIONAL
-            STATMENT THAT COULD THEN SEND THE DATA [or registration tokens]
-            BACK TO THE SERVER WITH AN HTTP REQUEST:
-            ex: if (data.username == 'John') {http data back}
-
-
-            //data.wasTapped == true means in Background :  Notification was received on device tray and tapped by the user.
-            //data.wasTapped == false means in foreground :  Notification was received in foreground. Maybe the user needs to be notified.
-            // if (data.wasTapped) {
-            //     //Notification was received on device tray and tapped by the user.
-            //     alert(JSON.stringify(data));
-            // } else {
-            //     //Notification was received in foreground. Maybe the user needs to be notified.
-            //     alert(JSON.stringify(data));
-            // }
-        });
-    });
-
-}, false);
   */
 
 //I THINK THAT THIS WILL CALL THE PERSON WITH THE APP WHEN ITS IN THE BACKGROUND:
-  document.addEventListener("pause", function pauseCallback() {
-    isAppInForeground = false;
-  }, false);
 
 
 
@@ -308,124 +298,3 @@ THIS WORKED FOR SENDING TO ALL:
 
   });
 */
-
-
-  document.addEventListener("resume", function resumeCallback() {
-    //isAppInForeground = true;
-     window.alert("DEVICE RESUMED3333");
-    var socket = io.connect('http://192.168.1.115:3000');
-    window.location.href = "#/home";
-  }, false);
-
-
-
-
-
-function myFunction() {
-console.log('worked');
-
-document.addEventListener("deviceready", function() {
-    alert("device ready");
-try {
-if (window.cordova.platformId == "browser") {
-         var appId = xxxx6138889xxxx;
-         var version = "v2.0";      //tried for v.2.0 to v.2.7
-        facebookConnectPlugin.browserInit(appId, version);
-}
- var fbLoginSuccess = function (userData) {
-      //console.log("UserInfo: " + JSON.stringify(userData));
-      alert("worked" + JSON.stringify(userData));
-      //alert("worked" + userData.email.userID);
-    //  alert("worked" + userData);
-
- }
-  facebookConnectPlugin.login(["email" ],
-      fbLoginSuccess,
-      function (error) { alert("" + error) } );
-} catch (e){
-  alert(e);
-}
-}, false);
-}
-
-//'/me?fields=email', ["email"]
-//              localStorage.setItem("StoreName", $scope.grabStorename);
-//  console.log(localStorage.getItem("StoreName"));
-
-function getUserInfo22(){
-    facebookConnectPlugin.api('me/?fields=id,name,email', ['email','public_profile'],
-    function (result) {
-    console.log(result);
-    },
-    function (error) {
-    console.log(error);
-    });
-}
-
-      /*        THIS WORKED!!!!         */
-
-function myFunction3() {
-    document.addEventListener("deviceready", function() {
-        alert("device ready");
-
-    try {
-    if (window.cordova.platformId == "browser") {
-             var appId = xxxx6138889xxxx;
-             var version = "v2.0";      //tried for v.2.0 to v.2.7
-            facebookConnectPlugin.browserInit(appId, version);
-    }
-    var fbLoginSuccess = function (userData) {
-        //alert(userData.email);
-        alert("worked" + JSON.stringify(userData));
-
-      facebookConnectPlugin.getAccessToken(function(token) {
-        alert("Token: " + token);
-      });
-    }
-
-    facebookConnectPlugin.api('me/?fields=id,name,email', ['email','public_profile'], fbLoginSuccess,
-      function (error) {
-        console.error(error)
-      }
-    );
-      } catch (e){
-      alert(e);
-    }
-    }, false);
-
-}
-
-
-function myFunction4() {
-
-  document.addEventListener("deviceready", function() {
-      alert("device ready");
-
-  try {
-  if (window.cordova.platformId == "browser") {
-           var appId = xxxx6138889xxxx;
-           var version = "v2.0";      //tried for v.2.0 to v.2.7
-          facebookConnectPlugin.browserInit(appId, version);
-  }
-  var fbLoginSuccess = function (userData) {
-      //alert(userData.email);
-      alert("worked" + JSON.stringify(userData));
-
-    facebookConnectPlugin.getAccessToken(function(token) {
-      alert("Token: " + token);
-      localStorage.setItem("Token", token);
-    });
-  }
-
-  facebookConnectPlugin.api('me/?fields=id,name,email', ['email','public_profile'], fbLoginSuccess,
-    function (error) {
-      console.error(error)
-    }
-  );
-    } catch (e){
-    alert(e);
-  }
-  }, false);
-
-
-}
