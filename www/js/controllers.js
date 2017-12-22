@@ -983,80 +983,34 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
        })
 
 
-.controller('PeoplelineCtrl', function($scope, $location, $http, $ionicModal, $ionicHistory, $rootScope, $timeout, $state, $cordovaGeolocation, AuthService) {
+.controller('PeoplelineCtrl', function($scope, $location, $http, $ionicModal, $ionicHistory, $rootScope, $timeout, $state, $cordovaGeolocation) {
 
   window.addEventListener("focus", () => socket.connect());
 
   console.log('THIS IS THE LINENUMBER: '+localStorage.getItem("LineNumber"));
+   console.log('THIS IS THE STORENAME: '+localStorage.getItem("StoreName"));
 
+  $scope.myObj = { "color" : "white", "background-color" : "coral" };
 
-  console.log('THIS IS THE STORENAME: '+localStorage.getItem("StoreName"));
-
-  $scope.myObj = {
-    "color" : "white",
-    "background-color" : "coral"
-  };
-
-
-  $scope.nodeValidation = function(){
+   $scope.nodeValidation = function(){
     $http.post('https://thawing-ocean-11742.herokuapp.com/polling', {"email": "jlatouf2@gmail.com"})
- .then(function(data) {
-     //First function handles success
-     console.log('worked');
-      console.log(data);
-
-     //$scope.content = response.data;
- }, function(data) {
-
- });
-
-   };
-   $scope.nodeValidation();
-
-
-/*
-   $scope.pollingStuff = function(){
-     $http.post('http://192.168.1.115:3000/getPeopleLine', {})
      .then(function(data) {
-       console.log('THIS IS CORRECT CLIENT SIDE DATA:');   console.log(data);
-   }, function(data) { });  };
-*/
+         //First function handles success
+         console.log('worked');
+          console.log(data);
+         //$scope.content = response.data;
+     }, function(data) {
+     });
+   };
 
-
-
-    setTimeout(function() {
-    //  $scope.pollingStuff();
-    }, 3000);
-
-
+   $scope.nodeValidation();
 
 
    socket.emit('poll', {},function (data) {
       console.log('worked!');
        console.log(data); // $scope.places = data;
+      });
 
-
-     });
-
-
-          /*      NOTE:   SOLUTION TO THIS PAGE PROBLEM: MAKE THE PERSON GO BACK  STORENAME SCREEN
-          WITH ALERT TELLING THEM THEY NEED TO SIGN IN TO ADD THEMSELVES TO LINE
-          $ionicHistory.goBack();
-          //  $location.path('/home');
-        //  window.location.href = "#/home";
-
-
-        $http.get("wrongfilename.htm")
-   .then(function(response) {
-       //First function handles success
-       $scope.content = response.data;
-   }, function(response) {
-       //Second function handles error
-       $scope.content = "Something went wrong";
-   });
-   keytool -genkey -v -keystore myproject3.keystore -alias myproject3 -keyalg RSA -keysize 2048 -validity 10000
-   jarsigner -keystore myproject3.keystore apkname.apk myproject3
-          */
 
           $scope.nodeValidation = function(){
             $http.post('https://thawing-ocean-11742.herokuapp.com/stuffwhite', {"email": "jlatouf2@gmail.com"})
@@ -1085,7 +1039,6 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
            };
 
 
-
           $rootScope.goback2 = function(){ console.log('clicked3'); $ionicHistory.goBack(); };
 
           // Template for Storenames Modal
@@ -1108,90 +1061,109 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
           $scope.openpeoplemodal3 = function() { $scope.modal8.show(); };
 
 
-
            /* ----------GET PEOPLE FCN -------------- */
 
-           console.log(localStorage.getItem("StoreName"));
-           console.log(localStorage.getItem("StoreLatitude"));
-           console.log(localStorage.getItem("StoreLongitude"));
-           console.log(localStorage.getItem("LineNumber"));
+         console.log(localStorage.getItem("StoreName"));    console.log(localStorage.getItem("StoreLatitude"));
+         console.log(localStorage.getItem("StoreLongitude"));  console.log(localStorage.getItem("LineNumber"));
 
-            $rootScope.grabStorename = localStorage.getItem("StoreName");
+         $rootScope.grabStorename = localStorage.getItem("StoreName");
             $rootScope.grabLineNumber = localStorage.getItem("LineNumber");
 
-/*
-            This is what I do and it works for me:
 
-            $scope.$on('$routeChangeSuccess', function () {
-              // do something
-            });
-            Unless you're using ui-router. Then it's:
+      $scope.selected = false;
+    $scope.button1 = function () {
+        //do logic for button 1
+        $scope.selected = !$scope.selected;
+        console.log('btn1 clicked');
+        console.log('THE AUTOMATIC BUTTON IS TURNED ON!');
 
-            $scope.$on('$stateChangeSuccess', function () {
-              // do something
-            });
-*/
+
+              /*
+        IF YOU WANT TO KEEP THE LOOP GOING WHEN THIS IS ON: ALL I HAVE TO DO:
+            1) ADD AN  if($scope.notifyloop == true) { $scope.autoNotify();  }
+                  in the $stateChangeSuccess function below.
+              */
+    };
+
+    $scope.button2 = function () {
+        //do logic for button 2
+        $scope.selected = !$scope.selected;
+        console.log('btn2 clicked');
+        console.log('AUTOMATION TURNED OFF');
+        $scope.autoNotify();
+
+    };
+
+
+
+      //THIS IS CALLED FROM JAVASCRIPT:
+      $scope.myfunction22 = function () {  alert('CLICKED FROM JAVASCRIPT!');  };
 
 
 $scope.$on('$stateChangeSuccess', function () {
-  console.log('statechange');
+      socket.emit('getPeopleLine', {store : localStorage.getItem("StoreName"), line: localStorage.getItem("LineNumber"),
+        Adminpassword: $scope.usertoken },function (data) {
+          $scope.$apply(function () { console.log(data);    $scope.people = data;  });
+    /*vTO MAKE THE AUTO MESSAGE:
+      1) HAVE TO TAKE DATA IN ARRAY, THEN MANUALLY SORT THE DATA BASED ON WHICH BUTTON IS PRESSED....
+          IE... IF POSITION BUTTON IS PRESS AND IF DISPLACEMENT BUTTON IS PRESSED....
+      2) press button, then it passes info*/
 
-  console.log('THIS IS THE LINENUMBER: '+localStorage.getItem("LineNumber"));
-  console.log('THIS IS THE STORENAME: '+localStorage.getItem("StoreName"));
+      console.log(data);
+      data.sort(function (a, b) {
+          return a.created.localeCompare(b.created);
+      });
+        console.log(data); console.log(data[0]);
+          $rootScope.emailNotify = data[0].email;
+          $rootScope.notificationNotify = data[0].notificationkey;
 
-  socket.emit('getPeopleLine', {store : localStorage.getItem("StoreName"), line: localStorage.getItem("LineNumber"),
-    Adminpassword: $scope.usertoken },function (data) {
-      $scope.$apply(function () { console.log(data);    $scope.people = data;  });
+         $scope.findGPS();
+         //$timeout(function () { $scope.autoNotify();  }, 3000);
 
-/*vTO MAKE THE AUTO MESSAGE:
-  1) HAVE TO TAKE DATA IN ARRAY, THEN MANUALLY SORT THE DATA BASED ON WHICH BUTTON IS PRESSED....
-      IE... IF POSITION BUTTON IS PRESS AND IF DISPLACEMENT BUTTON IS PRESSED....
-  2) press button, then it passes info*/
-
-  console.log(data);
-  data.sort(function (a, b) {
-      return a.created.localeCompare(b.created);
-  });
-
-console.log(data);
-console.log(data[0]);
-/* ADD AUTO NOTIFICATION HERE so:
-1) data[0].notification is passed
-
-$scope.grabStuff = function(notificationkey, email){
-      console.log( notificationkey);   console.log( email);
-        var not = notificationkey; console.log(not);
-
-      if (window.confirm("Are you sure you would like to send a notification to !") === true) {
-          console.log( "You pressed OK!");
-            $http({
-            url : "https://fcm.googleapis.com/fcm/send",
-            method : 'POST',
-            headers : { 'Content-Type' : 'application/json',
-            'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-            data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"}})
-                    //"Your Turn is up"
-            }).success(function(data){
-                alert("Successfully Passed Notification");
-                console.log(data);
-
-            }).error(function(error){
-                alert("That user does not have a notifivation key:");
-                console.log(error);
-            });
-      } else {
-          console.log( "You pressed Cancel!");
-
-      }
- };
-
-*/
-
-$scope.findGPS();
- });
+     });
 });
 
 
+$scope.autoNotify = function() {
+  console.log($scope.emailNotify); console.log($scope.notificationNotify);
+   var not = $scope.notificationNotify;
+
+        if (window.confirm("Are you sure you would like to send a notification to !" +  $scope.emailNotify) === true) {
+            console.log( "You pressed OK!");
+              $http({
+              url : "https://fcm.googleapis.com/fcm/send",
+              method : 'POST',
+              headers : { 'Content-Type' : 'application/json',
+              'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
+              data: ({"to": not, "notification": {"title":"Lineups","body": "Your next in line", "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"}})
+                      //"Your Turn is up"
+              }).success(function(data){
+                  alert("Successfully Passed Notification");
+                  console.log(data);
+
+              }).error(function(error){
+                  alert("That user does not have a notifivation key:");
+                  console.log(error);
+              });
+        } else {   console.log( "You pressed Cancel!");   }
+
+  };
+
+  $scope.notifyDeleteperson = function() {
+        console.log("Email: " + $scope.emailNotify);
+      socket.emit('deletePeopleLine55', {email : $scope.emailNotify, store : $scope.grabStorename,
+        line: $scope.grabLineNumber },function (data) {
+       $scope.$apply(function () { console.log(data);   $scope.people = data; });
+    });
+  };
+
+
+    /*
+
+    THE ONLY THINGS THAT I HAVE TO ADD:
+      1) COPY THE DELETE SOCKET FUNCTION, AND THE ASSOCIATED SOCKET ON WITH IT,
+      2) THEN ADD THE $scope.autoNotify() at end which will keep the loop going.
+    */
 
 
 //THIS WILL AUTOMATICALL MESSAGE THE
@@ -1245,7 +1217,7 @@ $rootScope.detailNotification = notificationkey;
     }
 };
 
-$timeout(function () { $scope.findDistance22();  }, 3000);
+//$timeout(function () { $scope.findDistance22();  }, 3000);
 
 
 

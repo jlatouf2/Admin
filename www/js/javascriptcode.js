@@ -34,10 +34,28 @@ document.addEventListener("deviceready", function() {
 
 
 
+//setTimeout(function() {   angular.element(document.getElementById('YourElementId')).scope().myfunction22(); }, 1000);
+
+
+//angular.element(document.getElementById('buttonID')).scope().makeAlert();
+
+        //THIS WORKS FOR CALLING FUNCTION FROM CONTROLLER TO WORK PROPERLY:
+window.onload = function () {
+//    angular.element(document.getElementById('YourElementId')).scope().myfunction22();
+}
+
+setTimeout(function() {
+  //  angular.element(document.getElementById('YourElementId')).scope().notifyDeleteperson();
+}, 3000);
+
+
 
 document.addEventListener("pause", function pauseCallback() {
   isAppInForeground = false;
 }, false);
+
+
+function myFunction() {   alert('funciton called');    }
 
 
   document.addEventListener("resume", function resumeCallback() {
@@ -46,27 +64,47 @@ document.addEventListener("pause", function pauseCallback() {
         if(data.wasTapped){
           alert("I am tapped" + JSON.stringify(data) );
         }else{
-          //Notification was received in foreground. Maybe the user needs to be notified.
-          alert( "I am not tapped" +JSON.stringify(data) );
-          window.location.href = "#/storelines";
+              //Notification was received in foreground. Maybe the user needs to be notified.
+            //  alert( "I am not tapped" +JSON.stringify(data) );
+              alert( "ITS YOUR TURN IN LINE." );
 
-        }
-    },
-    function(msg){
-     alert( "Success callback " +msg);
-    },
-    function(err){
-      alert( "Error callback " +err );
+              window.location.href = "#/peopleline";
+              alert( "PLEASE REMOVE YOURSELF FROM THE LINEUP WHEN YOU ARE FINISHED");
+              //    myFunction();
+              //  angular.element(document.getElementById('buttonID')).scope().makeAlert();
+              //  angular.element('#mycontroller').scope().$apply()
 
-    });
+              setTimeout(function() {
+                  angular.element(document.getElementById('YourElementId')).scope().notifyDeleteperson();
+              }, 3000);
 
-     window.alert("DEVICE RESUMED3333");
-    var socket = io.connect('http://192.168.1.115:3000');
-    window.location.href = "#/home";
+                //  angular.element(document.getElementById('YourElementId')).scope().myfunction22();
 
-  }, false);
+
+              }
+          },
+          function(msg){
+           alert( "Success callback " +msg);
+          },
+          function(err){
+            alert( "Error callback " +err );
+
+          });
+
+           window.alert("DEVICE RESUMED3333");
+          var socket = io.connect('http://192.168.1.115:3000');
+          window.location.href = "#/home";
+
+    }, false);
+
+
 
 /*
+$("button").click(function(){
+    angular.element(document.getElementById('mainController')).scope().makeAlert('This is for Test');
+});
+
+
 window.cordova.plugins.notification.local.schedule([{
    text:"test",
    at: new Date(new Date().getTime() + 5*1000)

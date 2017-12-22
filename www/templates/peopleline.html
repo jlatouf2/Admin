@@ -40,6 +40,19 @@
           </div>
 
 
+
+          <div >
+              <div ng-switch on="selected">
+                  <button ng-switch-when='true' ng-click='button1()'>On</button>
+                  <button ng-switch-when='false' ng-click='button2()'>Off</button>
+              </div>
+          </div>
+
+          <br><br>
+          <!-- THIS IS NEEDED FOR JAVASCRIPT FUNCTION TO CALL ANGULARJS FUNCTION ! -->
+          <div id="YourElementId" > </div>
+
+
           <!-- Add Yourself Text ! -->
 
 
