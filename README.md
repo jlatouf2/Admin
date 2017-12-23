@@ -109,3 +109,38 @@ WILL NOT AUTO GENERATE IN PLATFORMS/IOS/MYAPP/RESOURSES/RESEARSES]
 3) add Android
 4) facebookConnectPlugin.login(["email" ], first THEN:
 5) facebookConnectPlugin.api('me/?fields=id,name,email', ['email','public_profile'],
+
+
+
+
+
+var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 7000 });
+
+var watch;
+var watchOptions = {
+  timeout : 5000,
+  maximumAge: 3000,
+  enableHighAccuracy: true // may cause errors if true
+};
+
+
+var watchCurrentLocation = function() {
+  watch = $cordovaGeolocation.watchPosition(watchOptions);
+  watch.then(
+    null,
+    function(err) {
+      // error
+      console.log("watch error", err);
+    },
+    function(position) {
+      var lat  = position.coords.latitude
+      var long = position.coords.longitude
+
+      console.log('lat long', lat, long);
+      $scope.lastLocation.lat = $scope.currentLocation.lat;
+      $scope.lastLocation.long = $scope.currentLocation.long;
+
+      $scope.currentLocation.lat = lat;
+      $scope.currentLocation.long = long;
+  });
+};

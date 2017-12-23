@@ -8,47 +8,33 @@ angular.module('starter.controllers', [])
         $scope.loginData = {};
 
         // Create the login modal that we will use later
-        $ionicModal.fromTemplateUrl('templates/login.html', {
-          scope: $scope
-        }).then(function(modal) {
-          $scope.modal = modal;
-        });
+        $ionicModal.fromTemplateUrl('templates/login.html', { scope: $scope })
+        .then(function(modal) { $scope.modal = modal; });
 
         // Triggered in the login modal to close it
-        $scope.closeLogin = function() {
-          $scope.modal.hide();
-        };
+        $scope.closeLogin = function() {   $scope.modal.hide();  };
 
         // Open the login modal
-        $scope.login = function() {
-          $scope.modal.show();
-        };
+        $scope.login = function() { $scope.modal.show(); };
 
         // Perform the login action when the user submits the login form
-        $scope.doLogin = function() {
-          console.log('Doing login', $scope.loginData);
-
-          // Simulate a login delay. Remove this and replace with your login
-          // code if using a login system
-          $timeout(function() {
-            $scope.closeLogin();
-          }, 1000);
+        $scope.doLogin = function() { console.log('Doing login', $scope.loginData);
+         $timeout(function() { $scope.closeLogin();  }, 1000);
         };
 
 })
 
 .controller('firstController', function($scope, $location, $http, $rootScope, $ionicModal, AuthService) {
 
-  //alert(localStorage.getItem("TokenData"));
+      //alert(localStorage.getItem("TokenData"));
 
-      //  NOTE: THIS IS THE NOTIFICAITON KEY:
-    // localStorage.setItem("TokenData", 'blackbox');
+          //  NOTE: THIS IS THE NOTIFICAITON KEY:
+        // localStorage.setItem("TokenData", 'blackbox');
 
         $scope.noteToken = localStorage.getItem("TokenData");
       //     $scope.noteToken ="BLACK";
 
-          $scope.email = "jlatouf2@gmail.com";
-          $scope.password = "jarredl";
+          $scope.email = "jlatouf2@gmail.com";   $scope.password = "jarredl";
           $scope.blue = function(){  console.log('white;');};
             /*   --------LOGIN MODAL-----------     */
         $scope.loginModal = function(){  $("#myModal").modal("show"); };
@@ -68,20 +54,13 @@ angular.module('starter.controllers', [])
 
 
             // Template for Modal
-        $ionicModal.fromTemplateUrl('templates/modals/loginmodal.html', {
-          scope: $scope
-        }).then(function(modal) {
-          $scope.modal1 = modal;
-        });
+        $ionicModal.fromTemplateUrl('templates/modals/loginmodal.html', { scope: $scope })
+        .then(function(modal) {   $scope.modal1 = modal; });
 
-        $scope.closeLogin1 = function() {
-          $scope.modal1.hide();
-        };
+        $scope.closeLogin1 = function() { $scope.modal1.hide();  };
 
         // Open the login modal
-        $scope.loginMod = function() {
-          $scope.modal1.show();
-        };
+        $scope.loginMod = function() { $scope.modal1.show(); };
 
     })
 
@@ -90,78 +69,9 @@ angular.module('starter.controllers', [])
         //  $cordovaDialogs.beep(3);
 
 
-          $scope.dialog = function(){
-          $cordovaDialogs.alert('message', 'title', 'button name')
-             .then(function() {
-              });
-        };
-
-        /*
-        curl -X POST --header "Authorization: key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ" \
-            --Header "Content-Type: application/json" \
-            https://fcm.googleapis.com/fcm/send \
-            -d "{\"to\":\"eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S\",\"notification\":{\"title\":\"Its your turn in line\", \"body\": \"Your turn\"},\"priority\":10}"
-
-
-            $scope.sendHttpFirebase33 = function(){
-              $http({
-              url : "https://fcm.googleapis.com/fcm/send",
-              method : 'POST',
-              headers : { Content-Type : 'application/json', Authorization: key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ   }
-              }).success(function(data){
-                  alert("login Successfully");
-              }).error(function(error){
-                  alert("login error");
-              });
-
-            };
-
-            req.setRequestHeader('Authorization', 'Basic [base64 encoded password here]' );
-
-            var req = {
-             method: 'POST',
-             url: 'http://example.com',
-             headers: {
-               'Content-Type': undefined
-             },
-             data: { test: 'test' }
-            }
-
-            $http(req).then(function(){...}, function(){...});
-AAAArB07vu4:APA91bF_CAv67EAI9nLhRuEH9Nn7g6qgYmjM9q1jrtbapQkcV-VjaJjH1EflaeT3qG5PXfRmMZSo03hawocRY44PPxx2hDowLDRxKoQRL1_0V-ACAUTmHdAPz9z2gdPQiPGEpVAnBbn3
-
-ebscnOSXK3M:APA91bExZnbU7nz0k-SUp6gfyE_aUpQJ0YZ2scbyuEFB7evKZcQbgUwf77X6-vyrS0yTlBR0qU-h-ZdYfct6IOcUgW5AUWYKQwrTIN1b8qiWKKp4DFbfbQfOt0ney9i4A2uHaNSK_LjQ
-ebscnOSXK3M:APA91bGe5tvhwPVrqiAJzEEo49unfXzT9C1meA-z70EG_ZcQmcfVeLSp7etEgjghhZajfv1ZmbDN_H1WJ4YwZfK0UJo-5jRSbLMunhFThn8VQhR31OrJe-wt3Hy8Z5as5N1qjm5xnti7
-
-SO TO FIX:
-1) YOU CAN STILL HAVE DIFFERNT PROJECTS/APPS FOR IOS AND ANDROID, YOU JUST HAVE TO HAVE THE
-SAME FIREBASE  PLIST INSTALLED IN EACH ONE.... IN THIS CASE THERE ARE TWO DIFFERENT ONES [MY PROJECT / WHITE]
-
-2) ADD THE GET FCMPlugin.getToken(function(token){  alert(token); }); into the login and signup so THAT
-new tokens are generated each time the user logs in or signs up!!!!!
-
-3) also have to add message box to send messages that you want to send
-
-4) As well as add button that allows you to send to all people
-[cannot be just adding FCMPlugin.subscribeToTopic('topicExample'); to login and signup,
-because that will send to all people in all stores
--have to only show users in certain stores; can take from PeopleLine]
-
-ebscnOSXK3M:APA91bExZnbU7nz0k-SUp6gfyE_aUpQJ0YZ2scbyuEFB7evKZcQbgUwf77X6-vyrS0yTlBR0qU-h-ZdYfct
-6IOcUgW5AUWYKQwrTIN1b8qiWKKp4DFbfbQfOt0ney9i4A2uHaNSK_LjQ
-
-'Authorization': "key=AAAArB07vu4:APA91bF_CAv67EAI9nLhRuEH9Nn7g6qgYmjM9q1jrtbapQkcV-VjaJjH1EflaeT3qG5PXfRmMZSo03hawocRY44PPxx2hDowLDRxKoQRL1_0V-ACAUTmHdAPz9z2gdPQiPGEpVAnBbn3"   },
-dkRfuoXOL4E:APA91bHXi2pO5FPJVPOzdwy_fnI_wNgujZmy3cTkcLxBIt8-T4A0e9hEbsltWzAtISNba-0mhXBbB8EmbR-Xk4_HPy2tFxRFOZ2lEszlgbnmeTKFwtKX0MooGpUJ-PX5K5kwyPgFagco
-
-eB5FgtGIjdU:APA91bEupK-OnFexvqq0D4P2ycwRJfaqO4RGCIcyIF1zqsUvbH3jThACqhVKpMs84Ufb8QlKAJ1LcY2h0uYKYo_Pw09a8h57g86FI6xuwcZqaC4XxNkFXIlTrfPXR9PxUcPwMjaN2Y_m
-
--
-dKdSxY9WtXU:APA91bHyBJfXoFC2IrbqMy_9JnkscNR_kqmq111w6pRdqgyMoFayOFaoreoF0xhi05gf7y1ulsuKSvP79k149j5aDRtElMAhuZ8k2MhpDmjCq8Gr9h5W0D5O3WzI1PJim8ITy-6Wwb9W
-
-dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa-9FulavrtAL0liBBXIn_NHdtB490_su4WAg8K4DN64N22WeNItunOf2g3vrO6SMcVT-qAh3O
-
-        */
-
+          $scope.dialog = function(){ $cordovaDialogs.alert('message', 'title', 'button name')
+             .then(function() {   });
+           };
 
         // NOTE: THIS WORKS FOR IOS:
         $scope.sendFirebasehttp12 = function(){
@@ -173,13 +83,9 @@ dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa
           data: ({"to": "dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa-9FulavrtAL0liBBXIn_NHdtB490_su4WAg8K4DN64N22WeNItunOf2g3vrO6SMcVT-qAh3O", "notification": {"title":"Test","body":"Test", "sound":"default"}})
 
           }).success(function(data){
-              alert("login Successfully");
-              console.log(data);
-
+              alert("login Successfully");  console.log(data);
           }).error(function(error){
-              alert("login error");
-              console.log(error);
-
+              alert("login error");    console.log(error);
           });
         };
 
@@ -205,128 +111,38 @@ dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa
         };
 
 
-        $scope.sendHttpFirebase = function(){
-          $http.post('https://fcm.googleapis.com/fcm/send', {  username: 'some username',  password: 'some password' },
-          {  headers: { 'Content-Type': 'application/json', 'Authorization': 'key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ'  } })
-          .success(function(data){
-              alert("login Successfully");
-          }).error(function(error){
-            console.log(error);
-              alert("login error");
-          });
-
-        };
-
-
-        $scope.sendHttpFirebase33 = function(){
-          $http({
-          url : "https://fcm.googleapis.com/fcm/send",
-          method : 'POST',
-          headers : { 'Content-Type' : 'application/json',
-          'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   }
-          }).success(function(data){
-              alert("login Successfully");
-              console.log(data);
-
-          }).error(function(error){
-              alert("login error");
-          });
-
-        };
-
-        //data: JSON.stringify({"to": "<instance ID>", "notification": {"title":"Test","body":"Test"}}),
-
-        //      NOTE: THIS WORKED!!!!
-
-        $scope.sendHttpFirebase44 = function(){
-          $http({
-          url : "https://fcm.googleapis.com/fcm/send",
-          method : 'POST',
-          headers : { 'Content-Type' : 'application/json',
-          'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-          data: ({"to": "eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S", "notification": {"title":"Test","body":"Test"}})
-
-          }).success(function(data){
-              alert("login Successfully");
-              console.log(data);
-
-          }).error(function(error){
-              alert("login error");
-              console.log(error);
-
-          });
-        };
-
-
-        /*
-        https://gcm-http.googleapis.com/gcm/send
-        Content-Type:application/json
-        Authorization:key=AIzaSyZ-1u...0GBYzPu7Udno5aA
-
-        { "data": {
-            "score": "5x1",
-            "time": "15:10"
-          },
-          "to" : "eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S"
-        }
-        */
-
          $scope.getNotif = function(){
-
           FCMPlugin.getToken(function(token) {
-
-               console.log(token);
-              window.alert(token);
-
+               console.log(token);  window.alert(token);
               localStorage.setItem("TokenData", token);
-
-
               var myToken = localStorage.getItem("TokenData");
               window.alert(myToken);
 
               $http.post('https://thawing-ocean-11742.herokuapp.com/tokenReturned', {token: localStorage.getItem("TokenData")})
                  .then(function(data) {
-                     //First function handles success
-                     alert('worked');
-                     alert(data);
-
-                     $scope.getToken = data;
+                      alert('worked');   alert(data);
+                      $scope.getToken = data;
                      //$scope.content = response.data;
-                 }, function() {
-                     //Second function handles error
-                     alert('didnt work');
-
-                 });
+                 }, function() { alert('didnt work'); });
 
                    FCMPlugin.onNotification(function(data) {
                       console.log(data);
                       window.alert('THIS WAS SELECTED ON NOTIFICATION!!')
-
                       window.alert(data);
-
                   });
-          });
-
-        };
+              });
+            };
 
 
           $rootScope.goback2 = function(){ console.log('clicked'); $state.go('home'); };
             //LOCALSTOREAGE IN ANGULARJS:
-          $scope.setLocal = function () {
-            localStorage.setItem("Name", "John");
-          };
+          $scope.setLocal = function () { localStorage.setItem("Name", "John");  };
 
-          $scope.getLocal = function () {
-            console.log(localStorage.getItem("Name"));
-          };
+          $scope.getLocal = function () { console.log(localStorage.getItem("Name"));  };
 
-          $scope.removeLocal = function () {
-            localStorage.removeItem("Name");
-          };
+          $scope.removeLocal = function () { localStorage.removeItem("Name");   };
 
-          $scope.getLocalbyKey = function () {
-            console.log(localStorage.getItem("Name"));
-          };
+          $scope.getLocalbyKey = function () { console.log(localStorage.getItem("Name"));  };
 
 
               $scope.noteToken = localStorage.getItem("TokenData");
@@ -342,9 +158,6 @@ dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa
         $scope.password = {password1 : "jarredl"};
         $scope.passwordConf = {passwordConf1 : "jarredl"};
 
-         // AuthService.loginExample($scope.loginForm.username, $scope.loginForm.password)
-
-        //THESE PASS TO SERVICES.JS
 
         $scope.ServiceFunction4 = function () { AuthService.RegisterExample4($scope.fname.fname1, $scope.lname.lname1, $scope.email.email1,
           $scope.password.password1, $scope.passwordConf.passwordConf1, $scope.noteToken ); };
@@ -354,150 +167,10 @@ dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa
 
 
 
-
-//FACEBOOK GETS USERDATA, BUT NEEDS TO BE LOGGED IN FIRST!!!
-
-  //   function myFunction4() {
-   $scope.savetoken = function(){
-       document.addEventListener("deviceready", function() {   alert("device ready");
-
-       try {
-       if (window.cordova.platformId === "browser") {
-                var appId = xxxx6138889xxxx;
-                var version = "v2.0";      //tried for v.2.0 to v.2.7
-               facebookConnectPlugin.browserInit(appId, version);
-       }
-       var fbLoginSuccess = function (userData) {
-           //alert(userData.email);
-           alert("worked" + JSON.stringify(userData));
-           alert(userData.id);
-           alert(userData.name);
-           alert(userData.email);
-
-           $scope.userID = userData.id;
-           $scope.name = userData.name;
-           $scope.email = userData.email;
-
-//THIS IS THE DATA THAT WILL SEND TO BACKEND!
-
-          //    $scope.back();    store : $scope.storeName.sname, postal: $scope.postal,
-
-          $http.post('https://thawing-ocean-11742.herokuapp.com/facebookSignupLogin', {userID: $scope.userID, name: $scope.name, email: $scope.email})
-             .then(function(data) {
-                 //First function handles success
-                 alert('worked');
-                 alert(data);
-                 //$scope.content = response.data;
-             }, function() {
-                 //Second function handles error
-                 alert('didnt work');
-
-             });
-
-               facebookConnectPlugin.getAccessToken(function(token) {
-                 alert("Token: " + token);
-                 localStorage.setItem("Token", token);
-               });
-       };
-
-       facebookConnectPlugin.api('me/?fields=id,name,email', ['email','public_profile'], fbLoginSuccess,
-         function (error) {
-           console.error(error);
-         }
-       );
-         } catch (e){
-         alert(e);
-       }
-       }, false);
-  };
-
-
-
-
-      $scope.notification_message = function(){
-        $scope.blue = 'WORK';
-        document.addEventListener("deviceready", function() {
-           alert("device ready");
-
-        $cordovaToast
-          .show('Here is a message', 'long', 'center')
-          .then(function(success) {
-            // success
-
-          }, function (error) {
-            // error
-          });
-
-      }, false);
-
-      };
-
-
-
-
       //FACEBOOK SERVICE.JS LOGIN:
       $scope.Servicefacebook = function () { AuthService.facebookLogin(); };
 
 
-      //FACEBOOK LOGIN!!!
-
-      // function myFunction() {
-      $scope.myFunction = function(){
-       console.log('worked');
-
-       document.addEventListener("deviceready", function() {
-        //   alert("device ready");
-       try {
-       if (window.cordova.platformId === "browser") {
-                var appId = xxxx6138889xxxx;
-                var version = "v2.0";      //tried for v.2.0 to v.2.7
-               facebookConnectPlugin.browserInit(appId, version);
-       }
-
-       //STEP 2)  LOGIN SUCCESS, WHICH THEN GETS FACEBOOK USER INFORMATION:
-        var fbLoginSuccess = function (userData) {
-             alert("worked" + JSON.stringify(userData));
-
-         facebookConnectPlugin.api('me/?fields=id,name,email', ['email','public_profile'],
-
-             function (userData) {
-                alert(userData.id);
-               alert(userData.name);
-               alert(userData.email);
-
-               $scope.userID = userData.id;
-               $scope.name = userData.name;
-               $scope.email = userData.email;
-
-       //STEP 3)  POSTS DATA TO BACKEND TO CHECK IF IN DATABASE:
-
-        $http.post('https://thawing-ocean-11742.herokuapp.com/facebookSignupLogin', {userID: $scope.userID, name: $scope.name, email: $scope.email})
-          .then(function(data) {
-              //First function handles success
-              alert('worked');
-              alert(data);
-              //$scope.content = response.data;
-          }, function() {
-              //Second function handles error
-              alert('didnt work');
-
-          });
-                },
-
-               function (error) {
-                 console.error(error);
-               }
-             );
-
-        };
-        //STEP 1) FACEBOOK LOGIN SCREEN:
-         facebookConnectPlugin.login(["email" ], fbLoginSuccess,
-             function (error) { alert("" + error); } );
-       } catch (e){
-         alert(e);
-       }
-       }, false);
-     };
 
 
 
@@ -531,10 +204,8 @@ dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa
         */
 
 
-          AuthService.confirm();
-          console.log($scope.userid);
-          console.log($rootScope.useremail);
-          console.log($scope.imageSaved);
+          AuthService.confirm(); console.log($scope.userid);
+          console.log($rootScope.useremail); console.log($scope.imageSaved);
 
         /*
         You can use following urls to obtain different sizes of profile images. Please make sure to add Facebook id to url.
@@ -562,10 +233,7 @@ dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa
         //https://graph.facebook.com/{facebookId}/picture?type=large&w‌​idth=720&height=720
         var bob2 = "http://graph.facebook.com/" +$scope.userid+ "/picture?type=square";
         console.log("This is the data that I am goign to pass: "+ bob2);
-        console.log($scope.userid);
-        $scope.black2 = bob2;
-        console.log($scope.black2);
-
+        console.log($scope.userid); $scope.black2 = bob2; console.log($scope.black2);
 
         })
 
@@ -584,8 +252,7 @@ dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa
 
 
           $rootScope.goback2 = function(){
-            console.log('clicked1');
-            $ionicHistory.goBack();
+            console.log('clicked1'); $ionicHistory.goBack();
             //$state.go('home')
             //  $location.path('/home');
           //  window.location.href = "#/home";
@@ -606,9 +273,7 @@ dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa
            $scope.openstoremodal2 = function() { $scope.modal3.show(); };
 
 
-          $timeout(function(){
-          $scope.modal2.show();
-        },0);
+          $timeout(function(){ $scope.modal2.show();   },0);
 
 
 
@@ -639,44 +304,21 @@ dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa
                }, function(err) {
                   console.log(err);
                });
-
               }, 3000);
           };
 
 
           $scope.$on('$stateChangeSuccess', function () {
-            console.log('statechange');
-
-            console.log('THIS IS THE LINENUMBER: '+localStorage.getItem("LineNumber"));
-            console.log('THIS IS THE STORENAME: '+localStorage.getItem("StoreName"));
-
             socket.emit('storeName', {postal: $scope.postal },function (data) {
                   console.log(data);    console.log(data[0].store);
                   $scope.numberLinesZero = false;
                   $scope.$apply(function () {   $scope.storewithNames = data;  });
              });
-
-
-          });
-
-
-
-          /*
-          $http.post('http://192.168.1.115:3000/storeName', {postal: $scope.postal }).success(function( data)
-         {
-           $scope.numberLinesZero = false;
-           console.log("Data is returned: " + data);
-           $scope.storewithNames = data;
-         }, function(posts) {});
-        */
-
+           });
 
          socket.on('updateStores', function (data) {
-                console.log(data);
-                  $scope.numberLinesZero = false;
-               $scope.$apply(function () {
-                   $scope.storewithNames = data;
-                  });
+                console.log(data); $scope.numberLinesZero = false;
+               $scope.$apply(function () { $scope.storewithNames = data;  });
          });
 
 
@@ -723,45 +365,25 @@ dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa
                       } else{
                       socket.emit('addStore',  {store : $scope.storeName.sname, email: $scope.useremail, postal: $scope.postal, latitude: localStorage.getItem("StoreLatitude"),
                         longitude: localStorage.getItem("StoreLongitude"), Adminpassword: $scope.usertoken },function (data) {
-
-                      /*     console.log(data.store);
-                        $scope.$apply(function () {
-                            $rootScope.successful = true;
-                               console.log($scope.successful);
-                               console.log('$scope.storewithName is this: '+$scope.storewithNames);
-                               $scope.storewithNames.push(data);
-                           $sc
-                           ope.storeName.sname = '';
-                          });     */
-                          $scope.failedLogin = true;
-
-                          console.log(data);
-                          $scope.$apply(function () {
-                          $scope.failedData = data;
-                            });
+                           $scope.failedLogin = true; console.log(data);
+                          $scope.$apply(function () { $scope.failedData = data;  });
                             setTimeout(function(){ $rootScope.failedLogin = false; console.log('BLUE'); }, 3000);
                           //  $scope.storeName.sname == '';
                       });
                    }
               };
 
-              socket.on('addStorename', function (data) {
-                     console.log($scope.storewithNames);
-                     console.log(data);
-                     $rootScope.successful = true;
-
-                     $scope.$apply(function () {
-                      $scope.storewithNames.push(data);
-                       });
-                   setTimeout(function(){ stopSuccessBar(); }, 3000);
-
-              });
+          socket.on('addStorename', function (data) {
+                 console.log($scope.storewithNames); console.log(data);
+                 $rootScope.successful = true;
+                 $scope.$apply(function () { $scope.storewithNames.push(data); });
+               setTimeout(function(){ stopSuccessBar(); }, 3000);
+          });
 
 
-              /*   --------TIMEOUT FCN-----------     */
-              function stopSuccessBar () {
-                  $scope.$apply(function () { $rootScope.successful = false; console.log($scope.successful); });
-              }
+          /*   --------TIMEOUT FCN-----------     */
+          function stopSuccessBar () {
+              $scope.$apply(function () { $rootScope.successful = false; console.log($scope.successful); });    }
 
             /*   --------DELETENAME-----------     */
 
@@ -769,18 +391,12 @@ dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa
               console.log("name is: "+name);  $scope.storeName2 = name;
               console.log($scope.storeName2);
                socket.emit('deleteStore44',  {store:  $scope.storeName2  },function (data) {
-               console.log(data);
-               alert(data);
-              //  $scope.$apply(function () { $scope.storewithNames = data; });
+               console.log(data); alert(data);
              });
-
-        };
+           };
 
         socket.on('deleteUpdate', function (data) {
-              $scope.$apply(function () {
-                console.log(data);
-                $scope.storewithNames = data;
-                 });
+              $scope.$apply(function () {   console.log(data); $scope.storewithNames = data; });
         });
 
           /*   --------DELETE MODE TOGGLE-----------     */
@@ -791,9 +407,7 @@ dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa
 
              /*   --------LOCATION DATA ON PAGE-----------     */
         	$scope.grabStuff = function(names){
-              $rootScope.grabStorename = names;
-              console.log('GrabStuff');
-
+              $rootScope.grabStorename = names; console.log('GrabStuff');
               localStorage.setItem("StoreName", $scope.grabStorename);
                console.log(localStorage.getItem("StoreName"));
         		};
@@ -801,23 +415,14 @@ dKDJ81CczpM:APA91bGziW_Xf6oyIimfPhoS1tAlHuWlxTVt6HEPyhirhCXk7T84oqLGr9dgerAfQiqa
     })
 
 
-.controller('StorelinesCtrl', function($scope, $location, $ionicModal, $timeout, $cordovaGeolocation, $http, $rootScope, $state, $ionicHistory, AuthService) {
-/*
-1) function that checks storeAdmin in store
-2) function that checks lineAdmin in line
-3)
-
-*/
-
+.controller('StorelinesCtrl', function($scope, $location, $ionicModal, $timeout, $cordovaGeolocation, $http, $rootScope, $state, $ionicHistory) {
 
 
         console.log(localStorage.getItem("StoreName"));
         console.log(localStorage.getItem("StoreLatitude"));
         console.log(localStorage.getItem("StoreLongitude"));
-
         $scope.grabStorename = localStorage.getItem("StoreName");
-/*    NOTE:     IF ANYTHING GOES WRONG: CHANGE ALL localStorage.getItem("StoreName") to $scope.grabStorename
-and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('storeNames')  */
+
 
        $rootScope.goback2 = function(){ console.log('clicked2');  $ionicHistory.goBack(); };
 
@@ -836,58 +441,48 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
       $scope.openlinemodal2 = function() { $scope.modal5.show();  };
 
 
-    $scope.whiteLines = function(){
-      //THIS WILL ALLOW THE TABLE TO BE EMPTY
+      $scope.whiteLines = function(){
+        //THIS WILL ALLOW THE TABLE TO BE EMPTY
 
-      if ($scope.numberLines == 0) {
-          $rootScope.numberLinesZero = true;
-          console.log('data length is 0');
-       } else if($scope.numberLines > 0) {
-          $rootScope.numberLinesZero = false;
-         }
+        if ($scope.numberLines === 0) {
+            $rootScope.numberLinesZero = true;
+            console.log('data length is 0');
+         } else if($scope.numberLines > 0) {
+            $rootScope.numberLinesZero = false;
+           }
 
-     };
-
-
-     $scope.$on('$stateChangeSuccess', function () {
-       console.log('STATECHANGE ON!!!' + localStorage.getItem("StoreName"));
-       socket.emit('numberofLines',  {store:  localStorage.getItem("StoreName")  },function (data) {
-         console.log(data); console.log(data.length);
-           $rootScope.numberLines= data.length;   $scope.countries = data;
-           $scope.$apply(function () {
-                    $scope.whiteLines();
-              });
-       });
-      });
+       };
 
 
-/*
-    socket.emit('numberofLines',  {store:  localStorage.getItem("StoreName")  },function (data) {
-      console.log(data); console.log(data.length);
-        $rootScope.numberLines= data.length;   $scope.countries = data;
-        $scope.$apply(function () {
-                 $scope.whiteLines();
-           });
-    });
-    */
+       $scope.$on('$stateChangeSuccess', function () {
+         console.log('STATECHANGE ON!!!' + localStorage.getItem("StoreName"));
+         socket.emit('numberofLines',  {store:  localStorage.getItem("StoreName")  },function (data) {
+           console.log(data); console.log(data.length);
+             $rootScope.numberLines= data.length;   $scope.countries = data;
+             $scope.$apply(function () {
+                      $scope.whiteLines();
+                });
+         });
+        });
 
-   /*   --------DELETE MODE-----------     */
-   $scope.deleteMode = function(){     $rootScope.deleteButton = true; $scope.closelinemodal1();    };
 
-   /* ----------EXIT DELETE MODE -------------- */
-    $scope.exitDeleteMode = function(){     $rootScope.deleteButton = false;    };
+         /*   --------DELETE MODE-----------     */
+         $scope.deleteMode = function(){     $rootScope.deleteButton = true; $scope.closelinemodal1();    };
 
-   /*   --------LINE NUMBERS-----------     */
+         /* ----------EXIT DELETE MODE -------------- */
+          $scope.exitDeleteMode = function(){     $rootScope.deleteButton = false;    };
 
-      $scope.One = function(){     $rootScope.addNumberDB = 1;  $scope.addLine1(); $scope.closelinemodal2();  };
+         /*   --------LINE NUMBERS-----------     */
 
-      $scope.Two = function(){    $rootScope.addNumberDB = 2;   $scope.addLine1(); $scope.closelinemodal2();   };
+        $scope.One = function(){     $rootScope.addNumberDB = 1;  $scope.addLine1(); $scope.closelinemodal2();  };
 
-      $scope.Three = function(){   $rootScope.addNumberDB = 3;   $scope.addLine1(); $scope.closelinemodal2();   };
+        $scope.Two = function(){    $rootScope.addNumberDB = 2;   $scope.addLine1(); $scope.closelinemodal2();   };
 
-      $scope.Four = function(){    $rootScope.addNumberDB = 4;    $scope.addLine1(); $scope.closelinemodal2();  };
+        $scope.Three = function(){   $rootScope.addNumberDB = 3;   $scope.addLine1(); $scope.closelinemodal2();   };
 
-      $scope.Five = function(){     $rootScope.addNumberDB = 5;   $scope.addLine1(); $scope.closelinemodal2();   };
+        $scope.Four = function(){    $rootScope.addNumberDB = 4;    $scope.addLine1(); $scope.closelinemodal2();  };
+
+        $scope.Five = function(){     $rootScope.addNumberDB = 5;   $scope.addLine1(); $scope.closelinemodal2();   };
 
 
           /*   --------LINE FCN-----------     */
@@ -899,24 +494,14 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
            if ( localStorage.getItem("StoreName") == undefined || null) {
              console.log('Please get store name!');
                } else{
-
-              socket.emit('addLine1',  {store : localStorage.getItem("StoreName"), line: $scope.addNumberDB, lineAdmin: "1" },function (data) {
+              socket.emit('addLine1',  {store : localStorage.getItem("StoreName"),
+              line: $scope.addNumberDB, lineAdmin: "1" },function (data) {
                 console.log(data);
                 //    THIS ADD SUCCESS BAR:
-                  $scope.failedData = data;
-                $scope.failedLog = true;
-
+                  $scope.failedData = data; $scope.failedLog = true;
                 //  setTimeout(function(){ stopFailureBar(); }, 3000);
-                  $timeout(function () {
-                          $scope.failedLog = false;
-                        }, 3000);
-
-                /*
-                $rootScope.successful = true;
-                $scope.countries.push(data);
-              setTimeout(function(){ stopSuccessBar(); }, 3000);
-              */
-              });
+                  $timeout(function () { $scope.failedLog = false; }, 3000);
+               });
              }
        };
 
@@ -925,42 +510,29 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
        socket.on('addLineStuff', function (data) {
          if(localStorage.getItem("StoreName") == data.store) {
               console.log(data); $rootScope.successful = true;  $scope.countries.push(data)
-
-              $timeout(function () {
-                      $rootScope.successful = false;
-                    }, 3000);
-
+              $timeout(function () { $rootScope.successful = false; }, 3000);
               }
        });
 
 
-
        /*   --------TIMEOUT-----------     */
-       function stopSuccessBar () {
-         $scope.$apply(function () { $rootScope.successful = false; });
-       }
+       function stopSuccessBar () { $scope.$apply(function () { $rootScope.successful = false; });  }
 
 
        /*   --------DELETE MODE-----------     */
         $scope.deleteLine = function(name) {
           console.log("line is: "+name);   console.log("store name: "+ $scope.grabStorename);
              socket.emit('deleteselectedLine',  {line : name, store: localStorage.getItem("StoreName")},function (data) {
-            console.log(data);
-              //  $scope.$apply(function () {  $scope.countries = data;  });
-              alert(data);
+            console.log(data);  alert(data);
             });
         };
 
-
         socket.on('deleteLinesUpdate', function (data) {
-            console.log(data);
-            console.log($scope.grabStorename);
-            if (data == '') {
+            console.log(data);  console.log($scope.grabStorename);
+            if (data === '') {
               console.log('the data was deleted!');
-              $scope.$apply(function () {
-              $scope.countries = data;
-                    });
-            } else if (localStorage.getItem("StoreName") == data[0].store ) {
+              $scope.$apply(function () { $scope.countries = data;  });
+            } else if (localStorage.getItem("StoreName") === data[0].store ) {
               $scope.$apply(function () { $scope.countries = data;    });
             }
         });
@@ -983,33 +555,87 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
        })
 
 
-.controller('PeoplelineCtrl', function($scope, $location, $http, $ionicModal, $ionicHistory, $rootScope, $timeout, $state, $cordovaGeolocation) {
+.controller('PeoplelineCtrl', function($scope, $location, $http, $ionicModal, $interval, $ionicHistory, $rootScope, $timeout, $state, $cordovaGeolocation) {
 
-  window.addEventListener("focus", () => socket.connect());
+        window.addEventListener("focus", () => socket.connect());
 
-  console.log('THIS IS THE LINENUMBER: '+localStorage.getItem("LineNumber"));
-   console.log('THIS IS THE STORENAME: '+localStorage.getItem("StoreName"));
+        console.log('THIS IS THE LINENUMBER: '+localStorage.getItem("LineNumber"));
+         console.log('THIS IS THE STORENAME: '+localStorage.getItem("StoreName"));
 
-  $scope.myObj = { "color" : "white", "background-color" : "coral" };
-
-   $scope.nodeValidation = function(){
-    $http.post('https://thawing-ocean-11742.herokuapp.com/polling', {"email": "jlatouf2@gmail.com"})
-     .then(function(data) {
-         //First function handles success
-         console.log('worked');
-          console.log(data);
-         //$scope.content = response.data;
-     }, function(data) {
-     });
-   };
-
-   $scope.nodeValidation();
+        $scope.myObj = { "color" : "white", "background-color" : "coral" };
 
 
-   socket.emit('poll', {},function (data) {
-      console.log('worked!');
-       console.log(data); // $scope.places = data;
-      });
+        /* ----------CLOCK 1 -------------- */
+
+        function clock() {
+          // We create a new Date object and assign it to a variable called "time".
+        var time = new Date(),
+
+            // Access the "getHours" method on the Date object with the dot accessor.
+            hours = time.getHours(),
+             // Access the "getMinutes" method with the dot accessor.
+            minutes = time.getMinutes(),
+             seconds = time.getSeconds();
+
+        document.querySelectorAll('.clock')[0].innerHTML = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
+          function harold(standIn) {
+            if (standIn < 10) { standIn = '0' + standIn;  }
+            return standIn;
+          }
+        }
+        setInterval(clock, 1000);
+
+      //  var now = new Date();
+      //  console.log(now.addMinutes(50));
+
+
+      /* ----------CLOCK 2 -------------- */
+
+        var tick = function() { $scope.clock = Date.now() ;  }
+        tick();
+        $interval(tick, 1000);
+
+        //THIS IS AN EXAMPLE I MADE TO SHOW THAT I COULD ADD TO CLOCK VALUE
+        var blue = Date.now();
+        console.log(blue * 30);
+
+
+        var d = new Date();
+        var v = new Date();
+        v.setMinutes(d.getMinutes()+30);
+        console.log(v);
+
+        $scope.yellow = 5+' minutes';
+      //  $interval(tick, 1000);
+
+    //  $scope.countDown = 500;
+    //  $interval(function(){console.log($scope.countDown--)},1000,0);
+
+
+
+        /* ----------CLOCK 3 -------------- */
+
+        var add_minutes =  function (dt, minutes) {
+            return new Date(dt.getTime() + minutes*60000);
+      }
+      console.log(add_minutes(new Date(2014,10,2), 30).toString());
+
+
+        /* ----------VALIDATION -------------- */
+
+         $scope.nodeValidation = function(){
+          $http.post('https://thawing-ocean-11742.herokuapp.com/polling', {"email": "jlatouf2@gmail.com"})
+           .then(function(data) {
+               //First function handles success
+               console.log('worked');  console.log(data);
+               //$scope.content = response.data;
+           }, function(data) {
+           });
+         };
+
+         $scope.nodeValidation();
+
+         socket.emit('poll', {},function (data) { console.log('worked!');  console.log(data);   });
 
 
           $scope.nodeValidation = function(){
@@ -1017,27 +643,20 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
              .then(function(data) {
                  //First function handles success
                  console.log('worked');
-                  console.log(data);
-                  console.log(data.data);
-                  console.log(data.data[0]);
-                  console.log(data.data[1]);
+                  console.log(data); console.log(data.data); console.log(data.data[0]); console.log(data.data[1]);
                   $scope.validationData = data.data;
 
                  //$scope.content = response.data;
              }, function(data) {
                  //Second function handles error
                  console.log('didnt work');
-                 console.log(data);
-                 console.log(data.data);
-                 console.log(data.data[0]);
-                 console.log(data.data[1]);
-                 $scope.validationData = data.data;
-
-
+                 console.log(data); console.log(data.data); console.log(data.data[0]);
+                 console.log(data.data[1]); $scope.validationData = data.data;
              });
 
            };
 
+           /* ----------MODALS -------------- */
 
           $rootScope.goback2 = function(){ console.log('clicked3'); $ionicHistory.goBack(); };
 
@@ -1070,136 +689,71 @@ and all localStorage.getItem("LineNumber") to $scope.grabLinenumber  $state.go('
             $rootScope.grabLineNumber = localStorage.getItem("LineNumber");
 
 
-      $scope.selected = false;
-    $scope.button1 = function () {
-        //do logic for button 1
-        $scope.selected = !$scope.selected;
-        console.log('btn1 clicked');
-        console.log('THE AUTOMATIC BUTTON IS TURNED ON!');
+            /* ----------ON/OFF BUTTON -------------- */
 
+            $scope.selected = false;
 
+        $scope.button1 = function () {
+            //do logic for button 1
+            $scope.selected = !$scope.selected;    console.log('btn1 clicked');
+            console.log('THE AUTOMATIC BUTTON IS TURNED ON!');
               /*
-        IF YOU WANT TO KEEP THE LOOP GOING WHEN THIS IS ON: ALL I HAVE TO DO:
-            1) ADD AN  if($scope.notifyloop == true) { $scope.autoNotify();  }
-                  in the $stateChangeSuccess function below.
-              */
-    };
+              IF YOU WANT TO KEEP THE LOOP GOING WHEN THIS IS ON: ALL I HAVE TO DO:
+              1) ADD AN  if($scope.notifyloop == true) { $scope.autoNotify();  }
+                  in the $stateChangeSuccess function below. */
+        };
 
-    $scope.button2 = function () {
-        //do logic for button 2
-        $scope.selected = !$scope.selected;
-        console.log('btn2 clicked');
-        console.log('AUTOMATION TURNED OFF');
-        $scope.autoNotify();
-
-    };
-
+        $scope.button2 = function () {
+            //do logic for button 2
+            $scope.selected = !$scope.selected;   console.log('btn2 clicked');
+            console.log('AUTOMATION TURNED OFF');
+            $scope.autoNotify();
+        };
 
 
       //THIS IS CALLED FROM JAVASCRIPT:
-      $scope.myfunction22 = function () {  alert('CLICKED FROM JAVASCRIPT!');  };
+      $scope.myfunction22 = function () {  confirm('CLICKED FROM JAVASCRIPT!');  };
 
 
-$scope.$on('$stateChangeSuccess', function () {
-      socket.emit('getPeopleLine', {store : localStorage.getItem("StoreName"), line: localStorage.getItem("LineNumber"),
-        Adminpassword: $scope.usertoken },function (data) {
-          $scope.$apply(function () { console.log(data);    $scope.people = data;  });
-    /*vTO MAKE THE AUTO MESSAGE:
-      1) HAVE TO TAKE DATA IN ARRAY, THEN MANUALLY SORT THE DATA BASED ON WHICH BUTTON IS PRESSED....
-          IE... IF POSITION BUTTON IS PRESS AND IF DISPLACEMENT BUTTON IS PRESSED....
-      2) press button, then it passes info*/
+      /* ----------GET PEOPLE FCN -------------- */
 
-      console.log(data);
-      data.sort(function (a, b) {
-          return a.created.localeCompare(b.created);
+      $scope.$on('$stateChangeSuccess', function () {
+            socket.emit('getPeopleLine', {store : localStorage.getItem("StoreName"),
+            line: localStorage.getItem("LineNumber"), Adminpassword: $scope.usertoken },function (data) {
+                $scope.$apply(function () { console.log(data);    $scope.people = data;  });
+          /*vTO MAKE THE AUTO MESSAGE:
+            1) HAVE TO TAKE DATA IN ARRAY, THEN MANUALLY SORT THE DATA BASED ON WHICH BUTTON IS PRESSED....
+                IE... IF POSITION BUTTON IS PRESS AND IF DISPLACEMENT BUTTON IS PRESSED....
+            2) press button, then it passes info*/
+
+            console.log(data);
+            data.sort(function (a, b) {
+                return a.created.localeCompare(b.created);
+            });
+              console.log(data); console.log(data[0]);
+                $rootScope.emailNotify = data[0].email;
+                $rootScope.notificationNotify = data[0].notificationkey;
+
+               $scope.findGPS();
+               //$timeout(function () { $scope.autoNotify();  }, 3000);
+
+           });
       });
-        console.log(data); console.log(data[0]);
-          $rootScope.emailNotify = data[0].email;
-          $rootScope.notificationNotify = data[0].notificationkey;
 
-         $scope.findGPS();
-         //$timeout(function () { $scope.autoNotify();  }, 3000);
+      /* ----------AUTO NOTIFY LOOP -------------- */
 
-     });
-});
+        $scope.autoNotify = function() {
+          console.log($scope.emailNotify); console.log($scope.notificationNotify);
+           var not = $scope.notificationNotify;
 
-
-$scope.autoNotify = function() {
-  console.log($scope.emailNotify); console.log($scope.notificationNotify);
-   var not = $scope.notificationNotify;
-
-        if (window.confirm("Are you sure you would like to send a notification to !" +  $scope.emailNotify) === true) {
-            console.log( "You pressed OK!");
-              $http({
-              url : "https://fcm.googleapis.com/fcm/send",
-              method : 'POST',
-              headers : { 'Content-Type' : 'application/json',
-              'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-              data: ({"to": not, "notification": {"title":"Lineups","body": "Your next in line", "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"}})
-                      //"Your Turn is up"
-              }).success(function(data){
-                  alert("Successfully Passed Notification");
-                  console.log(data);
-
-              }).error(function(error){
-                  alert("That user does not have a notifivation key:");
-                  console.log(error);
-              });
-        } else {   console.log( "You pressed Cancel!");   }
-
-  };
-
-  $scope.notifyDeleteperson = function() {
-        console.log("Email: " + $scope.emailNotify);
-      socket.emit('deletePeopleLine55', {email : $scope.emailNotify, store : $scope.grabStorename,
-        line: $scope.grabLineNumber },function (data) {
-       $scope.$apply(function () { console.log(data);   $scope.people = data; });
-    });
-  };
-
-
-    /*
-
-    THE ONLY THINGS THAT I HAVE TO ADD:
-      1) COPY THE DELETE SOCKET FUNCTION, AND THE ASSOCIATED SOCKET ON WITH IT,
-      2) THEN ADD THE $scope.autoNotify() at end which will keep the loop going.
-    */
-
-
-//THIS WILL AUTOMATICALL MESSAGE THE
-
-$scope.findDistance22 = function(index, email, store, line, created, notificationkey){
-  console.log('finddistance22');
-
-  console.log(email);
-  console.log(store);
-  console.log(line);
-  console.log(created);
-
-  console.log(notificationkey);
-
-$rootScope.detailEmail = email;
-$rootScope.detailStore = store;
-$rootScope.detailLine = line;
-$rootScope.detailCreated = created;
-$rootScope.detailNotification = notificationkey;
-
-
-    console.log(index);
-    if (index === 0) {
-          console.log('the number is 0');
-          /*
-          $scope.grabStuff = function(notificationkey, email){
-                console.log( notificationkey);   console.log( email);
-                  var not = notificationkey; console.log(not);
-                if (window.confirm("Are you sure you would like to send a notification to !") == true) {
+                if (window.confirm("Are you sure you would like to send a notification to !" +  $scope.emailNotify) === true) {
                     console.log( "You pressed OK!");
                       $http({
                       url : "https://fcm.googleapis.com/fcm/send",
                       method : 'POST',
                       headers : { 'Content-Type' : 'application/json',
                       'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-                      data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"}})
+                      data: ({"to": not, "notification": {"title":"Lineups","body": "Your next in line", "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"}})
                               //"Your Turn is up"
                       }).success(function(data){
                           alert("Successfully Passed Notification");
@@ -1209,112 +763,142 @@ $rootScope.detailNotification = notificationkey;
                           alert("That user does not have a notifivation key:");
                           console.log(error);
                       });
-                } else {
-                    console.log( "You pressed Cancel!");
-                }
-           };
-          */
-    }
-};
+                } else {   console.log( "You pressed Cancel!");   }
 
-//$timeout(function () { $scope.findDistance22();  }, 3000);
+          };
 
-
-
-var array = [
-    { id: 1, start: "2016-12-07T13:00:00", subject: "test1" },
-    { id: 2, start: "2016-12-07T09:00:00", subject: "test2" },
-    { id: 3, start: "2016-12-07T10:00:00", subject: "test3" },
-    { id: 4, start: "2016-12-07T07:00:00", subject: "test4" },
-    { id: 5, start: "2016-12-07T14:00:00", subject: "test5" }
-];
-
-array.sort(function (a, b) {
-    return a.start.localeCompare(b.start);
-});
-
-console.log(array);
+          $scope.notifyDeleteperson = function() {
+                console.log("Email: " + $scope.emailNotify);
+              socket.emit('deletePersonnotify', {email : $scope.emailNotify, store : $scope.grabStorename,
+                line: $scope.grabLineNumber },function (data) {
+               $scope.$apply(function () { console.log(data);
+                  //$scope.people = data;
+               });
+            });
+          };
 
 
-
-
-        //THIS IS THE ONE THAT WORKS!
-
-var array2 = [
-  { _id: '5a3a97c33f3d3b707c13831f', line: '2', store: 'Bedboye3',  __v: 0, created: "2017-12-20T17:02:59.694Z" },
-  { _id: '5a3afbe53444f0753d51c16f', email: 'jlatouf2@gmail.com77', line: '2', store: 'Bedboye3', __v: 0, created: '2017-12-21T00:10:13.245Z' },
-  { _id: '5a3b01743444f0753d51c170', email: 'jlatouf2@gmail.com22', line: '2', store: 'Bedboye3',
-  distance: '0.0015307120357972858',   __v: 0, created: '2017-12-21T00:33:56.482Z' } ]
-
-  array2.sort(function (a, b) {
-      return a.created.localeCompare(b.created);
-  });
-
-  console.log(array2);
-
-/*
-works like this:
-1)setInterval function that repeats every minute, and checks to see if anyone is in line:
-[actually it checks the array, and sees if it returns zero]
-
-2) then it sends notification to array[0]
-3) then it after the person deletes the person with: (person[0]) in a function, on success
-it  calls the setinterval function
-(runs in a loop, it stops if)
-
-*/
-
-
-
-
-
-var cars = [
-{type:"Volvo", year:2016},
-{type:"Saab", year:2001},
-{type:"BMW", year:2010}];
-
-cars.sort(function(a, b){return a.year - b.year});
-
-console.log(cars);
-              /*
-              function: has array data,
-                1) then gets notificatoin of first person in array and sends notificiation
-                2) message recieved from 2nd person, then it goes to peopleline cont and it
-                asks user to delete himself when he is ready [ or auto deletes]
-                3) then ON SUCCESS OF THIS DELETE FUNCTION: IT CALLS THE function
-                    T0 START AGAIN [THE ARRAY AND NOTIFICAITON FUNCTION]
-
-
-
-              setTimeout(function() {
-                }, 3000);
-
-
-           socket.emit('getPeopleLine', {store : $scope.grabStorename, line: $scope.grabLineNumber,
-             Adminpassword: $scope.usertoken },function (data) {
-               $scope.$apply(function () { console.log(data);    $scope.people = data; });
-
+          socket.on('deletePersonback', function (data) {
+              console.log(data);  console.log($scope.grabStorename);
+              if (data === '') {
+                console.log('the data was deleted!');   $scope.$apply(function () { $scope.people = data; });
+              } else if ($scope.grabStorename === data[0].store && $scope.grabLineNumber === data[0].line) {
+                $scope.$apply(function () { $scope.people = data;
+                  /******   NOTE: //THIS RETURNS THE PEOPLE AFTER DELETE AND STARTS THE LOOPS AGAIN!  ******/
+                  $scope.autoNotify();
+                });
+              }
           });
-                */
+
+
+        /*   THE ONLY THINGS THAT I HAVE TO ADD:
+          1) COPY THE DELETE SOCKET FUNCTION, REPLACE IT WITH ANOTHER IDENTICAL ONE [IN BACKEND AS WELL],
+              AND DO THE SAME WITH THE SOCKET.ON FUNCTION
+          2) THEN ADD THE $scope.autoNotify() at end which will keep the loop going.
+
+          socket.on('deletePeople55', function (data) {
+              console.log(data);  console.log($scope.grabStorename);
+              if (data == '') {
+                console.log('the data was deleted!');   $scope.$apply(function () { $scope.people = data; });
+              } else if ($scope.grabStorename == data[0].store && $scope.grabLineNumber == data[0].line) {
+                $scope.$apply(function () { $scope.people = data; $SCOPE.AUTONOTIFY(); });
+              }
+          });
+           */
+
+
+
+
+        $scope.findDistance22 = function(index, email, store, line, created, notificationkey){
+            console.log(email); console.log(store); console.log(line);
+            console.log(created); console.log(notificationkey);
+
+            $rootScope.detailEmail = email;  $rootScope.detailStore = store;
+            $rootScope.detailLine = line;  $rootScope.detailCreated = created;
+            $rootScope.detailNotification = notificationkey;
+
+            console.log(index);
+            if (index === 0) {
+                  console.log('the number is 0');
+                  /*
+                  $scope.grabStuff = function(notificationkey, email){
+                        console.log( notificationkey);   console.log( email);
+                          var not = notificationkey; console.log(not);
+                        if (window.confirm("Are you sure you would like to send a notification to !") == true) {
+                            console.log( "You pressed OK!");
+                              $http({
+                              url : "https://fcm.googleapis.com/fcm/send",
+                              method : 'POST',
+                              headers : { 'Content-Type' : 'application/json',
+                              'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
+                              data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"}})
+                                      //"Your Turn is up"
+                              }).success(function(data){
+                                  alert("Successfully Passed Notification");
+                                  console.log(data);
+
+                              }).error(function(error){
+                                  alert("That user does not have a notifivation key:");
+                                  console.log(error);
+                              });
+                        } else {
+                            console.log( "You pressed Cancel!");
+                        }
+                   };
+                  */
+            }
+        };
+
+        //$timeout(function () { $scope.findDistance22();  }, 3000);
+
+
+
+        var array = [
+            { id: 1, start: "2016-12-07T13:00:00", subject: "test1" }, { id: 2, start: "2016-12-07T09:00:00", subject: "test2" },
+            { id: 3, start: "2016-12-07T10:00:00", subject: "test3" }, { id: 4, start: "2016-12-07T07:00:00", subject: "test4" },
+            { id: 5, start: "2016-12-07T14:00:00", subject: "test5" }  ];
+
+        array.sort(function (a, b) { return a.start.localeCompare(b.start);  });
+        console.log(array);
+
+                //THIS IS THE ONE THAT WORKS!
+
+        var array2 = [
+          { _id: '5a3a97c33f3d3b707c13831f', line: '2', store: 'Bedboye3',  __v: 0, created: "2017-12-20T17:02:59.694Z" },
+          { _id: '5a3afbe53444f0753d51c16f', email: 'jlatouf2@gmail.com77', line: '2', store: 'Bedboye3', __v: 0, created: '2017-12-21T00:10:13.245Z' },
+          { _id: '5a3b01743444f0753d51c170', email: 'jlatouf2@gmail.com22', line: '2', store: 'Bedboye3',
+          distance: '0.0015307120357972858',   __v: 0, created: '2017-12-21T00:33:56.482Z' } ];
+
+          array2.sort(function (a, b) { return a.created.localeCompare(b.created);  });
+          console.log(array2);
+
+
+        var cars = [
+        {type:"Volvo", year:2016},
+        {type:"Saab", year:2001},
+        {type:"BMW", year:2010}];
+
+        cars.sort(function(a, b){return a.year - b.year});
+
+        console.log(cars);
+
+
 
           /*      1)----------GETS COORDINATES OF LINE -------------- */
 
             socket.emit('getLineCoordinates', {store : $scope.grabStorename},function (data) {
+                  console.log(data); // $scope.places = data;
+                  if (data !== '') {
+                    console.log(localStorage.getItem("StoreLatitude"));
+                    console.log(localStorage.getItem("StoreLongitude"));
+                    $rootScope.storelatitude = localStorage.getItem("StoreLatitude");
+                     $rootScope.storelongitude = localStorage.getItem("StoreLongitude");
 
-                console.log(data); // $scope.places = data;
-
-                if (data != '') {
-                  console.log(localStorage.getItem("StoreLatitude"));
-                  console.log(localStorage.getItem("StoreLongitude"));
-                  $rootScope.storelatitude = localStorage.getItem("StoreLatitude");
-                   $rootScope.storelongitude = localStorage.getItem("StoreLongitude");
-
-              //  $rootScope.storelatitude = data[0].latitude;
-              //  $rootScope.storelongitude = data[0].longitude;
-                console.log('storelatitude: '+ $scope.storelatitude);
-                console.log('storelongitude: '+ $scope.storelongitude);
-              }
-
+                //  $rootScope.storelatitude = data[0].latitude;
+                //  $rootScope.storelongitude = data[0].longitude;
+                  console.log('storelatitude: '+ $scope.storelatitude);
+                  console.log('storelongitude: '+ $scope.storelongitude);
+                }
               });
 
               /*  4 ----------CALCULATES DISTANCE BETWEEN COORDINATES -------------- */
@@ -1412,7 +996,7 @@ console.log(cars);
 */
 
 
-           if ($scope.showfinalCalc == true) {   $scope.finalCalc =$rootScope.finalCalc ; }
+           if ($scope.showfinalCalc === true) {   $scope.finalCalc =$rootScope.finalCalc ; }
 
 
           /* ----------ADDPEOPLE FUNCTION 2 -------------- */
@@ -1437,117 +1021,15 @@ console.log(cars);
 
          socket.on('updatePeople', function (data) {
                console.log($scope.grabStorename);  console.log(data.store);
-             if ($scope.grabStorename == data.store && $scope.grabLineNumber == data.line) {
+             if ($scope.grabStorename === data.store && $scope.grabLineNumber === data.line) {
                $scope.$apply(function () { console.log(data); $scope.people.push(data); });
-
                 $scope.successful = true;
                $timeout(function () { $scope.successful = false;  }, 3000);
-
              }
          });
 
 
-         /* ----------ADDPEOPLE FUNCTION 2 -------------- */
-         /*   ADD ANOTHER SECTION OF THE APP, THE OPTIMIZE SECTION,  IT WATCHES EACH PERSONS GPS Position
-         IN REAL TIME,
-
-         1) POSTION: TIME : WHEN YOU ADD YOURSELF TO THE LINEUP
-         2) COORDINATES :  CALCS THE DISTANCE BETWEEN THE LINE CREATOR AND THE PERSON
-
-         3) OPTIMIZE: - time when you add yourself (position).
-                      - calc distance when add yourself (coordinates)
-                      -
-                      1) could just track coordinates then closest people will be top of list.
-                        -but this would occlued the (position) people.
-                      2) could track coordinates + LIMIT ONLY THE TOP 10, 20 PEOPLE WHO ADDED THEMSELFVES
-                      BASED ON (position)
-
-
-                      // Options: throw an error if no update is received every 30 seconds.
-//
-
-
-$scope.optimizeStart = function(){
-     setInterval(function(){
-     $cordovaGeolocation.getCurrentPosition()
-
-     .then(function (position) {
-        var lat55  = position.coords.latitude;  var long55 = position.coords.longitude;
-
-        $scope.latitude33 = lat55;        $scope.longitude33 = long55;
-
-     $rootScope.latitude55 = lat55;        $rootScope.longitude55 = long55;
-     console.log(lat55 + '   ' + long55);    $scope.findDistance();
-
-
-     }, function(err) {  console.log(err)  });
-   }, 5000);
-
-  }
-
-
-var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 7000 });
-
-var watch;
-var watchOptions = {
-  timeout : 5000,
-  maximumAge: 3000,
-  enableHighAccuracy: true // may cause errors if true
-};
-
-
-var watchCurrentLocation = function() {
-  watch = $cordovaGeolocation.watchPosition(watchOptions);
-  watch.then(
-    null,
-    function(err) {
-      // error
-      console.log("watch error", err);
-    },
-    function(position) {
-      var lat  = position.coords.latitude
-      var long = position.coords.longitude
-
-      console.log('lat long', lat, long);
-      $scope.lastLocation.lat = $scope.currentLocation.lat;
-      $scope.lastLocation.long = $scope.currentLocation.long;
-
-      $scope.currentLocation.lat = lat;
-      $scope.currentLocation.long = long;
-  });
-};
-
-
-
-setInterval(function() {
-    // Do something every 3 seconds
-    var posOptions = {timeout: 10000, enableHighAccuracy: false};
-       $cordovaGeolocation.getCurrentPosition(posOptions)
-
-       .then(function (position) {
-          var lat  = position.coords.latitude
-          var long = position.coords.longitude
-          console.log(lat + '   ' + long)
-       }, function(err) {
-          console.log(err)
-       });
-
-}, 3000);
-
-    IF YOU ADD OPTIMIZE:
-          1)TAKE DATE EVERY 30 SECONDS
-          2) HAVE FUNCTION ADD DATA TO BACKEND
-          3) INBACKEND:
-              -FCN CHECKS IF USER EXISTS;
-              -THEN IF YES THEN ADD NEW POSITION COORDINATES
-              -
-         */
-
-
-         $scope.removeName = function(name) {
-           var i = $scope.names.indexOf(name);
-           $scope.names.splice(i, 1);
-         };
+         $scope.removeName = function(name) { var i = $scope.names.indexOf(name); $scope.names.splice(i, 1);  };
 
 
          //optimaze fcn
@@ -1555,18 +1037,9 @@ setInterval(function() {
              for (i = 0; i < $scope.people.length; i++) {
                   if ($scope.people[i].email == 'jlatouf3@mgmail.com') {
                     $scope.people[i].distance = '0.888';
-
                   }
              }
          };
-
-         /*
-          THIS WORKS!!!:
-          console.log($scope.people);
-             delete $scope.people[i].distance;
-             //delete $scope.people[i].distance;
-             $scope.people[i].distance = "0.888";
-         */
 
                 //THIS WORKS:
          $scope.optimizeStart = function(){
@@ -1583,18 +1056,12 @@ setInterval(function() {
               socket.emit('optimizeData', {store : $scope.grabStorename, line: $scope.grabLineNumber,
                      email: 'jlatouf2@gmail.com', distance: $scope.finalCalc },function (data) {
                        console.log(data);
-
                        for (i = 0; i < $scope.people.length; i++) {
                             if ($scope.people[i].email == 'jlatouf2@gmail.com') {
                               $scope.people[i].distance =  $scope.finalCalc;
-
                             }
                        }
-
-                       $scope.$apply(function () {
-                         //console.log(data.email); $scope.people.push(data);
-                        });
-
+                  $scope.$apply(function () {  /* console.log(data.email); $scope.people.push(data); */ });
                  });
               }, function(err) {  console.log(err);  });
             }, 5000);
@@ -1603,7 +1070,6 @@ setInterval(function() {
 
            socket.on('optimizeReturned', function (data) {
                  console.log(data);
-
                if ($scope.grabStorename == data[0].store && $scope.grabLineNumber == data[0].line) {
                  console.log(data);
 
@@ -1636,31 +1102,30 @@ setInterval(function() {
            /* ----------DISPLACEMENT BUTTON! -------------- */
            $scope.displacementButton = function(){ $rootScope.numberLinesZero2 = true; };
 
-          /* ----------DELETE PEOPLE FUNCITON -------------- */
-          $scope.deletePeople2 = function(email) { console.log("Email: " + email);
-              socket.emit('deletePeopleLine55', {email : email, store : $scope.grabStorename, line: $scope.grabLineNumber },function (data) {
-               $scope.$apply(function () { console.log(data);   $scope.people = data; });
-            });
-          };
-
-
-          socket.on('deletePeople55', function (data) {
-              console.log(data);  console.log($scope.grabStorename);
-              if (data == '') {
-                console.log('the data was deleted!');   $scope.$apply(function () { $scope.people = data; });
-              } else if ($scope.grabStorename == data[0].store && $scope.grabLineNumber == data[0].line) {
-                $scope.$apply(function () { $scope.people = data;  });
-              }
-          });
-
-
-        //Grabs Storename to pass to next page
-        $scope.checkPeopleFcn = function(names){
-               socket.emit('checkPeopleAdmin', {store : $scope.grabStorename,
-             line: $scope.grabLineNumber, Adminpassword: $scope.usertoken },function (data) {
-               $scope.$apply(function () { console.log(data);  $scope.countries = data;  });
+            /* ----------DELETE PEOPLE FUNCITON -------------- */
+            $scope.deletePeople2 = function(email) { console.log("Email: " + email);
+                socket.emit('deletePeopleLine55', {email : email, store : $scope.grabStorename, line: $scope.grabLineNumber },function (data) {
+                 $scope.$apply(function () { console.log(data);   $scope.people = data; });
               });
-        };
+            };
+
+
+            socket.on('deletePeople55', function (data) {
+                console.log(data);  console.log($scope.grabStorename);
+                if (data == '') {
+                  console.log('the data was deleted!');   $scope.$apply(function () { $scope.people = data; });
+                } else if ($scope.grabStorename == data[0].store && $scope.grabLineNumber == data[0].line) {
+                  $scope.$apply(function () { $scope.people = data;  });
+                }
+            });
+
+          //Grabs Storename to pass to next page
+          $scope.checkPeopleFcn = function(names){
+                 socket.emit('checkPeopleAdmin', {store : $scope.grabStorename,
+               line: $scope.grabLineNumber, Adminpassword: $scope.usertoken },function (data) {
+                 $scope.$apply(function () { console.log(data);  $scope.countries = data;  });
+                });
+          };
 
     })
 
@@ -1668,143 +1133,62 @@ setInterval(function() {
 
           console.log('this worked!');
 
-
-        //  $scope.email = "jlatouf2@gmail.com";
-        //  $scope.password = "jarredl";
-        //CHANGE LOGIN AND SIGNUP FORMS TO HAVE ANOTHER VALUE: NOTIFICATIONKEY, THEN IT WORKS FINE, SO
-        //YOU MUST GET IT IN THE HOME SCREEN., AND I ALREADY DO....
-        //notificationkey
-      //  $scope.storeName ={sname:"blue"};
-
-
       $scope.$on('$stateChangeSuccess', function () {
-        console.log('statechange');
-           $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
+            $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
            .then(function(data) {
-               //First function handles success
-               console.log('worked');
-               console.log(data.data);
-              // alert(data);
-               $scope.usercontents = data.data;
-           }, function() {
-               //Second function handles error
-               console.log('didnt work');
-             });
+                console.log('worked');  console.log(data.data);
+                $scope.usercontents = data.data;
+           }, function() { console.log('didnt work');  });
        });
 
 
         $scope.sendFirebasehttp = function(){
-          $http({
-          url : "https://fcm.googleapis.com/fcm/send",
-          method : 'POST',
+          $http({   url : "https://fcm.googleapis.com/fcm/send",  method : 'POST',
           headers : { 'Content-Type' : 'application/json',
           'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
           data: ({"to": "eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S", "notification": {"title":"Test","body":"Test"}})
 
           }).success(function(data){
-              alert("login Successfully");
-              console.log(data);
+              alert("login Successfully"); console.log(data);
 
           }).error(function(error){
-              alert("login error");
-              console.log(error);
-
+              alert("login error");   console.log(error);
           });
         };
-
-    /*
-            $timeout(function(){
-              $http.post('http://192.168.1.115:3000/findUserTokens', {})
-               .then(function(data) {
-                   //First function handles success
-                   console.log('worked');
-                   console.log(data.data);
-                  // alert(data);
-                   $scope.usercontents = data.data;
-               }, function() {
-                   //Second function handles error
-                   alert('didnt work');
-                 });
-          },1000);
-
-          $timeout(function () {
-                  $scope.failedLog = false;
-                }, 3000);
-
-          $scope.storeName ={sname:""};
-
-       $scope.addStore1 = function(name){
-             if ( $scope.storeName.sname == '') {
-               console.log('Please enter a name');
-                 } else{
-                 socket.emit('addStore',  {store : $scope.storeName.sname, email: $scope.useremail, postal: $scope.postal, latitude: localStorage.getItem("StoreLatitude"),
-                   longitude: localStorage.getItem("StoreLongitude"), Adminpassword: $scope.usertoken },function (data) {
-
-                     $scope.failedLogin = true;
-
-                     console.log(data);
-                     $scope.$apply(function () {
-                     $scope.failedData = data;
-                       });
-                       setTimeout(function(){ $rootScope.failedLogin = false; console.log('BLUE'); }, 3000);
-                     //  $scope.storeName.sname == '';
-                 });
-              }
-         };
-
-    */
-
 
         $scope.message ={body:"Your turn is up!"};
 
         $scope.addStore1 = function(name){
-           if ( $scope.message.body == '') {
+           if ( $scope.message.body ==='') {
              console.log('Please enter a name');
                } else{
                  localStorage.setItem("messageBody", $scope.message.body);
                  console.log("MESSAGE ADDED!:"+ localStorage.getItem("messageBody"));
-
-
             }
         };
 
-
         $scope.getTokenFirebase = function(){
-
               FCMPlugin.getToken(function(token) {
-
                    console.log(token);     window.alert(token);
-
                   localStorage.setItem("TokenData", token);
-
                   var myToken = localStorage.getItem("TokenData");
                   window.alert(myToken);
-
                   $http.post('https://thawing-ocean-11742.herokuapp.com/addNotificationtoken', {token: localStorage.getItem("TokenData")})
                      .then(function(data) {
-                         //First function handles success
-                         alert('worked');
-                         alert(data);
-                         $scope.getToken = data;
+                          alert('worked'); alert(data); $scope.getToken = data;
                          //$scope.content = response.data;
-                     }, function() {
-                         alert('didnt work');
-                     });
-                        FCMPlugin.onNotification(function(data) {
-                          console.log(data);
-                          window.alert('THIS WAS SELECTED ON NOTIFICATION!!')
-
-                          window.alert(data);
-                      });
-              });
+                     }, function() { alert('didnt work');   });
+                FCMPlugin.onNotification(function(data) {
+                         window.alert('THIS WAS SELECTED ON NOTIFICATION!!')
+                         window.alert(data);
+                  });
+            });
 
         };
-
 
         $scope.grabStuff = function(notificationkey, email){
               console.log( notificationkey);   console.log( email);
                 var not = notificationkey; console.log(not);
-
               if (window.confirm("Are you sure you would like to send a notification to !") === true) {
                   console.log( "You pressed OK!");
                     $http({
@@ -1815,17 +1199,11 @@ setInterval(function() {
                     data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"}})
                             //"Your Turn is up"
                     }).success(function(data){
-                        alert("Successfully Passed Notification");
-                        console.log(data);
-
+                        alert("Successfully Passed Notification"); console.log(data);
                     }).error(function(error){
-                        alert("That user does not have a notifivation key:");
-                        console.log(error);
+                        alert("That user does not have a notifivation key:"); console.log(error);
                     });
-              } else {
-                  console.log( "You pressed Cancel!");
-
-              }
+              } else {  console.log( "You pressed Cancel!");   }
          };
 
 
@@ -1834,92 +1212,58 @@ setInterval(function() {
 .controller('AnalyticsCtrl', function($scope, $location, $http, $rootScope ) {
 
 
-
             /* ----------POSITION BUTTON! -------------- */
             $scope.positionButton = function(){
-
               $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokensPeopleLine', {})
                .then(function(data) {
-                   //First function handles success
-                   console.log('worked');
-                   console.log(data.data);
-                  // alert(data);
-                   $scope.usercontents = data.data;
-                   $rootScope.numberLinesAnalytics = true;
-
+                    console.log('worked');  console.log(data.data);
+                    $scope.usercontents = data.data; $rootScope.numberLinesAnalytics = true;
                }, function() {
-                   //Second function handles error
-                   console.log('didnt work');
+                    console.log('didnt work');
                  });
              };
 
             /* ----------DISPLACEMENT BUTTON! -------------- */
             $scope.displacementButton = function(){
-
               $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokens', {})
                .then(function(data) {
-                   //First function handles success
-                   console.log('worked');
-                   console.log(data.data);
-                  // alert(data);
-                   $scope.usercontents = data.data;
-                   $rootScope.numberLinesAnalytics = false;
-
+                    console.log('worked');  console.log(data.data);
+                    $scope.usercontents = data.data; $rootScope.numberLinesAnalytics = false;
                }, function() {
-                   //Second function handles error
-                   console.log('didnt work');
+                    console.log('didnt work');
                  });
             };
 
 
             $http.post('https://thawing-ocean-11742.herokuapp.com/findUserTokensPeopleLine', {})
              .then(function(data) {
-                 //First function handles success
-                 console.log('worked');
-                 console.log(data.data);
-                // alert(data);
-                 $scope.usercontents = data.data;
-                 $rootScope.numberLinesAnalytics = true;
+                  console.log('worked'); console.log(data.data);
+                  $scope.usercontents = data.data;  $rootScope.numberLinesAnalytics = true;
              }, function() {
-                 //Second function handles error
-                 console.log('didnt work');
+                  console.log('didnt work');
                });
-
-
 
      })
 
  .controller('LoginCtrl', function($scope, $location, $http, $rootScope, AuthService ) {
 
-            $scope.noteToken = localStorage.getItem("TokenData");
+              $scope.noteToken = localStorage.getItem("TokenData");
+             $scope.email = {email1 : "jlatouf2@gmail.com333"};
+             $scope.password = {password1 : "jarredl"};
 
-            //   $scope.email.email1 = "jlatouf2@gmail.com";
-            //   $scope.password.password1 = "jarredl";
-
-           $scope.email = {email1 : "jlatouf2@gmail.com333"};
-           $scope.password = {password1 : "jarredl"};
-
-               /*   --------LOGIN FUNCTION-----------     */
-             $scope.ServiceFunction5 = function () { AuthService.LoginExample3($scope.email.email1, $scope.password.password1, $scope.noteToken); };
-
-                   //FACEBOOK SERVICE.JS LOGIN:
-          $scope.Servicefacebook = function () { AuthService.facebookLogin();  };
-
+                 /*   --------LOGIN FUNCTION-----------     */
+            $scope.ServiceFunction5 = function () { AuthService.LoginExample3($scope.email.email1, $scope.password.password1, $scope.noteToken); };
+                     //FACEBOOK SERVICE.JS LOGIN:
+            $scope.Servicefacebook = function () { AuthService.facebookLogin();  };
        })
 
 
  .controller('DetailsCtrl', function($scope, $location, $http ) {
 
-              // $scope.noteToken = localStorage.getItem("TokenData");
+          console.log($scope.detailEmail); console.log($scope.detailStore);
+          console.log($scope.detailLine);  console.log($scope.detailNotification);
 
-          console.log($scope.detailEmail);
-          console.log($scope.detailStore);
-          console.log($scope.detailLine);
-          console.log($scope.detailNotification);
-
-
-
-//THIS IS MESSAGE TEXTAREA
+           //THIS IS MESSAGE TEXTAREA
            $scope.message ={body:"Your turn is up!"};
 
            $scope.addStore1 = function(){
@@ -1928,16 +1272,12 @@ setInterval(function() {
                   } else{
                     localStorage.setItem("messageBody", $scope.message.body);
                     console.log("MESSAGE ADDED!:"+ localStorage.getItem("messageBody"));
-
-
                }
            };
 
-//THIS IS MESSAGE BUTTON:
-
+           //THIS IS MESSAGE BUTTON:
          $scope.sendMessage = function(){
                  var not = $scope.detailNotification; console.log(not);
-
                if (window.confirm("Are you sure you would like to send a notification to !") === true) {
                    console.log( "You pressed OK!");
                      $http({
@@ -1948,12 +1288,9 @@ setInterval(function() {
                      data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"}})
                              //"Your Turn is up"
                      }).success(function(data){
-                         alert("Successfully Passed Notification");
-                         console.log(data);
-
+                         alert("Successfully Passed Notification");  console.log(data);
                      }).error(function(error){
-                         alert("That user does not have a notifivation key:");
-                         console.log(error);
+                         alert("That user does not have a notifivation key:"); console.log(error);
                      });
                } else {
                    console.log( "You pressed Cancel!");

@@ -454,6 +454,19 @@ socket.on('optimizeData', function (data) {
                });
           });
       });
+
+      socket.on('deletePersonnotify', function (data) {
+        console.log(data.store); console.log(data.line); console.log(data.email);
+        PeopleLine.remove({store: data.store, line: data.line, email: data.email}, function(err,removed) {
+          PeopleLine.find({store: data.store, line: data.line}).exec(function(err, posts) {
+          if (err) { return next(err); }
+          //callback(posts);
+          io.emit('deletePersonback', posts);
+             console.log(posts);
+               });
+          });
+      });
+
 //          PeopleLine.find({ $and: [{store: data.store}, {line: data.line}]}).exec(function(err, posts) {
 
 

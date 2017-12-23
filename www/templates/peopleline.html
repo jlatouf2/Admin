@@ -16,6 +16,12 @@
 
         <p ng-show="blue" id="demo2" style="font-weight: bold;"></p>
 
+        <div class="clock"></div>
+
+
+        <!--   <p>{{ clock | date:'HH:mm:ss'}}</p>     -->
+
+
       <!--   <button ng-click="nodeValidation()">Validation</button>
         {{validationData}}
         -->
@@ -112,6 +118,7 @@
   							</thead>
               -->
   							<tbody>
+
     								<tr ng-hide="numberLinesZero2" style="text-align: ;" ng-class="{'selected':$index == 0}"  ng-repeat="person in people | filter:search | orderBy:'person.created'" >
     									<td > <a style="background-color:white; border:none; "  href="#/details" ng-click="findDistance22($index,  person.email, person.store, person.line, person.created, person.notificationkey )" class="list-group-item active ">
                         <div >
@@ -120,6 +127,7 @@
 
                           <span style="color:black;"  >{{person.email}} <br> Position:{{$index+1}} </span>
                          <!--  <span style="color:black;" ng-if="$index ==  0" ng-style="myObj">{{person.email}} <br> Position:{{$index+1}} </span>   -->
+                         <span style="color:black; float:right;">  {{ clock | date:'HH:mm:ss'}}  </span>
 
                         </div>    <!-- Need to store userid in DB then get all from DB and put in:
                            {{"http://graph.facebook.com/" +person.iduserid+ "/picture?type=square"}} +    -->
