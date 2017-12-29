@@ -112,6 +112,7 @@ angular.module('starter.controllers', [])
 
 
          $scope.getNotif = function(){
+
           FCMPlugin.getToken(function(token) {
                console.log(token);  window.alert(token);
               localStorage.setItem("TokenData", token);
@@ -132,6 +133,41 @@ angular.module('starter.controllers', [])
                   });
               });
             };
+
+            $scope.blueboy  = function() {
+
+              window.FirebasePlugin.getToken(function(token) {
+              // save this server-side and use it to push notifications to this device
+              window.alert(token);
+          }, function(error) {
+              window.alert(error);
+          });
+
+             };
+
+
+            $scope.getNotif = function(){
+             FCMPlugin.getToken(function(token) {
+                  console.log(token);  window.alert(token);
+                 localStorage.setItem("TokenData", token);
+                 var myToken = localStorage.getItem("TokenData");
+                 window.alert(myToken);
+
+                 $http.post('https://thawing-ocean-11742.herokuapp.com/tokenReturned', {token: localStorage.getItem("TokenData")})
+                    .then(function(data) {
+                         alert('worked');   alert(data);
+                         $scope.getToken = data;
+                        //$scope.content = response.data;
+                    }, function() { alert('didnt work'); });
+
+                      FCMPlugin.onNotification(function(data) {
+                         console.log(data);
+                         window.alert('THIS WAS SELECTED ON NOTIFICATION!!')
+                         window.alert(data);
+                     });
+                 });
+               };
+
 
 
           $rootScope.goback2 = function(){ console.log('clicked'); $state.go('home'); };
@@ -160,10 +196,28 @@ angular.module('starter.controllers', [])
 
 
         $scope.ServiceFunction4 = function () {
-          document.addEventListener("deviceready", function() {
+        //  document.addEventListener("deviceready", function() {
+
+            document.addEventListener("deviceready", function() {
+
+
+              window.FirebasePlugin.getToken(function(token) {
+              // save this server-side and use it to push notifications to this device
+              // save this server-side and use it to push notifications to this device
+              window.alert(token);
+             localStorage.setItem("TokenData", token);
+             var myToken = localStorage.getItem("TokenData");
+             $rootScope.noteToken = myToken;
+             window.alert(myToken);
+
+              window.alert(token);
+          }, function(error) {
+              window.alert(error);
+          });
+                        }, false);
 
                   //TOKEN FUNCTION:
-                  FCMPlugin.getToken(function(token) {
+              /*    FCMPlugin.getToken(function(token) {
                           console.log(token);
                           window.alert(token);
                          localStorage.setItem("TokenData", token);
@@ -186,9 +240,9 @@ angular.module('starter.controllers', [])
 
                           } alert('there is a token present')
 
-                      });
+                      }); */
 
-                    }, false);
+                    //}, false);
 
           AuthService.RegisterExample4($scope.fname.fname1, $scope.lname.lname1, $scope.email.email1,
           $scope.password.password1, $scope.passwordConf.passwordConf1, $scope.noteToken );
@@ -201,10 +255,6 @@ angular.module('starter.controllers', [])
 
       //FACEBOOK SERVICE.JS LOGIN:
       $scope.Servicefacebook = function () { AuthService.facebookLogin(); };
-
-
-
-
 
 
 
@@ -1234,7 +1284,7 @@ angular.module('starter.controllers', [])
                              method : 'POST',
                              headers : { 'Content-Type' : 'application/json',
                              'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-                             data: ({"to": $rootScope.noteArrray, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"}})
+                             data: ({"to": $rootScope.noteArrray, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default" }})
                                      //"Your Turn is up"
                              }).success(function(data){
                                  console.log("Successfully Passed Notification"); console.log(data);
@@ -1263,8 +1313,8 @@ angular.module('starter.controllers', [])
                     method : 'POST',
                     headers : { 'Content-Type' : 'application/json',
                     'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-                    data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"},
-                    "data":{ "param1":"value1"}})
+                    data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default"},
+                    "data":{ "message":"value33"}})
                             //"Your Turn is up"
                     }).success(function(data){
                         alert("Successfully Passed Notification"); console.log(data);
@@ -1273,6 +1323,34 @@ angular.module('starter.controllers', [])
                     });
               } else {  console.log( "You pressed Cancel!");   }
          };
+
+
+         /*
+
+         $scope.grabStuff = function(notificationkey, email){
+               console.log( notificationkey);   console.log( email);
+                 var not = notificationkey; console.log(not);
+               if (window.confirm("Are you sure you would like to send a notification to !") === true) {
+                   console.log( "You pressed OK!");
+                     $http({
+                     url : "https://fcm.googleapis.com/fcm/send",
+                     method : 'POST',
+                     headers : { 'Content-Type' : 'application/json',
+                     'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
+                     data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default"},
+                     "data":{ "message":"value1"}, "priority":"high"})
+                             //"Your Turn is up"
+                     }).success(function(data){
+                         alert("Successfully Passed Notification"); console.log(data);
+                     }).error(function(error){
+                         alert("That user does not have a notifivation key:"); console.log(error);
+                     });
+               } else {  console.log( "You pressed Cancel!");   }
+          };
+
+
+
+         */
 
      })
 
@@ -1319,31 +1397,20 @@ angular.module('starter.controllers', [])
             $scope.ServiceFunction5 = function () {
               document.addEventListener("deviceready", function() {
 
-                        FCMPlugin.getToken(function(token) {
-                                console.log(token);
-                                window.alert(token);
-                               localStorage.setItem("TokenData", token);
-                               var myToken = localStorage.getItem("TokenData");
-                               $rootScope.noteToken = myToken;
-                               window.alert(myToken);
-                                if (token == null) {
-                                    alert('there is no token')
 
-                                    //this gets new token if you dont have one.
-                                    FCMPlugin.onTokenRefresh(function(token){
-                                       alert( token );
-                                       localStorage.setItem("TokenData", token);
-                                       var myToken = localStorage.getItem("TokenData");
-                                       $rootScope.noteToken = myToken;
-                                       window.alert(myToken);
-                                    });
+                window.FirebasePlugin.getToken(function(token) {
+                // save this server-side and use it to push notifications to this device
+                // save this server-side and use it to push notifications to this device
+                window.alert(token);
+               localStorage.setItem("TokenData", token);
+               var myToken = localStorage.getItem("TokenData");
+               $rootScope.noteToken = myToken;
+               window.alert(myToken);
 
-                                 } else if (token != null) {
-
-                                } alert('there is a token present')
-
-                            });
-
+                window.alert(token);
+            }, function(error) {
+                window.alert(error);
+            });
                           }, false);
 
                            AuthService.LoginExample3($scope.email.email1, $scope.password.password1, $scope.noteToken);

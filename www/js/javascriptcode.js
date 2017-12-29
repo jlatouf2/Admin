@@ -1,7 +1,7 @@
 "use strict";
 //window.alert('message');
 
-
+/*
 document.addEventListener("deviceready", function() {
           console.log(token);     window.alert(token);
         FCMPlugin.getToken(function(token) {
@@ -31,7 +31,7 @@ document.addEventListener("deviceready", function() {
  });
 
 }, false);
-
+*/
 
 
 //setTimeout(function() {   angular.element(document.getElementById('YourElementId')).scope().myfunction22(); }, 1000);
@@ -58,21 +58,124 @@ document.addEventListener("pause", function pauseCallback() {
 function myFunction() {   alert('funciton called');    }
 
 
+
+
   document.addEventListener("resume", function resumeCallback() {
     //isAppInForeground = true;
-    FCMPlugin.onNotification(function(data){
+  //  window.FirebasePlugin.grantPermission();
+
+
+
+ window.FirebasePlugin.onNotificationOpen(function(data) {
+
+ window.alert("open2");
+
         if(data.wasTapped){
-          alert("I am tapped" + JSON.stringify(data) );
-          alert( JSON.stringify(data.message) );
+           setTimeout(function(){
+            window.alert("I am tapped" + JSON.stringify(data) );
+            window.alert( JSON.stringify(data.message) );
+
+           }, 0);
+
 
         }else{
               //Notification was received in foreground. Maybe the user needs to be notified.
-             alert( "I am not tapped" +JSON.stringify(data) );
-              alert( "ITS YOUR TURN IN LINE." );
-              alert( JSON.stringify(data.message) );
+              setTimeout(function(){
+                alert( "I am not tapped" +JSON.stringify(data) );
+                 alert( "ITS YOUR TURN IN LINE." );
+                 alert( JSON.stringify(data.message) );
 
-              window.location.href = "#/peopleline";
-              alert( "PLEASE REMOVE YOURSELF FROM THE LINEUP WHEN YOU ARE FINISHED");
+                 window.location.href = "#/peopleline";
+                 alert( "PLEASE REMOVE YOURSELF FROM THE LINEUP WHEN YOU ARE FINISHED");
+
+               }, 0);
+
+              //    myFunction();
+              //  angular.element(document.getElementById('buttonID')).scope().makeAlert();
+              //  angular.element('#mycontroller').scope().$apply()
+
+              setTimeout(function() {
+                  angular.element(document.getElementById('YourElementId')).scope().notifyDeleteperson();
+              }, 3000);
+
+                //  angular.element(document.getElementById('YourElementId')).scope().myfunction22();
+               }
+          },
+          function(msg){  alert( "Success callback " +msg); },
+
+          function(err){   alert( "Error callback " +err );  });
+
+           window.alert("DEVICE RESUMED3333");
+          var socket = io.connect('http://192.168.1.115:3000');
+          window.location.href = "#/home";
+
+    }, false);
+
+
+
+
+
+    document.addEventListener("active", onResume, false);
+    function onResume() {
+      window.alert('this functions')
+
+      window.FirebasePlugin.onNotificationOpen(function(notification) {
+        window.alert('passed notification');
+        window.alert(notification);
+    }, function(error) {
+
+        window.alert(error);
+    });
+
+
+    }
+
+/*
+
+
+
+document.addEventListener("pause", function pauseCallback() {
+  isAppInForeground = false;
+}, false);
+
+
+function myFunction() {   alert('funciton called');    }
+
+
+  document.addEventListener("resume", function resumeCallback() {
+    //isAppInForeground = true;
+    window.FirebasePlugin.grantPermission();
+
+ window.alert("open");
+
+
+ window.FirebasePlugin.onNotificationOpen(function(data) {
+
+ window.alert("open2");
+
+        if(data.wasTapped){
+        //  alert("I am tapped" + JSON.stringify(data) );
+      //    alert( JSON.stringify(data.message) );
+
+          setTimeout(function(){
+            window.alert("I am tapped" + JSON.stringify(data) );
+            window.alert( JSON.stringify(data.message) );
+
+           }, 0);
+
+
+        }else{
+              //Notification was received in foreground. Maybe the user needs to be notified.
+              setTimeout(function(){
+                alert( "I am not tapped" +JSON.stringify(data) );
+                 alert( "ITS YOUR TURN IN LINE." );
+                 alert( JSON.stringify(data.message) );
+
+                 window.location.href = "#/peopleline";
+                 alert( "PLEASE REMOVE YOURSELF FROM THE LINEUP WHEN YOU ARE FINISHED");
+
+               }, 0);
+
               //    myFunction();
               //  angular.element(document.getElementById('buttonID')).scope().makeAlert();
               //  angular.element('#mycontroller').scope().$apply()
@@ -88,6 +191,7 @@ function myFunction() {   alert('funciton called');    }
           },
           function(msg){
            alert( "Success callback " +msg);
+
           },
           function(err){
             alert( "Error callback " +err );
@@ -102,7 +206,24 @@ function myFunction() {   alert('funciton called');    }
 
 
 
-/*
+
+
+
+
+
+
+document.addEventListener("resume", function() {
+    setTimeout(function(){
+        navigator.notification.alert({
+            "Aaaaaan we're back!!",
+            noticeDismissed,
+            "Missed You",
+            "OK (but that's kinda creepy)"
+        });
+    }, 0);
+});
+
+
 $("button").click(function(){
     angular.element(document.getElementById('mainController')).scope().makeAlert('This is for Test');
 });
