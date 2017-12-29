@@ -22,7 +22,7 @@ A starting project for Ionic that optionally supports using custom SCSS.
 -       To update the app for future releases:
 
 ******  REMEMBER TO CHANGE THE VERSIONCODE TO A HIGHER NUMBER, MAY NEED HIGHER THAN 3******
-1)ionic cordova build android --release -- -- --versionCode=8
+1)ionic cordova build android --release -- -- --versionCode=9
 [change name to HelloWorld]
 
 2)Sign your release build with the key from your keystore. In below example the keystore is in the root of your project, but of course it's also possible to define another path:
