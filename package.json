@@ -41,6 +41,7 @@
     "cookie-parser": "^1.4.3",
     "cordova-android": "~6.3.0",
     "cordova-browser": "^5.0.1",
+    "cordova-ios": "~4.5.4",
     "cordova-plugin-badge": "^0.8.5",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-device": "^1.1.7",
@@ -74,7 +75,7 @@
     "session": "^0.1.0",
     "socket.io": "^2.0.4",
     "url": "^0.11.0",
-    "cordova-ios": "~4.5.4"
+    "validator": "^9.2.0"
   },
   "cordova": {
     "plugins": {

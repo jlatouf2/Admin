@@ -3,12 +3,12 @@
 
        <!--<div style="padding-left:50px; padding-right:50px; ">  -->
 
-        <div style="color:white; text-align: center; background-color: #4881ea; vertical-align: middle;
+        <div style="color:white; text-align: center; background: #005596 url(img/uwinBannerBG.png) repeat 0 0; vertical-align: middle;
           line-height: 50px;   font-size: 15px;" >
           <span style="margin-left:50px"> </span>
           <span  style="">Peopleline Controller </span>
           <button type="button" class="btn btn-default" ng-click="openpeoplemodal1()" style="line-height: 20px;
-           background-color: #4881ea;  border-style: none; float: right; font-size: 25px; margin-top:5px; margin-right:10px">
+           background: #005596 url(img/uwinBannerBG.png) repeat 0 0;  border-style: none; float: right; font-size: 25px; margin-top:5px; margin-right:10px">
             <span style="color:white" class="glyphicon glyphicon-plus"></span>
           </button>
         </div>
@@ -54,11 +54,12 @@
               </div>
           </div>
 
-          <br><br>
+          <br>
           <!-- THIS IS NEEDED FOR JAVASCRIPT FUNCTION TO CALL ANGULARJS FUNCTION ! -->
           <div id="YourElementId" > </div>
 
-
+        <div style="text-align:center;">  <b>PLEASE NOTE: TIME TO WAIT ON AVERAGE IS: {{yellow}} </b> </div>
+          <br>
           <!-- Add Yourself Text ! -->
 
 
@@ -127,7 +128,7 @@
 
                           <span style="color:black;"  >{{person.email}} <br> Position:{{$index+1}} </span>
                          <!--  <span style="color:black;" ng-if="$index ==  0" ng-style="myObj">{{person.email}} <br> Position:{{$index+1}} </span>   -->
-                         <span style="color:black; float:right;">  {{ clock | date:'HH:mm:ss'}}  </span>
+                         <span style="color:black; float:right;">  {{ clock | date:'HH:mm:ss'}} <br>{{person.propertyTwo}} {{person.addstuff}}  </span>
 
                         </div>    <!-- Need to store userid in DB then get all from DB and put in:
                            {{"http://graph.facebook.com/" +person.iduserid+ "/picture?type=square"}} +    -->

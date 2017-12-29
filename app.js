@@ -33,8 +33,11 @@ var UserStuff = require('./www/config/userinfo.js');
 var User   = require('./www/config/user');
 var Blue = require('./www/config/userblack.js');
 
-
+var validator = require('validator');
 var expressValidator = require('express-validator'); //Declare Express-Validator
+
+var check = require('validator').check;
+var sanitize = require('validator').sanitize;
 
 app.use(expressValidator());  //required for Express-Validator
 
@@ -112,6 +115,21 @@ io.on('connection', function(socket){
   //  socket.emit('passInfoBack', { description: 'A custom event named testerEvent!'});
       });
 
+/*
+      app.post('/stuffwhite', function (req, res) {
+      req.assert('name', 'Name is required').notEmpty().trim().withMessage('must be an name');
+
+       //Validate name
+      req.assert('email', 'A valid email is required').trim().isEmail();
+      req.assert('password', 'Password must be at least 4 characters long').len(4);
+      var errors = req.validationErrors();
+      //if (errors) return res.send(errors);
+
+      if (errors) return res.status(400).send(errors);
+      console.log('black');
+      console.log(req.body.email);
+      });
+*/
 
       socket.on('storeName', function (data, callback) {
         console.log('data passed'); console.log(data);
@@ -134,26 +152,6 @@ io.on('connection', function(socket){
       });
 
 /*
-      socket.on('addStore', function (data) {
-        console.log(data); console.log(data.store);
-        console.log(data.latitude);
-
-        var store = new Store({
-          store: data.store,  postal: data.postal,
-          latitude: data.latitude, longitude: data.longitude,
-          Adminpassword: data.Adminpassword  });
-
-          store.save(function (err, post) {
-            if (err) { return next(err); }
-        //   callback(post);
-          io.emit('addStorename', post);
-
-           console.log(post);
-          });
-
-      });
-
-
       socket.on('deleteStore44', function (data, callback) {
          Store.findOne({ $and: [{email: data.email}, {store: data.store}]})
           .exec(function(err, posts) {
@@ -175,8 +173,55 @@ io.on('connection', function(socket){
 
 */
 
+/*
+   try {
+     validator.contains('name', 'A valid store is required');
+   } catch (e) {
+       console.log(e.message); //Invalid integer
+   }
+
+
+   validator.trim(name); //=> true
+   validator.isEmpty(name); //=> true
+   validator.escape(name)
+//validator.blacklist(name, '\\[<]')
+//isBoolean
+
+
+   console.log("sdfasdfa"+data.store);
+validator.isInt(name)
+       if (validator.isInt('1') === false) {
+          callback('did not work');
+       } else if (validator.isInt('1') === true){
+         callback('it worked');
+       }
+       validator.trim(data.store); //=> true
+       validator.isEmpty(data.store); //=> true
+       if (validator.isEmpty(data.store) === true) {
+          callback('please enter data in textarea');
+       }
+function sand() {
+
+}
+
+*/
+
+function sand(parameter) {
+  validator.trim(parameter); //=> true
+  validator.escape(parameter);
+  if (validator.isEmpty(parameter) === true) {
+     callback('please enter data in textarea');
+  }
+        console.log('the sanitize was called' + parameter);
+}
+
+
+
 socket.on('addStore', function (data, callback) {
-  console.log(data.store);
+  console.log("skdflskjd"+data.store);
+
+    sand(data.store);
+
     Store.find( {store: data.store})
       .exec(function(err, post) {
          if (err) { return next(err); }
@@ -187,35 +232,23 @@ socket.on('addStore', function (data, callback) {
                 latitude: data.latitude, longitude: data.longitude,
                 Adminpassword: data.Adminpassword, email: data.email,
                   storeAdmin : '1'});
-
                 store.save(function (err, post) {
                   if (err) { return next(err); }
               //   callback(post);
                 io.emit('addStorename', post);
-
                  console.log(post);
                 });
-
             } else {
               console.log(post.length);
               console.log('STORE IS ALREADY IN DB!');
-
               callback('STORE IS ALREADY IN DB!')
             //  res.status(401).send({success: false, msg: 'Passwords dont match.'});
           }
      });
+
 });
 
-
-
 /*
-
-      ADMIN WILL WORK B/C WHEN YOU DELETE YOU ARE SIMPLE CHECKING FOR STOREADMIN =1 OR LINEADMIN=1,
-      YOU ARE NOT CHECKING FOR STORENAME: SO JUST HAVE
-
-      ******YOU COULD DESIGN ANOTHER WEBSITE THAT ALLOWS YOU TO LOGIN AS ADMIN AND CHANGE/DELETE anything
-      WITH DIFFERENT BACKEND [APP.JS] ********
-
       socket.on('deleteStore44', function (data) {
          console.log(data);
          Store.remove({store: data.store}, function(err) {
@@ -227,24 +260,17 @@ socket.on('addStore', function (data, callback) {
              });
          });
       });
-
 */
 
     socket.on('deleteStore44', function (data, callback) {
   //    Store.find({store: data.store, email: data.email})
     //   Store.findOne({ $and: [{email: data.email}, {store: data.store}]})
-    Store.findOne({store: data.store, email: data.email}, function( err, posts){
 
+    Store.findOne({store: data.store, email: data.email}, function( err, posts){
         //.exec(function(err, posts) {
             if (err) { return next(err); }
-                  //   posts.storeAdmin = 1;
-                    //  posts.save();
-                    console.log(posts);
-
-                    console.log(posts.store);
-                    console.log(posts.email);
-
-                    console.log(posts.storeAdmin);
+                     console.log(posts);   console.log(posts.store);
+                    console.log(posts.email); console.log(posts.storeAdmin);
 
                   if (posts.storeAdmin == '1') {
 
@@ -257,15 +283,12 @@ socket.on('addStore', function (data, callback) {
                     });
                 });
             //  io.emit('deleteUpdate', posts);
-
           } else {
             console.log("This email does not have StoreAdmin");
             callback('SORRY, YOU DO NOT HAVE AUTHORITY TO DELETE THAT STORE');
           }
         });
     });
-
-
 
       socket.on('numberofLines', function (data, callback) {
          console.log(data);
@@ -280,8 +303,6 @@ socket.on('addStore', function (data, callback) {
           {distance: data.distance})
           .exec(function(err, posts) {
               if (err) { return next(err); }
-          //  callback(posts);
-          //  console.log(posts);
 
             PeopleLine.find({ $and: [{store: data.store}, {line: data.line}, {email: data.email}]})
               .exec(function(err, posts) {
@@ -289,10 +310,8 @@ socket.on('addStore', function (data, callback) {
                 io.emit('optimizeReturned', posts);
                  console.log(posts);
                 });
-
             });
       });
-
 
       socket.on('addLine1', function (data, callback) {
         console.log(data);
@@ -303,17 +322,13 @@ socket.on('addStore', function (data, callback) {
               Storeline.count({ $and: [{store: data.store}, {line: data.line}]}   )
                 .exec(function(err, count) {
                     if (err) { return next(err); }
-
                  console.log( "Number of users:", count );
                 if (count == 1) {
                   console.log('fcn ended b/c its in table');
                   callback('fcn ended b/c its in table');
               } else {
-
                   var storeline = new Storeline({
-                  store: data.store, line: data.line,
-                      lineAdmin: data.lineAdmin});
-
+                  store: data.store, line: data.line, lineAdmin: data.lineAdmin});
                   storeline.save(function (err, post) {
                     if (err) { return next(err); }
                   //  res.send(post)
@@ -325,28 +340,6 @@ socket.on('addStore', function (data, callback) {
         });
     });
 
-
-  /*    socket.on('addLine1', function (data, callback) {
-        var bob = data.store;    var bob2 = data.Adminpassword;
-        console.log("Store: "+ bob);  console.log("Admin: "+ bob2);
-
-        if(bob2 !== undefined) {
-        //  Store.find( {store: req.body.store}).where({Adminpassword: bob})
-        //  THIS WORKS, ITS JUST THAT WHEN YOU DONT HAVE TOKEN [ITS SET TO NULL WHEN NOT LOGGED IN]
-        //  IT MATCHES THE QUEREY B/C IT FINDS A OBJECT WITH THE STORE NAME AND TOKEN=NULL
-        //Storeline.count({ $and: [{store: req.body.store}, {line:req.body.line}]}   )
-
-          Store.find( {store: data.store, Adminpassword: data.Adminpassword})
-            .exec(function(err, posts) {
-              if (err) { return next(err) }
-          callback(posts);  console.log(posts);
-        //Either passes no data back: store that doesn't have Adminpassword or passes store with Adminpassword
-            })
-        } else{
-          console.log("Adminpassword was equal to undefined so query did not run!");
-        }
-      })
-*/
 
 socket.on('poll', function (data, callback) {
   console.log(data);
@@ -418,8 +411,6 @@ socket.on('addperson11', function (data, callback) {
         });
 });
 
-
-
 socket.on('optimizeData', function (data) {
   PeopleLine.find({ $and: [{store: data.store}, {line: data.line}, {email: data.email}]})
     .exec(function(err, posts) {
@@ -428,7 +419,6 @@ socket.on('optimizeData', function (data) {
       console.log(posts);
       });
 });
-
 
 //     Storeline.remove({ $and: [{store: data.store}, {line: data.line}]}, function(err,removed) {
 
@@ -498,22 +488,6 @@ socket.on('optimizeData', function (data) {
              io.emit('deleteLinesUpdate', posts);
                console.log(posts);
            });
-        });
-      });
-
-
-      //curl -X POST  http://localhost:3000/getBlack
-
-      app.post('/getBlack', function(req, res) {
-        Storeline.find({ store: 'bobby' }).where({line: '2'})
-        .exec(function(err, users) {
-        if (err) throw err;
-        if (users.lineAdmin == '1') {
-          console.log(users);
-
-        }
-        // show the admins in the past month
-        console.log(users);
         });
       });
 
@@ -607,7 +581,24 @@ socket.on('optimizeData', function (data) {
 
         });
 
+        /*************    Messaging   ****************/
 
+        socket.on('findUserTokens', function (data, callback) {
+        Blue.find({})
+        .exec(function(err, posts) {
+            if (err) { return next(err); }
+        //res.status(200).json(posts);
+          callback(posts);    console.log(posts);
+          });
+        });
+
+        socket.on('findUserTokensPeopleLine', function (data, callback) {
+        PeopleLine.find({})
+        .exec(function(err, posts) {
+            if (err) { return next(err); }
+            callback(posts);    console.log(posts);
+          });
+        });
 
     });
 
@@ -635,9 +626,6 @@ app.post('/deletePeop', function (req, res, next) {
          })
     });
 })
-
-
-
 */
 
 /*---------- SIGNUP FUNCTION: --------------*/
@@ -646,10 +634,7 @@ app.post('/signup22', function (req, res, next) {
   console.log(req.body.noteToken);
 //var noteTokenvar = req.body.noteToken;
       if (req.body.password !== req.body.passwordConf) {
-        //  var err = new Error('Passwords do not match.');
-        //  err.status = 400;
-        //  res.send("passwords dont match");
-        res.status(401).send({success: false, msg: 'Passwords dont match.'});
+         res.status(401).send({success: false, msg: 'Passwords dont match.'});
         console.log('Passwords dont match');
         //  return next(err);
       } else {
@@ -663,8 +648,6 @@ app.post('/signup22', function (req, res, next) {
           lastname: req.body.lname, password: req.body.password,
           passwordConf: req.body.passwordConf, notificationkey: req.body.noteToken
         };
-        //use schema.create to insert data into the db
-
 
         Blue.findOne({ email: req.body.email }, function(err, user) {
                 if (err) throw err;
@@ -698,28 +681,15 @@ app.post('/signup22', function (req, res, next) {
 /*---------- LOGIN FUNCTION: --------------*/
 
 /*   var Blue = require('./models/userblack.js');
-
 //curl -X POST  http://localhost:3000/login22999
 curl -X POST -H 'Content-Type: application/json' -d '{"email":"jlatouf23333@gmail.com", "password":"jarredl"}' http://localhost:3000/login22999
-
 curl -X POST -H 'Content-Type: application/json' -d '{"email":"davidwalshr","password":"fsomethingt"}' http://localhost:3000/login22999
-
-//token
-var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
-var token2 = jwt.sign('token', 'shhhhh');
-console.log('TOKEN ' + token);
-console.log('TOKEN2 ' + token2);
-
-var decoded = jwt.verify(token, 'shhhhh');
-console.log('decoded ' + decoded.foo);
-
 */
 
 app.post('/tokenReturned', function(req, res) {
   console.log('workedit!');
   console.log(req.body.token);
   res.send(req.body.token);
-
 });
 
 //curl -X POST -H 'Content-Type: application/json' -d '{"email":"davidwalshr","password":"fsomethingt"}' http://localhost:3000/getBlack
@@ -737,8 +707,6 @@ app.post('/getBlack', function(req, res) {
   console.log(users);
   });
 });
-
-
 
 app.post('/touchit', function(req, res) {
   console.log('workedit!');
@@ -765,24 +733,6 @@ Blue.findOne({ email: 'jlatouf2@gmail.com' })
 //res.status(200).send(posts);
 //  posts.notificationkey = 'small';
 //  posts.save();
-
-res.status(200).json(posts);
-console.log(posts);
-  });
-});
-
-//curl -X POST  http://localhost:3000/findUsers
-
-app.post('/findUserTokens', function(req, res) {
-Blue.find({})
-.exec(function(err, posts) {
-    if (err) { return next(err); }
-//  res.send(posts);
-//res.status(200).send(posts);
-//  posts.notificationkey = 'small';
-//  posts.save();
-
-//res.send(posts);
 
 res.status(200).json(posts);
 console.log(posts);
@@ -862,36 +812,8 @@ var noteTokenvar = req.body.noteToken;
   });
 });
 
-/*
-1) user.findOne
-2)if (!user) { add a new user with information into the database}
-3)password is not stored in my backend... so no user.comparePassword
-4)if email is found: then simply log the user in and you dont have to add anything to DB....
-
-to create user:
-
-var userData = {
-  email: req.body.email, firstname: req.body.fname,
-  lastname: req.body.lname, password: req.body.password,
-  passwordConf: req.body.passwordConf
-}
-//use schema.create to insert data into the db
-Blue.create(userData, function (err, user) {
-  if (err) { return next(err)
-  } else {
-    res.send(user)
-  //  return res.redirect('/profile');
-  }
-});
-
-*/
-
-
-
 app.post('/addStore', function(req, res, data) {
-
-         console.log(req.body.store);
-        console.log(req.body.latitude);
+   console.log(req.body.store);   console.log(req.body.latitude);
 
         var store = new Store({
           store: req.body.store,  postal: req.body.postal,
@@ -905,14 +827,12 @@ app.post('/addStore', function(req, res, data) {
           res.send(post);
            console.log(post);
           });
-
 });
 
 
 app.post('/polling', function(req, res) {
 res.send('posts');
   });
-
 
 app.post('/storeName', function(req, res, data) {
        console.log(data);
@@ -924,9 +844,7 @@ app.post('/storeName', function(req, res, data) {
       });
 });
 
-
 app.post('/deleteStore44', function(req, res, data) {
-
    console.log(req.body.store);
    Store.remove({store: req.body.store}, function(err) {
        Store.find().exec(function(err, posts) {
@@ -944,48 +862,16 @@ app.post('/deleteStore44', function(req, res, data) {
 // curl -X POST -H 'Content-Type: application/json' -d '{"email":"jlatouf2@gmail.com","password":"jarredl"}' http://localhost:3000/backedTouched
 
 // curl -X POST -H 'Content-Type: application/json' -d '{"email":"jlatouf2@gmail.com", "token" : "DFKDJFI3K3J3"}' http://localhost:3000/addNotificationtoken
-/*
-Tank.findById(id, function (err, tank) {
-  if (err) return handleError(err);
-
-  tank.set({ size: 'large' });
-  tank.save(function (err, updatedTank) {
-    if (err) return handleError(err);
-    res.send(updatedTank);
-  });
-});
-findOne
-
-app.post('/peoplelineInfo', function (req, res, next) {
-  var newUser2 = PeopleLine({
-    email : req.body.email, line: req.body.line,
-    position: req.body.position,  store: req.body.store,
-    fullname : req.body.fullName,  longitude: req.body.longitude,
-    latitude: req.body.latitude,  distance: req.body.distance
-  });
-
-  newUser2.save(function (err, post) {
-    if (err) {return next(err); }
-    res.send(post);     console.log(post);
-  });
-});
-
-*/
-//curl -X POST  http://localhost:3000/addNotificationtoken
 
 app.post('/addNotificationtoken', function(req, res) {
 //  Tank.find({ size: 'small' }).where('createdDate').gt(oneYearAgo).exec(callback);
-console.log(req.body.token);
-console.log(req.body.email);
+console.log(req.body.token);  console.log(req.body.email);
 //Blue.find({ $and: [{store: req.body.store}, {line: req.body.line}]})
 
   //  Blue.save({ notificationkey: 'small' }).where({email:'jlatouf2@gmail.com'})
 //  PeopleLine.find({ $and: [{store: req.body.store}, {line: req.body.line}]})
 
-var blueUser = Blue({
-  notificationkey : 'small'
-
-});
+var blueUser = Blue({ notificationkey : 'small'});
     Blue.findOne({ email: 'jlatouf2@gmail.com' }, function(err, user) {
       if (err) { return next(err); }
         console.log(user);
@@ -1012,19 +898,14 @@ Model.findOne({ name: 'bourne' }, function (err, doc){
 app.post('/addNotificationtoken2', function(req, res) {
   //Blue.find({ $and: [{email: 'jlatouf2@gmail.com'}]})
   PeopleLine.findOne({ email: 'jlatouf2@gmail.com' })
-
     .exec(function(err, posts) {
         if (err) { return next(err); }
-    //  res.send(posts);
-      //res.status(200).send(posts);
-          posts.notificationkey = 'small';
+           posts.notificationkey = 'small';
           posts.save();
-
       res.status(200).json(posts);
         console.log(posts);
       });
 });
-
 
           //NOTE: THIS ONE WORKS!!!!
 
@@ -1143,12 +1024,9 @@ app.post('/backedTouched', function(req, res) {
 
 
 app.post('/facebookSignupLogin', function(req, res) {
-  console.log('PASSED TO BACKEND!');
-  console.log(req.body.email);
-  console.log(req.body.userID);
-  console.log(req.body.name);
-  console.log(typeof(req.body.email));
-  console.log(typeof(req.body.userID));
+  console.log('PASSED TO BACKEND!'); console.log(req.body.email);
+  console.log(req.body.userID); console.log(req.body.name);
+  console.log(typeof(req.body.email)); console.log(typeof(req.body.userID));
   console.log(typeof(req.body.name));
 
   Blue.findOne({ email: req.body.email }, function(err, user) {
@@ -1450,7 +1328,6 @@ app.post('/jp', function (req, res) {
 
   });
 
-
        app.get('/auth/twitter/callback',  passport.authenticate('twitter', { failureRedirect : '/#/login' }),
        function(req, res, user) {
 
@@ -1466,12 +1343,7 @@ app.post('/jp', function (req, res) {
 
          });
 
-
-
-
-
-
-       passport.use(new TwitterStrategy({
+        passport.use(new TwitterStrategy({
 
            consumerKey     : 'KvZbc8GfpjmOU2AoQ81NPrc7U',
            consumerSecret  : 'k0N77FqvqSgEqlEnGkfQedpu7V0wKbRJa1BNfuInicmf4YkOqD',
@@ -1539,11 +1411,11 @@ app.post('/jp', function (req, res) {
 
 
 
-//curl -X POST  http://localhost:3000/stuff
-app.post('/stuff', function (req, res, next) {
-  console.log("Worked!");
+    //curl -X POST  http://localhost:3000/stuff
+    app.post('/stuff', function (req, res, next) {
+      console.log("Worked!");
 
-});
+    });
 
     /*---------- CHECKLINEADMIN --------------*/
 
@@ -1552,12 +1424,8 @@ app.post('/stuff', function (req, res, next) {
       console.log("Store: "+ bob);  console.log("Admin: "+ bob2);
 
       if(bob2 !== undefined) {
-      //  Store.find( {store: req.body.store}).where({Adminpassword: bob})
-      //  THIS WORKS, ITS JUST THAT WHEN YOU DONT HAVE TOKEN [ITS SET TO NULL WHEN NOT LOGGED IN]
-      //  IT MATCHES THE QUEREY B/C IT FINDS A OBJECT WITH THE STORE NAME AND TOKEN=NULL
-      //Storeline.count({ $and: [{store: req.body.store}, {line:req.body.line}]}   )
 
-        Store.find( {store: req.body.store, Adminpassword: req.body.Adminpassword})
+         Store.find( {store: req.body.store, Adminpassword: req.body.Adminpassword})
           .exec(function(err, posts) {
             if (err) { return next(err); }
           res.send(posts);  console.log(posts);
@@ -1607,13 +1475,6 @@ app.post('/stuff', function (req, res, next) {
       });
       });
     });
-
-
-  //  curl -X POST -H 'Content-Type: application/json' -d '{"store":"blue", "line":"2"}' http://localhost:3000/deletePeop
-
-    //curl -X POST  http://localhost:3000/deletePeop
-    //THIS WORKS!
-    //THIS WILL REMOVE ALL NAMES FROM LINEUP RIGHT NOW, BUT THEY ALL HAVE SAME EMAIL!
 
     app.post('/deletePeop', function (req, res, next) {
       PeopleLine.remove({store: req.body.store, line: req.body.line, email: req.body.email}, function(err,removed) {
@@ -1669,103 +1530,7 @@ d.setMilliseconds(192);
 var n = d
 console.log(n);
 
-// curl -X POST -H 'Content-Type: application/json' -d '{"store":"blue", "line":"2"}' http://localhost:3000/addPerson2
 
-// curl -X POST -H 'Content-Type: application/json' -d '{"number":"2"}' http://localhost:3000/addPerson2
-
-//curl -X POST  http://localhost:3000/addPerson2
-
-
-    /*
-    1) when you get back the sorted dates:
-
-      PeopleLine.find({store: req.body.store, line: req.body.line})
-      .sort('-created')
-      .exec(function(err, posts) {
-      if (err) { return next(err) }
-      res.send(posts);    console.log(posts);
-      })
-
-    2) use posts[n-1].created  -this gets timestamp
-      var blue = posts[n].created;
-
-    3) var blue = timestamp + .002  -this adds to timestamp to put it in right places
-      var white = blue + .002;
-
-    4) use add  var newUser2 = PeopleLine({}) with the new created at date as variable
-
-    app.post('/peoplelineInfo', function (req, res, next) {
-      var newUser2 = PeopleLine({   });
-      newUser2.save
-
-     at array[2] {
-     find date at
-   }
-    app.post('/deletePeop', function (req, res, next) {
-        PeopleLine.find({store: req.body.store, line: req.body.line}).exec(function(err, posts) {
-        if (err) { return next(err) }
-        res.send(posts);    console.log(posts);
-          })
-    })
-
-    app.post('/addPerson2', function (req, res, next) {
-        PeopleLine.find({store: req.body.store, line: req.body.line})
-        .sort('-created')
-        .exec(function(err, posts) {
-        if (err) { return next(err) }
-        res.send(posts);    console.log(posts);
-             })
-    })
-
-    app.post('/deletePeop', function (req, res, next) {
-        PeopleLine.find({store: req.body.store}, {line: req.body.line}).exec(function(err, posts) {
-        if (err) { return next(err) }
-        res.send(posts);    console.log(posts);
-          })
-    })
-
-
-    //curl -X POST localhost:3000/peoplelineInfo
-
-    app.post('/peoplelineInfo', function (req, res, next) {
-      var newUser2 = PeopleLine({
-        email : req.body.email, line: req.body.line,
-        position: req.body.position,  store: req.body.store,
-        fullname : req.body.fullName,  longitude: req.body.longitude,
-        latitude: req.body.latitude,  distance: req.body.distance
-      });
-
-      newUser2.save(function (err, post) {
-        if (err) {return next(err); }
-        res.send(post);     console.log(post);
-      });
-    });
-
-
-    */
-
-    // curl -X POST -H 'Content-Type: application/json' -d '{"store":"bobby", "line":"2", "email":"jlatouf3@gmail.com"}' http://localhost:3000/optimizeData2
-
-    // curl -X POST -H 'Content-Type: application/json' -d '{"number":"2"}' http://localhost:3000/addPerson2
-
-    //curl -X POST  http://localhost:3000/optimizeData2
-
-
-/*
-db.books.update(
-   { _id: 1 },
-   {
-     $inc: { stock: 5 },
-     $set: {
-       item: "ABC123",
-       "info.publisher": "2222",
-       tags: [ "software" ],
-       "ratings.1": { by: "xyz", rating: 3 }
-     }
-   }
-)
-
-*/
     app.post('/optimizeData2', function (req, res, next) {
       PeopleLine.find({ $and: [{store: req.body.store}, {line: req.body.line}, {email: req.body.email}]})
         .exec(function(err, posts) {
@@ -1822,17 +1587,38 @@ db.books.update(
             //validation:
 
         app.post('/stuffwhite', function (req, res) {
-        req.assert('name', 'Name is required').notEmpty().withMessage('must be an name');
+
+
+        req.assert('name', 'Name is required').notEmpty().trim().withMessage('must be an name');
          //Validate name
-        req.assert('email', 'A valid email is required').isEmail();
+        req.assert('email', 'A valid email is required').trim().isEmail();
         req.assert('password', 'Password must be at least 4 characters long').len(4);
         var errors = req.validationErrors();
         //if (errors) return res.send(errors);
         if (errors) return res.status(400).send(errors);
 
+        console.log('black');
+        console.log(req.body.email);
+
         });
 
-//curl -X POST -H 'Content-Type: application/json' -d '{"email":"davidwalshr","password":"fsomethingt"}' http://localhost:3000/stuffwhite
+        console.log(/'\d+'/.test("'123'"));
+
+
+/*
+// Every sanitizer method in the validator lib is available as well!
+.trim()
+.normalizeEmail()
+
+HAVE TO ADD A RANKING ELEMENT TO DB, [CALLED COORDINATE POSITION]
+1)check people who are already in line time data
+2)compare your created at times, and see if they are within 5 minutes of each other.
+3)if true( time within 5 min) : then you compare coordinate distances, [which are already in db],
+and the highest distance [furthest away person] is last in line
+4)if false( time higher than 5 min) : then just add up all people and put yourself last.
+*/
+
+//curl -X POST -H 'Content-Type: application/json' -d '{"email":"davidwalshr44","password":"fsomethingt"}' http://localhost:3000/stuffwhite
 //curl -X POST -H 'Content-Type: application/json' -d '{"email":"davidwalshr@black.com"}' http://localhost:3000/stuffwhite2
 
         app.post('/stuffwhite2', function (req, res) {

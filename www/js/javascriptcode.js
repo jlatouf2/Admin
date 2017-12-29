@@ -63,10 +63,13 @@ function myFunction() {   alert('funciton called');    }
     FCMPlugin.onNotification(function(data){
         if(data.wasTapped){
           alert("I am tapped" + JSON.stringify(data) );
+          alert( JSON.stringify(data.message) );
+
         }else{
               //Notification was received in foreground. Maybe the user needs to be notified.
-            //  alert( "I am not tapped" +JSON.stringify(data) );
+             alert( "I am not tapped" +JSON.stringify(data) );
               alert( "ITS YOUR TURN IN LINE." );
+              alert( JSON.stringify(data.message) );
 
               window.location.href = "#/peopleline";
               alert( "PLEASE REMOVE YOURSELF FROM THE LINEUP WHEN YOU ARE FINISHED");
