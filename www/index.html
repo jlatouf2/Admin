@@ -154,7 +154,8 @@ $('.navbar-toggle').click() //bootstrap 3.x by Richard
   //  var socket = io();fff
   //  var socket = io.connect('https://thawing-ocean-11742.herokuapp.com/#/:3000');
     //http://192.168.1.115: THIS WORKS FOR MOBILE LOGIN.
-    var socket = io.connect('http://192.168.1.115:3000');
+    //https://lineups-adminone.herokuapp.com/#/:3000
+    var socket = io.connect('https://lineups-adminone.herokuapp.com/#/:3000');
 //https://thawing-ocean-11742.herokuapp.com/#/home
 
     socket.on('broadcast',function(data){ console.log(data.description); });

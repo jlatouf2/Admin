@@ -160,6 +160,8 @@ angular.module('starter.controllers', [])
 
 
         $scope.ServiceFunction4 = function () {
+          document.addEventListener("deviceready", function() {
+
                   //TOKEN FUNCTION:
                   FCMPlugin.getToken(function(token) {
                           console.log(token);
@@ -185,6 +187,8 @@ angular.module('starter.controllers', [])
                           } alert('there is a token present')
 
                       });
+
+                    }, false);
 
           AuthService.RegisterExample4($scope.fname.fname1, $scope.lname.lname1, $scope.email.email1,
           $scope.password.password1, $scope.passwordConf.passwordConf1, $scope.noteToken );
@@ -655,7 +659,7 @@ angular.module('starter.controllers', [])
         /* ----------VALIDATION -------------- */
 
          $scope.nodeValidation = function(){
-          $http.post('https://thawing-ocean-11742.herokuapp.com/polling', {"email": "jlatouf2@gmail.com"})
+          $http.post('https://lineups-adminone.herokuapp.com/polling', {"email": "jlatouf2@gmail.com"})
            .then(function(data) {
                //First function handles success
                console.log('worked');  console.log(data);
@@ -670,7 +674,7 @@ angular.module('starter.controllers', [])
 
 
           $scope.nodeValidation = function(){
-            $http.post('https://thawing-ocean-11742.herokuapp.com/stuffwhite', {"email": "jlatouf2@gmail.com"})
+            $http.post('https://lineups-adminone.herokuapp.com/stuffwhite', {"email": "jlatouf2@gmail.com"})
              .then(function(data) {
                  //First function handles success
                  console.log('worked');
@@ -1313,6 +1317,8 @@ angular.module('starter.controllers', [])
 
                  /*   --------LOGIN FUNCTION-----------     */
             $scope.ServiceFunction5 = function () {
+              document.addEventListener("deviceready", function() {
+
                         FCMPlugin.getToken(function(token) {
                                 console.log(token);
                                 window.alert(token);
@@ -1337,6 +1343,8 @@ angular.module('starter.controllers', [])
                                 } alert('there is a token present')
 
                             });
+
+                          }, false);
 
                            AuthService.LoginExample3($scope.email.email1, $scope.password.password1, $scope.noteToken);
             };
