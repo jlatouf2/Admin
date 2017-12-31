@@ -64,12 +64,12 @@
       $rootScope.$ionicGoBack = function(backCount) {
           $ionicHistory.goBack(backCount);
       };
-      navbar-fixed-top
+
       ----->
 
     <!---     NAVBAR    ----->
 
-    <nav class="navbar navbar-inverse " style="margin-bottom: 0; background-color:white; border:none" >
+    <nav class="navbar navbar-inverse" style="margin-bottom: 0; background-color:white; border:none" >
      <div class="container-fluid" style="text-align: center;">
          <div class="navbar-header" >
            <button type="button" class="navbar-toggle" data-toggle="collapse" style="background-color:white; border:none"   data-target="#myNavbar">
@@ -93,13 +93,14 @@
 
            </ul>
            <ul class="nav navbar-nav navbar-right">
-             <li><a ng-hide="userdata" href="#/other" style="color:black"><span class="glyphicon glyphicon-log-in" ></span> Other</a></li>
-             <li><a ng-hide="userdata" href="#/signup" style="color:black"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
+              <!-- <li><a ng-hide="userdata" href="#/other" style="color:black"><span class="glyphicon glyphicon-log-in" ></span> Other</a></li>  -->
+             <li><a ng-hide="token" href="#/admin" style="color:black"><span class="glyphicon glyphicon-user" ></span> Admin</a></li>
+            <!-- <li><a ng-hide="userdata" href="#/signup" style="color:black"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>  -->
             <!-- <li><a ng-hide="userdata" href="#/login" style="color:black"><span class="glyphicon glyphicon-log-in" ></span> Login</a></li>  -->
-             <li><a ng-hide="userdata" href="#/messaging" style="color:black"><span class="glyphicon glyphicon-log-in" ></span> Messaging</a></li>
-             <li><a ng-hide="userdata" href="#/analytics" style="color:black"><span class="glyphicon glyphicon-user"></span> Analytics</a></li>
-             <li><a ng-show="userdata" href="#/profile" style="color:black"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-             <li><a ng-show="userdata" ng-controller="firstController" ng-click="logoutFunction()" style="color:black"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+             <li><a ng-show="token" href="#/messaging" style="color:black"><span class="glyphicon glyphicon-envelope" ></span> Messaging</a></li>
+             <li><a ng-show="token" href="#/analytics" style="color:black"><span class=" glyphicon glyphicon-list-alt"></span> Analytics</a></li>
+             <li><a ng-show="token" href="#/profile" style="color:black"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+             <li><a ng-show="token" ng-controller="firstController" ng-click="logoutFunction()" style="color:black"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
           </ul>
        </div>
      </div>
@@ -157,7 +158,7 @@ $('.navbar-toggle').click() //bootstrap 3.x by Richard
     //https://lineups-adminone.herokuapp.com/#/:3000
     var socket = io.connect('https://lineups-adminone.herokuapp.com/#/:3000');
 //https://thawing-ocean-11742.herokuapp.com/#/home
-
+//http://192.168.1.115:3000
     socket.on('broadcast',function(data){ console.log(data.description); });
 
     socket.on('passInfoBack', function () {  console.log('this Passed Info Back from Button2!!!!') });

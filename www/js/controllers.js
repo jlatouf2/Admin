@@ -31,6 +31,14 @@ angular.module('starter.controllers', [])
           //  NOTE: THIS IS THE NOTIFICAITON KEY:
         // localStorage.setItem("TokenData", 'blackbox');
 
+
+        $scope.$on('$stateChangeSuccess', function () {
+          console.log($rootScope.token);
+            if (  $rootScope.token !== 'true') {
+              $location.path('/admin');
+            }
+          });
+
         $scope.noteToken = localStorage.getItem("TokenData");
       //     $scope.noteToken ="BLACK";
 
@@ -68,6 +76,13 @@ angular.module('starter.controllers', [])
 
         //  $cordovaDialogs.beep(3);
 
+        $scope.$on('$stateChangeSuccess', function () {
+          console.log($rootScope.token);
+            if (  $rootScope.token !== 'true') {
+              $location.path('/admin');
+            }
+          });
+
 
           $scope.dialog = function(){ $cordovaDialogs.alert('message', 'title', 'button name')
              .then(function() {   });
@@ -97,7 +112,7 @@ angular.module('starter.controllers', [])
           method : 'POST',
           headers : { 'Content-Type' : 'application/json',
           'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-          data: ({"to": "eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S", "notification": {"title":"Test","body":"Test", "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY",  "icon":"fcm_push_icon"},  "priority":"high"})
+          data: ({"to": "eFK_hHP3Rm4:APA91bHXo_G0ivKEQZ9_fLXhg6fCzC3SgeAxiLki0byU5lfOF6r75ZXvuZyINTs5R7LdlfGtTdmVZeYgnWeAToRAIA267FCiU5BxQl30HkZmhkCHTHqHH4KUKwF9vENhgHQCTjVbtH0S", "notification": {"title":"Test","body":"Test", "sound":"default"},  "priority":"high"})
 
           }).success(function(data){
               alert("login Successfully");
@@ -112,14 +127,13 @@ angular.module('starter.controllers', [])
 
 
          $scope.getNotif = function(){
-
           FCMPlugin.getToken(function(token) {
                console.log(token);  window.alert(token);
               localStorage.setItem("TokenData", token);
               var myToken = localStorage.getItem("TokenData");
               window.alert(myToken);
 
-              $http.post('https://thawing-ocean-11742.herokuapp.com/tokenReturned', {token: localStorage.getItem("TokenData")})
+              $http.post('https://lineups-adminone.herokuapp.com/tokenReturned', {token: localStorage.getItem("TokenData")})
                  .then(function(data) {
                       alert('worked');   alert(data);
                       $scope.getToken = data;
@@ -133,41 +147,6 @@ angular.module('starter.controllers', [])
                   });
               });
             };
-
-            $scope.blueboy  = function() {
-
-              window.FirebasePlugin.getToken(function(token) {
-              // save this server-side and use it to push notifications to this device
-              window.alert(token);
-          }, function(error) {
-              window.alert(error);
-          });
-
-             };
-
-
-            $scope.getNotif = function(){
-             FCMPlugin.getToken(function(token) {
-                  console.log(token);  window.alert(token);
-                 localStorage.setItem("TokenData", token);
-                 var myToken = localStorage.getItem("TokenData");
-                 window.alert(myToken);
-
-                 $http.post('https://thawing-ocean-11742.herokuapp.com/tokenReturned', {token: localStorage.getItem("TokenData")})
-                    .then(function(data) {
-                         alert('worked');   alert(data);
-                         $scope.getToken = data;
-                        //$scope.content = response.data;
-                    }, function() { alert('didnt work'); });
-
-                      FCMPlugin.onNotification(function(data) {
-                         console.log(data);
-                         window.alert('THIS WAS SELECTED ON NOTIFICATION!!')
-                         window.alert(data);
-                     });
-                 });
-               };
-
 
 
           $rootScope.goback2 = function(){ console.log('clicked'); $state.go('home'); };
@@ -216,33 +195,6 @@ angular.module('starter.controllers', [])
           });
                         }, false);
 
-                  //TOKEN FUNCTION:
-              /*    FCMPlugin.getToken(function(token) {
-                          console.log(token);
-                          window.alert(token);
-                         localStorage.setItem("TokenData", token);
-                         var myToken = localStorage.getItem("TokenData");
-                         $rootScope.noteToken = myToken;
-                         window.alert(myToken);
-                          if (token == null) {
-                              alert('there is no token')
-
-                              //this gets new token if you dont have one.
-                              FCMPlugin.onTokenRefresh(function(token){
-                                 alert( token );
-                                 localStorage.setItem("TokenData", token);
-                                 var myToken = localStorage.getItem("TokenData");
-                                 $rootScope.noteToken = myToken;
-                                 window.alert(myToken);
-                              });
-
-                           } else if (token != null) {
-
-                          } alert('there is a token present')
-
-                      }); */
-
-                    //}, false);
 
           AuthService.RegisterExample4($scope.fname.fname1, $scope.lname.lname1, $scope.email.email1,
           $scope.password.password1, $scope.passwordConf.passwordConf1, $scope.noteToken );
@@ -251,11 +203,8 @@ angular.module('starter.controllers', [])
        /*  $scope.ServiceFunction5 = function () {console.log("clicked22");AuthService.LoginExample3($scope.email, $scope.password);}; */
 
 
-
-
       //FACEBOOK SERVICE.JS LOGIN:
       $scope.Servicefacebook = function () { AuthService.facebookLogin(); };
-
 
 
     // function myFunction6(){
@@ -273,6 +222,18 @@ angular.module('starter.controllers', [])
 
 .controller('ProfileCtrl', function($scope, $location, $http, $rootScope, AuthService) {
 
+  $rootScope.token = localStorage.getItem("ok");
+
+      console.log(localStorage.getItem("ok"));
+      console.log($rootScope.token);
+
+
+      $scope.$on('$stateChangeSuccess', function () {
+        console.log($rootScope.token);
+          if (  $rootScope.token !== 'true') {
+            $location.path('/admin');
+          }
+        });
 
         //THIS CONFIRMS THE LOGIN FOR FACEBOOK
         /*
@@ -332,7 +293,6 @@ angular.module('starter.controllers', [])
 
   */
 
-
           $rootScope.goback2 = function(){
             console.log('clicked1'); $ionicHistory.goBack();
             //$state.go('home')
@@ -391,11 +351,16 @@ angular.module('starter.controllers', [])
 
 
           $scope.$on('$stateChangeSuccess', function () {
-            socket.emit('storeName', {postal: $scope.postal },function (data) {
-                  console.log(data);    console.log(data[0].store);
-                  $scope.numberLinesZero = false;
-                  $scope.$apply(function () {   $scope.storewithNames = data;  });
-             });
+            console.log($rootScope.token);
+              if (  $rootScope.token !== 'true') {
+                $location.path('/admin');
+              }
+
+              socket.emit('storeName', {postal: $scope.postal },function (data) {
+                    console.log(data);    console.log(data[0].store);
+                    $scope.numberLinesZero = false;
+                    $scope.$apply(function () {   $scope.storewithNames = data;  });
+               });
            });
 
          socket.on('updateStores', function (data) {
@@ -448,11 +413,8 @@ angular.module('starter.controllers', [])
                       socket.emit('addStore',  {store : $scope.storeName.sname, email: $scope.useremail, postal: $scope.postal, latitude: localStorage.getItem("StoreLatitude"),
                         longitude: localStorage.getItem("StoreLongitude"), Adminpassword: $scope.usertoken },function (data) {
                            $scope.failedLogin = true; console.log(data);
-                        //  $scope.$apply(function () { $scope.failedData = data;  });
-
-                           $scope.failedData = data;
-
-                              $timeout(function () { $scope.failedLogin = false; console.log('BLUE'); }, 3000);
+                          $scope.$apply(function () { $scope.failedData = data;  });
+                            setTimeout(function(){ $rootScope.failedLogin = false; console.log('BLUE'); }, 3000);
                           //  $scope.storeName.sname == '';
                       });
                    }
@@ -475,7 +437,7 @@ angular.module('starter.controllers', [])
           $scope.deleteName2 = function(name) {
               console.log("name is: "+name);  $scope.storeName2 = name;
               console.log($scope.storeName2);
-               socket.emit('deleteStore44',  {store:  $scope.storeName2  },function (data) {
+               socket.emit('deletestoreAdmin',  {store:  $scope.storeName2  },function (data) {
                console.log(data); alert(data);
              });
            };
@@ -501,6 +463,7 @@ angular.module('starter.controllers', [])
 
 
 .controller('StorelinesCtrl', function($scope, $location, $ionicModal, $timeout, $cordovaGeolocation, $http, $rootScope, $state, $ionicHistory) {
+
 
 
         console.log(localStorage.getItem("StoreName"));
@@ -540,14 +503,19 @@ angular.module('starter.controllers', [])
 
 
        $scope.$on('$stateChangeSuccess', function () {
-         console.log('STATECHANGE ON!!!' + localStorage.getItem("StoreName"));
-         socket.emit('numberofLines',  {store:  localStorage.getItem("StoreName")  },function (data) {
-           console.log(data); console.log(data.length);
-             $rootScope.numberLines= data.length;   $scope.countries = data;
-             $scope.$apply(function () {
-                      $scope.whiteLines();
-                });
-         });
+
+             if (  $rootScope.token !== 'true') {
+               $location.path('/admin');
+             }
+
+             console.log('STATECHANGE ON!!!' + localStorage.getItem("StoreName"));
+             socket.emit('numberofLines',  {store:  localStorage.getItem("StoreName")  },function (data) {
+               console.log(data); console.log(data.length);
+                 $rootScope.numberLines= data.length;   $scope.countries = data;
+                 $scope.$apply(function () {
+                          $scope.whiteLines();
+                    });
+             });
         });
 
 
@@ -607,7 +575,7 @@ angular.module('starter.controllers', [])
        /*   --------DELETE MODE-----------     */
         $scope.deleteLine = function(name) {
           console.log("line is: "+name);   console.log("store name: "+ $scope.grabStorename);
-             socket.emit('deleteselectedLine',  {line : name, store: localStorage.getItem("StoreName")},function (data) {
+             socket.emit('deleteselectedLineAdmin',  {line : name, store: localStorage.getItem("StoreName")},function (data) {
             console.log(data);  alert(data);
             });
         };
@@ -641,6 +609,7 @@ angular.module('starter.controllers', [])
 
 
 .controller('PeoplelineCtrl', function($scope, $location, $http, $ionicModal, $interval, $ionicHistory, $rootScope, $timeout, $state, $cordovaGeolocation) {
+
 
         window.addEventListener("focus", () => socket.connect());
 
@@ -709,7 +678,7 @@ angular.module('starter.controllers', [])
         /* ----------VALIDATION -------------- */
 
          $scope.nodeValidation = function(){
-          $http.post('https://lineups-adminone.herokuapp.com/polling', {"email": "jlatouf2@gmail.com"})
+          $http.post('https://thawing-ocean-11742.herokuapp.com/polling', {"email": "jlatouf2@gmail.com"})
            .then(function(data) {
                //First function handles success
                console.log('worked');  console.log(data);
@@ -724,7 +693,7 @@ angular.module('starter.controllers', [])
 
 
           $scope.nodeValidation = function(){
-            $http.post('https://lineups-adminone.herokuapp.com/stuffwhite', {"email": "jlatouf2@gmail.com"})
+            $http.post('https://thawing-ocean-11742.herokuapp.com/stuffwhite', {"email": "jlatouf2@gmail.com"})
              .then(function(data) {
                  //First function handles success
                  console.log('worked');
@@ -799,10 +768,14 @@ angular.module('starter.controllers', [])
       //THIS IS CALLED FROM JAVASCRIPT:
       $scope.myfunction22 = function () {  confirm('CLICKED FROM JAVASCRIPT!');  };
 
-
       /* ----------GET PEOPLE FCN -------------- */
 
       $scope.$on('$stateChangeSuccess', function () {
+
+              if (  $rootScope.token !== 'true') {
+                $location.path('/admin');
+              }
+
             socket.emit('getPeopleLine', {store : localStorage.getItem("StoreName"),
             line: localStorage.getItem("LineNumber"), Adminpassword: $scope.usertoken },function (data) {
                 $scope.$apply(function () {
@@ -1232,17 +1205,66 @@ angular.module('starter.controllers', [])
 
     })
 
-.controller('MessagingCtrl', function($scope, $location, $http, $rootScope ) {
+.controller('MessagingCtrl', function($scope, $location, $rootScope, $http ) {
 
 //https://thawing-ocean-11742.herokuapp.com/findUserTokens
+
       $scope.$on('$stateChangeSuccess', function () {
+        console.log($rootScope.token);
+          if (  $rootScope.token !== 'true') {
+            $location.path('/admin');
+          }
+               socket.emit('findUserTokens', {},function (data) {
+                $scope.$apply(function () {
+                  console.log('worked');  console.log(data);
+                  $scope.usercontents = data;
+                  });
+             });
+       });
+
+
+       $scope.messageAll = function(){
            socket.emit('findUserTokens', {},function (data) {
+
             $scope.$apply(function () {
               console.log('worked');  console.log(data);
+              $rootScope.messageAlldata = data;
               $scope.usercontents = data;
+
+                 //loops through json array data to get notification keys:
+                  for(var i = 0; i < data.length; i++) {
+                    var obj = data[i];
+                //  console.log(obj.notificationkey);
+
+                    if (obj.notificationkey !== undefined || null) {
+                          $rootScope.noteSaveddata = obj.notificationkey;
+                          console.log($scope.noteSaveddata);
+
+
+                          $rootScope.noteArrray = obj.notificationkey;
+                          $rootScope.noteName = obj.email;
+
+                                $http({
+                                url : "https://fcm.googleapis.com/fcm/send",
+                                method : 'POST',
+                                headers : { 'Content-Type' : 'application/json',
+                                'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
+                                data: ({"to": $rootScope.noteArrray, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default"}, "data":{ "message":"value33"}})
+                                        //"Your Turn is up"
+                                }).success(function(data){
+                                    console.log("Successfully Passed Notification"); console.log(data);
+                                }).error(function(error){
+                                    console.log("That user does not have a notifivation key:"); console.log(error);
+                                });
+
+
+                          }
+                     }
+                 });
+                 console.log($rootScope.noteArrray);
              });
-         });
-       });
+           }
+
 
         $scope.message ={body:"Your turn is up!"};
 
@@ -1256,54 +1278,6 @@ angular.module('starter.controllers', [])
         };
 
 
-      $scope.messageAll = function(){
-        if (window.confirm("Are you sure you would like to send this notification: " +
-          localStorage.getItem("messageBody") + " to All Users?") === true) {
-
-        socket.emit('findUserTokens', {},function (data) {
-           $scope.$apply(function () {
-             console.log('worked');  console.log(data);
-             $rootScope.messageAlldata = data;
-             $scope.usercontents = data;
-
-              //loops through json array data to get notification keys:
-               for(var i = 0; i < data.length; i++) {
-                 var obj = data[i];
-             //  console.log(obj.notificationkey);
-
-                 if (obj.notificationkey !== undefined || null) {
-                       $rootScope.noteSaveddata = obj.notificationkey;
-                       console.log($scope.noteSaveddata);
-
-
-                       $rootScope.noteArrray = obj.notificationkey;
-                       $rootScope.noteName = obj.email;
-
-                             $http({
-                             url : "https://fcm.googleapis.com/fcm/send",
-                             method : 'POST',
-                             headers : { 'Content-Type' : 'application/json',
-                             'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-                             data: ({"to": $rootScope.noteArrray, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default" },
-                           "data":{ "message":"value33"}})
-                                     //"Your Turn is up"
-                             }).success(function(data){
-                                 console.log("Successfully Passed Notification"); console.log(data);
-                             }).error(function(error){
-                                 console.log("That user does not have a notifivation key:"); console.log(error);
-                             });
-
-
-                       }
-                  }
-              });
-              console.log($rootScope.noteArrray);
-          });
-        } else {  console.log( "You pressed Cancel!");   }
-
-      };
-
-
         $scope.grabStuff = function(notificationkey, email){
               console.log( notificationkey);   console.log( email);
                 var not = notificationkey; console.log(not);
@@ -1314,8 +1288,7 @@ angular.module('starter.controllers', [])
                     method : 'POST',
                     headers : { 'Content-Type' : 'application/json',
                     'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-                    data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default"},
-                    "data":{ "message":"value33"}})
+                    data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default"},"data":{ "message":"value33"}})
                             //"Your Turn is up"
                     }).success(function(data){
                         alert("Successfully Passed Notification"); console.log(data);
@@ -1325,46 +1298,26 @@ angular.module('starter.controllers', [])
               } else {  console.log( "You pressed Cancel!");   }
          };
 
-
-         /*
-
-         $scope.grabStuff = function(notificationkey, email){
-               console.log( notificationkey);   console.log( email);
-                 var not = notificationkey; console.log(not);
-               if (window.confirm("Are you sure you would like to send a notification to !") === true) {
-                   console.log( "You pressed OK!");
-                     $http({
-                     url : "https://fcm.googleapis.com/fcm/send",
-                     method : 'POST',
-                     headers : { 'Content-Type' : 'application/json',
-                     'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-                     data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default"},
-                     "data":{ "message":"value1"}, "priority":"high"})
-                             //"Your Turn is up"
-                     }).success(function(data){
-                         alert("Successfully Passed Notification"); console.log(data);
-                     }).error(function(error){
-                         alert("That user does not have a notifivation key:"); console.log(error);
-                     });
-               } else {  console.log( "You pressed Cancel!");   }
-          };
-
-
-
-         */
-
      })
 
 .controller('AnalyticsCtrl', function($scope, $location, $http, $rootScope ) {
 
 
-            socket.emit('findUserTokensPeopleLine', {},function (data) {
-             $scope.$apply(function () {
-               console.log('worked'); console.log(data);
-               $scope.usercontents = data;  $rootScope.numberLinesAnalytics = true;
+  $scope.$on('$stateChangeSuccess', function () {
+    if (  $rootScope.token !== 'true') {
+      $location.path('/admin');
+    }
 
-              });
+        socket.emit('findUserTokensPeopleLine', {},function (data) {
+         $scope.$apply(function () {
+           console.log('worked'); console.log(data);
+           $scope.usercontents = data;  $rootScope.numberLinesAnalytics = true;
+
           });
+      });
+   });
+
+
 
             /* ----------POSITION BUTTON! -------------- */
             $scope.positionButton = function(){
@@ -1390,65 +1343,71 @@ angular.module('starter.controllers', [])
 
  .controller('LoginCtrl', function($scope, $location, $http, $rootScope, AuthService ) {
 
-              $scope.noteToken = localStorage.getItem("TokenData");
-             $scope.email = {email1 : "jlatouf2@gmail.com333"};
-             $scope.password = {password1 : "jarredl"};
+                 $scope.noteToken = localStorage.getItem("TokenData");
+                $scope.email = {email1 : "jlatouf2@gmail.com333"};
+                $scope.password = {password1 : "jarredl"};
 
-                 /*   --------LOGIN FUNCTION-----------     */
-            $scope.ServiceFunction5 = function () {
-              document.addEventListener("deviceready", function() {
-
-
-                window.FirebasePlugin.getToken(function(token) {
-                // save this server-side and use it to push notifications to this device
-                // save this server-side and use it to push notifications to this device
-                window.alert(token);
-               localStorage.setItem("TokenData", token);
-               var myToken = localStorage.getItem("TokenData");
-               $rootScope.noteToken = myToken;
-               window.alert(myToken);
-
-                window.alert(token);
-            }, function(error) {
-                window.alert(error);
-            });
-                          }, false);
-
-                           AuthService.LoginExample3($scope.email.email1, $scope.password.password1, $scope.noteToken);
-            };
-                     //FACEBOOK SERVICE.JS LOGIN:
-            $scope.Servicefacebook = function () {
-
-              FCMPlugin.getToken(function(token) {
-                       window.alert(token);
-                     localStorage.setItem("TokenData", token);
-                     var myToken = localStorage.getItem("TokenData");
-                     $rootScope.noteToken = myToken;
-                     window.alert(myToken);
-                      if (token == null) {
-                          alert('there is no token')
-                          //this gets new token if you dont have one.
-                          FCMPlugin.onTokenRefresh(function(token){
-                             alert( token );
-                             localStorage.setItem("TokenData", token);
-                             var myToken = localStorage.getItem("TokenData");
-                             $rootScope.noteToken = myToken;
-                             window.alert(myToken);
-                          });
-
-                       } else if (token != null) {
-
-                      } alert('there is a token present')
-
-                  });
-
-              AuthService.facebookLogin();
-            };
-
-      })
+                    /*   --------LOGIN FUNCTION-----------     */
+               $scope.ServiceFunction5 = function () {
+                 document.addEventListener("deviceready", function() {
 
 
- .controller('DetailsCtrl', function($scope, $location, $http ) {
+                   window.FirebasePlugin.getToken(function(token) {
+                   // save this server-side and use it to push notifications to this device
+                   // save this server-side and use it to push notifications to this device
+                   window.alert(token);
+                  localStorage.setItem("TokenData", token);
+                  var myToken = localStorage.getItem("TokenData");
+                  $rootScope.noteToken = myToken;
+                  window.alert(myToken);
+
+                   window.alert(token);
+               }, function(error) {
+                   window.alert(error);
+               });
+                             }, false);
+
+                              AuthService.LoginExample3($scope.email.email1, $scope.password.password1, $scope.noteToken);
+               };
+                        //FACEBOOK SERVICE.JS LOGIN:
+               $scope.Servicefacebook = function () {
+
+                 FCMPlugin.getToken(function(token) {
+                          window.alert(token);
+                        localStorage.setItem("TokenData", token);
+                        var myToken = localStorage.getItem("TokenData");
+                        $rootScope.noteToken = myToken;
+                        window.alert(myToken);
+                         if (token == null) {
+                             alert('there is no token')
+                             //this gets new token if you dont have one.
+                             FCMPlugin.onTokenRefresh(function(token){
+                                alert( token );
+                                localStorage.setItem("TokenData", token);
+                                var myToken = localStorage.getItem("TokenData");
+                                $rootScope.noteToken = myToken;
+                                window.alert(myToken);
+                             });
+
+                          } else if (token != null) {
+
+                         } alert('there is a token present')
+
+                     });
+
+                 AuthService.facebookLogin();
+               };
+       })
+
+
+ .controller('DetailsCtrl', function($scope, $location, $http, $rootScope ) {
+
+       $scope.$on('$stateChangeSuccess', function () {
+         if (  $rootScope.token !== 'true') {
+           $location.path('/admin');
+         }
+
+         });
 
           console.log($scope.detailEmail); console.log($scope.detailStore);
           console.log($scope.detailLine);  console.log($scope.detailNotification);
@@ -1475,8 +1434,8 @@ angular.module('starter.controllers', [])
                      method : 'POST',
                      headers : { 'Content-Type' : 'application/json',
                      'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-                     data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"},
-                    "data":{ "message":"value1"}})
+                     data: ({"to": not, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default"},
+                   "data":{ "message":"value1"}})
                              //"Your Turn is up"
                      }).success(function(data){
                          alert("Successfully Passed Notification");  console.log(data);
@@ -1489,4 +1448,16 @@ angular.module('starter.controllers', [])
                }
           };
 
-    });
+    })
+
+
+.controller('AdminCtrl', function($scope, $location, $http, $rootScope, AuthService ) {
+
+                 $scope.noteToken = localStorage.getItem("TokenData");
+                $scope.email = {email1 : "jlatouf2@gmail.comsadfasfaf777"};
+                $scope.password = {password1 : "jarredl"};
+
+                    /*   --------LOGIN FUNCTION-----------     */
+               $scope.ServiceFunction5 = function () { AuthService.AdminLogin($scope.email.email1, $scope.password.password1, $scope.noteToken); };
+
+     });

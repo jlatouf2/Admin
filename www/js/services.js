@@ -6,12 +6,18 @@ angular.module('starter').factory('AuthService' ,
     $rootScope.lineups2 = ['Jarred', 'Jacob', 'Johna!']; $rootScope.storesAvailable = ['BestBuy', 'Kmart', 'Target', 'Zehrs'];
     $rootScope.peopleLine = ['Marcus', 'Dom', 'Brain'];     $rootScope.lineNumber = [1, 2, 3];
 
+  //  $rootScope.token = localStorage.getItem("ok");
+
+        console.log(localStorage.getItem("ok"));
+        console.log($rootScope.token);
+
         return ({
           RegisterExample4: RegisterExample4,
           LoginExample3: LoginExample3,
           logout: logout,
           confirm: confirm,
-          facebookLogin: facebookLogin
+          facebookLogin: facebookLogin,
+          AdminLogin: AdminLogin
         });
 
 
@@ -21,7 +27,7 @@ angular.module('starter').factory('AuthService' ,
           console.log('passwordConf: ' + passwordConf); console.log('noteToken: ' + noteToken);
 //http://192.168.1.115:3000/signup22
 //https://thawing-ocean-11742.herokuapp.com/signup22
-//https://lineups-adminone.herokuapp.com/signup22
+//https://lineups-adminone.herokuapp.com
             $http.post('https://lineups-adminone.herokuapp.com/signup22', { fname: fname, lname: lname, email : email, password : password, passwordConf: passwordConf, noteToken: noteToken } )
             .success(function( data) {
               console.log (data);
@@ -135,6 +141,46 @@ angular.module('starter').factory('AuthService' ,
          });
     }
 
+    function AdminLogin(email, password, noteToken){
+        console.log('email: ' + email); console.log('password: ' + password); console.log('noteToken: ' + noteToken);
+//'http://192.168.1.115:3000/login22999'
+//'https://thawing-ocean-11742.herokuapp.com/login22999'
+      $http.post('https://lineups-adminone.herokuapp.com/adminLogin', {email : email, password : password, noteToken : noteToken} )
+         .success(function( data) {
+           console.log (data);
+           $location.path('/profile');
+
+        /*    $rootScope.userdata = data;
+            //Its refered to as local because its stored in the database as local:
+            $rootScope.fullName= data.user.firstname +" "+ data.user.lastname;
+            $rootScope.userid= data.user._id; $rootScope.useremail = data.user.email;
+            $rootScope.userPassword = data.user.password;
+          //  $rootScope.usertoken = data.token;
+          $rootScope.usertoken = data.user.notificationkey;
+          */
+        //  $rootScope.adminLoggedin = true;
+            var blog = true;
+          localStorage.setItem("adminLogin", blog);
+          console.log(localStorage.getItem("adminLogin"));
+            $rootScope.failedLogin = false;
+
+
+
+              localStorage.setItem("ok", $rootScope.token = true);
+      //     $rootScope.userdata2 = function(){   return localStorage.getItem('ok') };
+
+          console.log(localStorage.getItem("ok"));
+
+        //  $rootScope.token = localStorage.getItem("ok");
+
+
+
+        }).error(function (data) {
+                      console.log(data);
+                      $rootScope.failedLogin = true;   $rootScope.message = data;
+         });
+    }
+
 
     function logout() {
             $rootScope.userdata = null;
@@ -143,7 +189,12 @@ angular.module('starter').factory('AuthService' ,
             $rootScope.useremail = null;  $rootScope.fullName = null;
             $rootScope.userid = null;     $rootScope.userPassword = null;
 
-            $rootScope.imageSaved = false;
+            $rootScope.token = null;     $rootScope.imageSaved = false;
+             $rootScope.adminLoggedin = true;
+          //  $rootScope.token = localStorage.getItem("ok");
+
+            localStorage.setItem("ok", null);  $rootScope.token = null;
+
             $http.get('/logout')
               .success(function () {    console.log('LOGGED OUT!');    })
               .error(function () {      console.log('NOT LOGGED OUT!');   });

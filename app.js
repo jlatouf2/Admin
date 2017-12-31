@@ -32,12 +32,10 @@ var PeopleLine = require('./www/config/peopleline.js');
 var UserStuff = require('./www/config/userinfo.js');
 var User   = require('./www/config/user');
 var Blue = require('./www/config/userblack.js');
+var Blueadmin = require('./www/config/admin.js');
 
-var validator = require('validator');
+
 var expressValidator = require('express-validator'); //Declare Express-Validator
-
-var check = require('validator').check;
-var sanitize = require('validator').sanitize;
 
 app.use(expressValidator());  //required for Express-Validator
 
@@ -115,21 +113,6 @@ io.on('connection', function(socket){
   //  socket.emit('passInfoBack', { description: 'A custom event named testerEvent!'});
       });
 
-/*
-      app.post('/stuffwhite', function (req, res) {
-      req.assert('name', 'Name is required').notEmpty().trim().withMessage('must be an name');
-
-       //Validate name
-      req.assert('email', 'A valid email is required').trim().isEmail();
-      req.assert('password', 'Password must be at least 4 characters long').len(4);
-      var errors = req.validationErrors();
-      //if (errors) return res.send(errors);
-
-      if (errors) return res.status(400).send(errors);
-      console.log('black');
-      console.log(req.body.email);
-      });
-*/
 
       socket.on('storeName', function (data, callback) {
         console.log('data passed'); console.log(data);
@@ -173,55 +156,8 @@ io.on('connection', function(socket){
 
 */
 
-/*
-   try {
-     validator.contains('name', 'A valid store is required');
-   } catch (e) {
-       console.log(e.message); //Invalid integer
-   }
-
-
-   validator.trim(name); //=> true
-   validator.isEmpty(name); //=> true
-   validator.escape(name)
-//validator.blacklist(name, '\\[<]')
-//isBoolean
-
-
-   console.log("sdfasdfa"+data.store);
-validator.isInt(name)
-       if (validator.isInt('1') === false) {
-          callback('did not work');
-       } else if (validator.isInt('1') === true){
-         callback('it worked');
-       }
-       validator.trim(data.store); //=> true
-       validator.isEmpty(data.store); //=> true
-       if (validator.isEmpty(data.store) === true) {
-          callback('please enter data in textarea');
-       }
-function sand() {
-
-}
-
-*/
-
-function sand(parameter) {
-  validator.trim(parameter); //=> true
-  validator.escape(parameter);
-  if (validator.isEmpty(parameter) === true) {
-     callback('please enter data in textarea');
-  }
-        console.log('the sanitize was called' + parameter);
-}
-
-
-
 socket.on('addStore', function (data, callback) {
-  console.log("skdflskjd"+data.store);
-
-    sand(data.store);
-
+  console.log(data.store);
     Store.find( {store: data.store})
       .exec(function(err, post) {
          if (err) { return next(err); }
@@ -245,27 +181,14 @@ socket.on('addStore', function (data, callback) {
             //  res.status(401).send({success: false, msg: 'Passwords dont match.'});
           }
      });
-
 });
 
-/*
-      socket.on('deleteStore44', function (data) {
-         console.log(data);
-         Store.remove({store: data.store}, function(err) {
-             Store.find().exec(function(err, posts) {
-               if (err) { return next(err); }
-                  console.log(posts);
-              // callback(posts);
-               io.emit('deleteUpdate', posts);
-             });
-         });
-      });
-*/
+
+
 
     socket.on('deleteStore44', function (data, callback) {
   //    Store.find({store: data.store, email: data.email})
     //   Store.findOne({ $and: [{email: data.email}, {store: data.store}]})
-
     Store.findOne({store: data.store, email: data.email}, function( err, posts){
         //.exec(function(err, posts) {
             if (err) { return next(err); }
@@ -289,6 +212,34 @@ socket.on('addStore', function (data, callback) {
           }
         });
     });
+
+
+    socket.on('deletestoreAdmin', function (data) {
+       console.log(data);
+       Store.remove({store: data.store}, function(err) {
+           Store.find().exec(function(err, posts) {
+             if (err) { return next(err); }
+                console.log(posts);
+            // callback(posts);
+             io.emit('deleteUpdate', posts);
+           });
+       });
+    });
+
+/*
+socket.on('deleteStore44', function (data) {
+   console.log(data);
+   Store.remove({store: data.store}, function(err) {
+       Store.find().exec(function(err, posts) {
+         if (err) { return next(err); }
+            console.log(posts);
+        // callback(posts);
+         io.emit('deleteUpdate', posts);
+       });
+   });
+});
+*/
+
 
       socket.on('numberofLines', function (data, callback) {
          console.log(data);
@@ -411,14 +362,14 @@ socket.on('addperson11', function (data, callback) {
         });
 });
 
-socket.on('optimizeData', function (data) {
-  PeopleLine.find({ $and: [{store: data.store}, {line: data.line}, {email: data.email}]})
-    .exec(function(err, posts) {
-        if (err) { return next(err); }
-      //callback(posts);
-      console.log(posts);
-      });
-});
+    socket.on('optimizeData', function (data) {
+      PeopleLine.find({ $and: [{store: data.store}, {line: data.line}, {email: data.email}]})
+        .exec(function(err, posts) {
+            if (err) { return next(err); }
+          //callback(posts);
+          console.log(posts);
+          });
+    });
 
 //     Storeline.remove({ $and: [{store: data.store}, {line: data.line}]}, function(err,removed) {
 
@@ -548,6 +499,23 @@ socket.on('optimizeData', function (data) {
       });
 
 
+
+socket.on('deleteselectedLineAdmin', function (data) {
+  console.log('store: '+data.store);
+  console.log('line: '+data.line);
+  Storeline.remove({ $and: [{store: data.store}, {line: data.line}]}, function(err,removed) {
+    Storeline.find({store: data.store}).exec(function(err, posts) {
+      if (err) { return next(err); }
+      //callback(posts);
+       io.emit('deleteLinesUpdate', posts);
+         console.log(posts);
+         // Add a javascript object to this with store: data.store so
+         //that it will work right.
+    });
+  });
+});
+
+
         socket.on('addPerson244', function (data, callback) {
           console.log(data.number);
           number = data.number;
@@ -628,6 +596,8 @@ app.post('/deletePeop', function (req, res, next) {
 })
 */
 
+//curl -X POST -H 'Content-Type: application/json' -d '{"email":"jlatouf2@gmail.comsadfasfaf888", "password":"jarredl"}' http://localhost:3000/signup22
+
 /*---------- SIGNUP FUNCTION: --------------*/
 
 app.post('/signup22', function (req, res, next) {
@@ -675,7 +645,6 @@ app.post('/signup22', function (req, res, next) {
 
        }
 });
-
 
 
 /*---------- LOGIN FUNCTION: --------------*/
@@ -811,6 +780,89 @@ var noteTokenvar = req.body.noteToken;
     }
   });
 });
+
+            /*******    ADMIN LOGIN     ********/
+
+//curl -X POST -H 'Content-Type: application/json' -d '{"email":"jlatouf2@gmail.comsadfasfaf777", "password":"jarredl"}' http://localhost:3000/adminLogin
+//curl -X POST -H 'Content-Type: application/json' -d '{"email":"davidwalshr","password":"fsomethingt"}' http://localhost:3000/adminLogin
+
+app.post('/adminLogin', function(req, res) {
+  console.log('PASSED TO BACKEND!');
+  console.log(req.body.noteToken);
+var noteTokenvar = req.body.noteToken;
+  Blueadmin.findOne({ email: req.body.email }, function(err, user) {
+    if (err) throw err;
+
+    if (!user) {
+      console.log('username didnt work');
+      res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
+    } else {
+      // check if password matches
+      user.comparePassword(req.body.password, function (err, isMatch) {
+        if (isMatch && !err) {
+
+         user.notificationkey = noteTokenvar;
+          user.save();
+
+          res.send({'user': user});
+
+        } else {
+          console.log('didnt work password');
+          res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
+        }
+      });
+    }
+  });
+});
+
+
+
+//curl -X POST -H 'Content-Type: application/json' -d '{"email":"jlatouf2@gmail.comsadfasfaf888", "password":"jarredl"}' http://localhost:3000/signup55
+
+
+app.post('/adminSignup', function (req, res, next) {
+  var userData = {
+    email: req.body.email,  password: req.body.password
+  };
+        Blueadmin.findOne({ email: req.body.email }, function(err, user) {
+                if (err) throw err;
+
+                if (user) {
+                  console.log('username didnt work');
+                  res.status(401).send({success: false, msg: 'Authentication failed. User already exists!'});
+                }  else {
+
+                Blueadmin.create(userData, function (err, user) {
+                  if (err) { return next(err); }
+
+                  res.status(200).send(user);
+                    console.log(user);
+                  //  return res.redirect('/profile');
+                });
+                   }
+          })
+});
+
+
+
+//curl -X POST -H 'Content-Type: application/json'  http://localhost:3000/checkDB
+//curl -X POST -H 'Content-Type: application/json'  http://localhost:3000/checkDB
+//"email": "jlatouf2@gmail.comsadfasfaf777",
+//"password": "$2a$10$D.EVq82qb/XFtATWPhRwUuJwbqx4tQBqJzFvOPW9B5QIspKvQKpTG",
+
+app.post('/checkDB', function(req, res) {
+  Blueadmin.find({ }, function(err, user) {
+    if (err) throw err;
+
+    console.log(user);
+
+    if (!user) {
+      console.log('username didnt work');
+      res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
+    }
+  });
+});
+
 
 app.post('/addStore', function(req, res, data) {
    console.log(req.body.store);   console.log(req.body.latitude);
@@ -1601,7 +1653,6 @@ console.log(n);
         console.log(req.body.email);
 
         });
-
         console.log(/'\d+'/.test("'123'"));
 
 
