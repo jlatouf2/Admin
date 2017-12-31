@@ -31,8 +31,8 @@ document.addEventListener("deviceready", function() {
  });
 
 }, false);
-*/
 
+*/
 
 //setTimeout(function() {   angular.element(document.getElementById('YourElementId')).scope().myfunction22(); }, 1000);
 
@@ -62,23 +62,22 @@ function myFunction() {   alert('funciton called');    }
 
   document.addEventListener("resume", function resumeCallback() {
     //isAppInForeground = true;
-  //  window.FirebasePlugin.grantPermission();
+    window.FirebasePlugin.grantPermission();
+    //window.alert("open");
+    window.FirebasePlugin.onNotificationOpen(function(data) {
 
+      //window.alert("open2");
 
+        if(data.tap){
+        //  alert("I am tapped" + JSON.stringify(data) );
+      //    alert( JSON.stringify(data.message) );
 
- window.FirebasePlugin.onNotificationOpen(function(data) {
-
- window.alert("open2");
-
-        if(data.wasTapped){
-           setTimeout(function(){
+          setTimeout(function(){
             window.alert("I am tapped" + JSON.stringify(data) );
             window.alert( JSON.stringify(data.message) );
-
            }, 0);
 
-
-        }else{
+          }else{
               //Notification was received in foreground. Maybe the user needs to be notified.
               setTimeout(function(){
                 alert( "I am not tapped" +JSON.stringify(data) );
@@ -87,7 +86,6 @@ function myFunction() {   alert('funciton called');    }
 
                  window.location.href = "#/peopleline";
                  alert( "PLEASE REMOVE YOURSELF FROM THE LINEUP WHEN YOU ARE FINISHED");
-
                }, 0);
 
               //    myFunction();
@@ -97,40 +95,36 @@ function myFunction() {   alert('funciton called');    }
               setTimeout(function() {
                   angular.element(document.getElementById('YourElementId')).scope().notifyDeleteperson();
               }, 3000);
-
                 //  angular.element(document.getElementById('YourElementId')).scope().myfunction22();
-               }
+              }
           },
-          function(msg){  alert( "Success callback " +msg); },
-
-          function(err){   alert( "Error callback " +err );  });
-
-           window.alert("DEVICE RESUMED3333");
-          var socket = io.connect('http://192.168.1.115:3000');
-          window.location.href = "#/home";
+          
+          function(msg){  alert( "Success callback " +msg);},
+          function(err){   alert( "Error callback " +err ); });
+           window.alert("DEVICE RESUMED");
+           //  var socket = io.connect('http://192.168.1.115:3000');
+           window.location.href = "#/home";
 
     }, false);
 
 
 
 
-
-    document.addEventListener("active", onResume, false);
-    function onResume() {
-      window.alert('this functions')
-
-      window.FirebasePlugin.onNotificationOpen(function(notification) {
-        window.alert('passed notification');
-        window.alert(notification);
-    }, function(error) {
-
-        window.alert(error);
-    });
-
-
-    }
-
 /*
+
+document.addEventListener("active", onResume, false); function onResume() {
+  window.alert('this functions')
+
+  window.FirebasePlugin.onNotificationOpen(function(notification) {
+    window.alert('passed notification');
+    window.alert(notification);
+}, function(error) {
+
+    window.alert(error);
+});
+
+
+}
 
 
 

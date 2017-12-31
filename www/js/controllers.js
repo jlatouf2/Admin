@@ -856,7 +856,7 @@ angular.module('starter.controllers', [])
                       method : 'POST',
                       headers : { 'Content-Type' : 'application/json',
                       'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-                      data: ({"to": not, "notification": {"title":"Lineups","body": "Your next in line", "sound":"default", "click_action":"FCM_PLUGIN_ACTIVITY"}})
+                      data: ({"to": not, "notification": {"title":"Lineups","body": "Your next in line", "sound":"default"}})
                               //"Your Turn is up"
                       }).success(function(data){
                           alert("Successfully Passed Notification");
@@ -1284,7 +1284,8 @@ angular.module('starter.controllers', [])
                              method : 'POST',
                              headers : { 'Content-Type' : 'application/json',
                              'Authorization': "key=AAAA0elGK7c:APA91bGMOeIMiLGKsu5EV6zvxdgJgiPJg6a-TBIVy3Uh1ihpAtAxm9EXFPIdVUyJmGRGCc8aD8bbS0R2Y4fGWw7kjwyoZiUmnFrqL83wd3KB0wqnMQRDZwVsrkeHUC4JGJ8RPhUpAelZ"   },
-                             data: ({"to": $rootScope.noteArrray, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default" }})
+                             data: ({"to": $rootScope.noteArrray, "notification": {"title":"Lineups","body":localStorage.getItem("messageBody"), "sound":"default" },
+                           "data":{ "message":"value33"}})
                                      //"Your Turn is up"
                              }).success(function(data){
                                  console.log("Successfully Passed Notification"); console.log(data);
