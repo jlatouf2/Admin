@@ -832,7 +832,7 @@ angular.module('starter.controllers', [])
                       data: ({"to": not, "notification": {"title":"Lineups","body": "Your next in line", "sound":"default"}})
                               //"Your Turn is up"
                       }).success(function(data){
-                          alert("Successfully Passed Notification");
+                          alert("Successfully Passed Notification!");
                           console.log(data);
 
                       }).error(function(error){
