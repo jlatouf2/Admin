@@ -979,13 +979,22 @@ angular.module('starter.controllers', [])
 
               /*  4 ----------CALCULATES DISTANCE BETWEEN COORDINATES -------------- */
 
-            $scope.findDistance = function(){
-              if ($scope.latitude33 != undefined) {
-           var newPoint33 = distance($scope.storelatitude, $scope.storelongitude,
-             $scope.latitude33, $scope.longitude33, 'K'); console.log(newPoint33);
-             $scope.showfinalCalc = true; $scope.finalCalc = newPoint33;
-           }
-         };
+              $scope.findDistance = function(){
+                if ($scope.storelatitude !== null) {
+             var newPoint33 = distance($scope.storelatitude, $scope.storelongitude,
+               $scope.latitude33, $scope.longitude33, 'K'); console.log(newPoint33);
+
+               $scope.DisplacementCalc = true;
+               $scope.showfinalCalc = true; $scope.finalCalc = newPoint33;
+
+               $timeout(function () { $scope.DisplacementCalc = false;  }, 3000);
+
+             } else  if ($scope.storelatitude === null){
+                  $scope.failedLog = true;
+                  $scope.failedData = 'This line does not have starting coordinates!';
+                    $timeout(function () { $scope.failedLog = false;  }, 3000);
+             }
+           };
 
          /*   3)    ----------COORDS FCN -------------- */
 
@@ -1019,12 +1028,13 @@ angular.module('starter.controllers', [])
 
 
        $scope.addnameLine ={line:""};
+       $scope.addnameLine ={person:'jlatouf33@gmail.com'};
 
       /* ----------ADDPEOPLE FUNCTION 2 -------------- */
 
-    $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line);
+    $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); console.log($scope.addnameLine.person);
        socket.emit('addPerson244', {store : $scope.grabStorename, line: $scope.grabLineNumber,
-              email: 'jlatouf33@gmail.com', fullname: $scope.fullName,  longitude: $scope.longitude,
+              email: $scope.addnameLine.person, fullname: $scope.fullName,  longitude: $scope.longitude,
               latitude: $scope.latitude, distance: $scope.finalCalc, number: $scope.addnameLine.line,
               Adminpassword: $scope.usertoken },function (data) {
 

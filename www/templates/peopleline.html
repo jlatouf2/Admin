@@ -1,10 +1,10 @@
 <ion-view view-title="Peopleline">
-  <ion-content>
+  <ion-content style="margin-top:50px;">
 
        <!--<div style="padding-left:50px; padding-right:50px; ">  -->
 
         <div style="color:white; text-align: center; background: #005596 url(img/uwinBannerBG.png) repeat 0 0; vertical-align: middle;
-          line-height: 50px;   font-size: 15px;" >
+          line-height: 50px;   font-size: 15px;   " >
           <span style="margin-left:50px"> </span>
           <span  style="">Peopleline Controller </span>
           <button type="button" class="btn btn-default" ng-click="openpeoplemodal1()" style="line-height: 20px;
@@ -16,7 +16,7 @@
 
         <p ng-show="blue" id="demo2" style="font-weight: bold;"></p>
 
-        <div class="clock"></div>
+          <!--    <div class="clock"></div>   -->
 
 
         <!--   <p>{{ clock | date:'HH:mm:ss'}}</p>     -->
@@ -28,9 +28,12 @@
               <!-- TITLE / INFORMATION ! -->
 
 
-          <h1 class="bob3" style="text-align:center;">Store : {{grabStorename}} <span style="margin-left:50px;"> Lines #: {{grabLineNumber}} <span></h1>
+              <h1 class="bob3" style="text-align:center;"> <u> {{grabStorename || Store}} <span style="margin-left:50px;"> Line # {{grabLineNumber}} </span> </u></h1>
 
-          <!--  <div class="bob3" style="font-size:30px;text-align:center;">Lines #: {{grabLineNumber || 'Line not passed!'}} </div>    -->
+
+          <!--  <div class="bob3" style="font-size:30px;text-align:center;">Lines #: {{grabLineNumber || 'Line not passed!'}} </div>
+          <h1 class="bob3" style="text-align:center;"> <u> {{grabStorename || Store}} <span style="margin-left:50px;"> Line # {{grabLineNumber}} </span> </u></h1>
+ -->
               <!--        NOTE: THIS IS THE BUTTON FOR ADDING A PERSON -->
         <!--     <button style="background-color:teal" class="btn btn-default btn"  ng-click="openpeoplemodal3()">Add to Lineup</button>  -->
 
@@ -38,7 +41,7 @@
           <!-- SUCCESS BAR -->
 
           <div ng-show="successful"  class="alert alert-success" style="text-align:center">
-            <strong>Success! Line Added</strong>
+            <strong>Success! Person Added</strong>
           </div>
 
           <div ng-show="failedLog"  class="alert alert-danger" style="text-align:center">
@@ -46,38 +49,33 @@
           </div>
 
 
+          <div ng-show="DisplacementCalc"  class="alert alert-success" style="text-align:center">
+            <strong>Success! Displacement Calculated: {{finalCalc}}</strong>
+          </div>
 
-          <div >
+
+      <!--    <div>
               <div ng-switch on="selected">
                   <button ng-switch-when='true' ng-click='button1()'>On</button>
                   <button ng-switch-when='false' ng-click='button2()'>Off</button>
               </div>
           </div>
+          -->
 
-          <br>
           <!-- THIS IS NEEDED FOR JAVASCRIPT FUNCTION TO CALL ANGULARJS FUNCTION ! -->
           <div id="YourElementId" > </div>
 
-        <div style="text-align:center;">  <b>PLEASE NOTE: TIME TO WAIT ON AVERAGE IS: {{yellow}} </b> </div>
+
+        <div style="text-align:center;">  <b> {{yellow}} </b> </div>
           <br>
           <!-- Add Yourself Text ! -->
 
 
         <div style="padding-left:50px; padding-right:50px">
-                <!-- ADD YOURSELF BUTTON! -->
              <div>
-            <!--  <button class="btn btn-default btn"  ng-click="openpeoplemodal2()">Add Yourself</button> -->
-            <!--  <button class="btn btn-default btn"  ng-click="distanceCalc()">Distance</button>
-              <button class="btn btn-default btn"  ng-click="getStoreCords()">Store Coordinates</button>
-              <button class="btn btn-default btn"  ng-click="distanceCalc2()">FINAL CALC:</button> -->
-              <!--   <li>  The Line's Coordinates are:  </li>
-           <li ng-repeat="place in places">{{place.latitude}} <br> {{place.longitude}}</li> -->
-
-
-              <li>FINAL CALCULATION: <span ng-show="showfinalCalc">{{finalCalc}}</span></li>
+           <!--  NOTE:   <li>FINAL CALCULATION: <span ng-show="showfinalCalc">{{finalCalc}}</span></li>    -->
              </div>
-            <br>
-        </div>
+         </div>
 
           <!-- DELETE ALERT  -->
 
@@ -99,9 +97,12 @@
 -->
 
           <ul class="nav nav-tabs"  style="text-align:center;">
-            <li class="active" style=" width:33%;"><a data-toggle="tab" ng-click="positionButton()" href="">POSITION</a></li>
-            <li style=" width:33%;"><a data-toggle="tab" href="" ng-click="optimizeStart()">OPTIMIZE</a></li>
-            <li style=" width:33%;"><a data-toggle="tab" href="" ng-click="displacementButton()">DISPLACEMENT</a></li>
+            <li class="active" style=" width:33%;"><a data-toggle="tab" ng-click="positionButton()" href="">
+              <span style="font-size:15px"><b>POSITION</b> </span></a></li>
+            <li style=" width:33%;"><a data-toggle="tab" href="" ng-click="optimizeStart()">
+              <span style="font-size:15px"><b>OPTIMIZE</b></a></li>
+            <li style=" width:33%;"><a data-toggle="tab" href="" ng-click="displacementButton()">
+              <span style="font-size:15px"><b>DISTANCE</b></a></li>
           </ul>
 
 
@@ -169,6 +170,7 @@
 
           <div style="height:40px;">
           </div>
+
 
 
   </ion-content>

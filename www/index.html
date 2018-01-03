@@ -16,15 +16,7 @@
 
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
-    <!-- un-comment this code to enable service worker
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(() => console.log('service worker installed'))
-          .catch(err => console.log('Error', err));
-      }
-    </script>-->
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
@@ -69,7 +61,7 @@
 
     <!---     NAVBAR    ----->
 
-    <nav class="navbar navbar-inverse" style="margin-bottom: 0; background-color:white; border:none" >
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="margin-bottom: 0; background-color:white; border:none" >
      <div class="container-fluid" style="text-align: center;">
          <div class="navbar-header" >
            <button type="button" class="navbar-toggle" data-toggle="collapse" style="background-color:white; border:none"   data-target="#myNavbar">
@@ -89,7 +81,7 @@
              <li ><a  href="#/home" style="color:black">Home</a></li>
              <li><a href="#/storeNames" style="color:black">StoreNames</a></li>
              <li><a href="#/storelines" style="color:black">Storelines</a></li>
-             <li><a href="#/peopleline" style="color:black">Peopleline2</a></li>
+             <li><a href="#/peopleline" style="color:black">Peopleline</a></li>
 
            </ul>
            <ul class="nav navbar-nav navbar-right">
