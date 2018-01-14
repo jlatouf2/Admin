@@ -1075,11 +1075,15 @@ app.post('/backedTouched', function(req, res) {
 });
 
 
+
 app.post('/facebookSignupLogin', function(req, res) {
   console.log('PASSED TO BACKEND!'); console.log(req.body.email);
   console.log(req.body.userID); console.log(req.body.name);
+  console.log(req.body.noteToken);
   console.log(typeof(req.body.email)); console.log(typeof(req.body.userID));
   console.log(typeof(req.body.name));
+
+  var noteTokenvar = req.body.noteToken;
 
   Blue.findOne({ email: req.body.email }, function(err, user) {
     if (err) {throw err;}
@@ -1090,35 +1094,30 @@ app.post('/facebookSignupLogin', function(req, res) {
     //  var userData = { email: 'jlatouf2@gmail.com' };
       var userData = {
         email: req.body.email, firstname: req.body.name,
-        password: 'pass',
+        password: 'pass', notificationkey: req.body.noteToken,
         passwordConf: 'pass'
       };
-
       //use schema.create to insert data into the db
       Blue.create(userData, function (err, user) {
         if (err) { throw err;
         } else {
-
           res.send(user);
         //  return res.redirect('/profile');
         }
       });
 
     } else {
-      /*the user is found so log the user in:
-      THIS WILL THEN SEND IT BACK TO FUNCTION IN SERVER.JS WHICH WILL
-      1)SEND TO PROFILE page
-      2)SAVE DATA IN $ROOTSCOPE
-      */
-      console.log('user is already in database');
+       console.log('user is already in database');
 
-      console.log(user);
-      console.log(user.email);
-      console.log(user.firstname);
+       user.notificationkey = noteTokenvar;
+        user.save();
+
+      console.log(user); console.log(user.email); console.log(user.firstname);
       res.send(user);
     }
   });
 });
+
 
 
 
