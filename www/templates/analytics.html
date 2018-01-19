@@ -1,7 +1,9 @@
-<ion-view view-title="Messaging">
-    <ion-content style="margin-top:50px;">
+<ion-view view-title="Analytics">
+    <ion-content style="margin-top:50px;  ">
 
-      <!-- HEADER -->
+      <h1 class="page-header">Data</h1>
+
+      <!-- HEADER
   <div style="color:white; text-align: center; background-color: #4881ea; vertical-align: middle;
     line-height: 50px;   font-size: 15px;" >
       <span style="margin-left:50px"> </span>
@@ -11,14 +13,19 @@
       <span style="color:white" class="glyphicon glyphicon-plus"></span>
     </button>
   </div>
-
   <h1 class="bob3" style="text-align:center;"> <u>Analytics </u></h1>
 
 
-<div class="container table-responsive" ng-show="numberLinesAnalytics">
-  <h2 class="bob3" style="text-align: center;">People Data</h2>
-  <p style="text-align: center;">This shows the data for the people in Lines in Each Store</p>
-  <ul class="nav nav-tabs"  style="text-align:center;">
+
+-->
+
+<div class="card"    >
+    <div class="item item-divider">
+        People Data
+    </div>
+
+<div class="container table-responsive" ng-show="numberLinesAnalytics" style="padding-right:200px">
+   <ul class="nav nav-tabs"  style="text-align:center;">
     <li class="active" style=" width:50%;"><a data-toggle="tab" ng-click="positionButton()" href="">PEOPLE DATA</a></li>
     <li style=" width:50%;"><a data-toggle="tab" href="" ng-click="displacementButton()">USER DATA</a></li>
   </ul>
@@ -52,11 +59,8 @@
 </div>
 
 
-
-<div class="container table-responsive"  ng-hide="numberLinesAnalytics">
-  <h2 class="bob3" style="text-align: center;">User Data</h2>
-  <p style="text-align: center;">This shows the data for the people that in Database</p>
-  <ul class="nav nav-tabs"  style="text-align:center;">
+<div class="container table-responsive"  ng-hide="numberLinesAnalytics" style="padding-right:200px">
+   <ul class="nav nav-tabs"  style="text-align:center;">
     <li class="active" style=" width:50%;"><a data-toggle="tab" ng-click="positionButton()" href="">PEOPLE DATA</a></li>
     <li style=" width:50%;"><a data-toggle="tab" href="" ng-click="displacementButton()">USER DATA</a></li>
   </ul>
@@ -82,6 +86,7 @@
       </tr>
     </tbody>
   </table>
+</div>
 </div>
 
 

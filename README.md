@@ -144,3 +144,24 @@ var watchCurrentLocation = function() {
       $scope.currentLocation.long = long;
   });
 };
+
+
+
+      MAKE ANGULAR FUNCTION FIRE FROM JAVASCRIPT:
+https://itsolutionstuff.com/post/how-to-call-angularjs-controller-function-in-jqueryexample.html
+
+      1)ADD TO JAVASCRIPT
+      $("button").click(function(){
+          angular.element(document.getElementById('mainController')).scope().makeAlert('This is for Test');
+      });
+
+      2)ADD TO CONTROLLER:
+      $scope.makeAlert = function(arg) {
+       alert(arg);
+     }
+
+      3)ADD TO TEMPLATE:
+
+    <div   ng-controller="StorelinesCtrl" id="mainController">
+        <button>Click Here</button>
+    </div>

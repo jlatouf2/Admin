@@ -166,11 +166,38 @@
         </div>
 
 
+                     <div class="w3-sidebar w3-bar-block w3-collapse w3-card" style="width:250px;" id="mySidebar">
+
+                     <button class="w3-bar-item w3-button w3-hide-large"
+                     onclick="w3_close()">Close &times;</button>
+                     <br><br><br><br>
+                     <a href="#" class="w3-bar-item w3-button">Link 1</a>
+                     <a href="#" class="w3-bar-item w3-button">Link 2</a>
+                     <a href="#" class="w3-bar-item w3-button">Link 3</a>
+                     <a href="#" class="w3-bar-item w3-button">Link 1</a>
+                     <a href="#" class="w3-bar-item w3-button">Link 2</a>
+                     <a href="#" class="w3-bar-item w3-button">Link 3</a>
+
+                    </div>
+
+                    <div class="w3-main" style="margin-left:250px">
+                    <div class="w3-teal">
+                      <br><br><br>
+
+              <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+                     <div class="w3-container">
+
+                        <ion-nav-view    > </ion-nav-view>
+
+                     </div>
+                     </div>
+                    </div>
+
   ----->
 
     <div id="navbar-wrapper">
             <header >
-              <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 0; background-color: #222; border:none" >
+              <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 0;  border:none" >
                <div class="container-fluid"  >
                    <div class="navbar-header" >
                      <button type="button" class="navbar-toggle" data-toggle="collapse" style="background-color:white; border:none"   data-target="#myNavbar">
@@ -179,16 +206,16 @@
                        <span class="icon-bar" style="background-color:black;"></span>
                      </button>
 
-                        <a class="navbar-brand  " href=""  style="font-size: 22px; color: #D5D5D5;" >SB Admin v2.0</a>
+                        <a class="navbar-brand  " href=""  style="font-size: 22px; color:black " >SB Admin Angular5 BS4</a>
 
                      </div>
                      <div class="collapse navbar-collapse" id="myNavbar">
 
-                    <!--   <form class="navbar-form navbar-left" >
+                       <form class="navbar-form navbar-left" >
                          <div class="form-group">
                            <input type="text" class="form-control" placeholder="Search">
                          </div>
-                       </form>      -->
+                       </form>
 
                        <ul class="nav navbar-nav navbar-right">
                           <!-- <li ><a   style="color: ">Home</a></li> -->
@@ -386,11 +413,26 @@
                                   <!-- /.dropdown-alerts -->
                               </li>
                               <!-- /.dropdown -->
-                               <!-- /.dropdown -->
+                              <li class="dropdown">
+                                  <a class="dropdown-toggle" data-toggle="dropdown">
+                                      <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                                  </a>
+                                  <ul class="dropdown-menu dropdown-user">
+                                      <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                                      </li>
+                                      <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                                      </li>
+                                      <li><a href="http://www.strapui.com/"><i class="fa fa-eye fa-fw"></i> Premium Angular Themes</a></li>
+                                      <li class="divider"></li>
+                                      <li><a ui-sref="login"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                      </li>
+                                  </ul>
+                                  <!-- /.dropdown-user -->
+                              </li>
+                              <!-- /.dropdown -->
 
 
                             <li><a ng-hide="token" href="#/admin"  ><span class="glyphicon glyphicon-user" ></span> Admin</a></li>
-
                           <!--  <li><a ng-show="token" href="#/messaging"  ><span class="glyphicon glyphicon-envelope" ></span> Messaging</a></li> -->
                           <!-- <li><a ng-show="token" href="#/analytics"  ><span class=" glyphicon glyphicon-list-alt"></span> Analytics</a></li> -->
                           <!-- <li><a ng-show="token" href="#/profile"  ><span class="glyphicon glyphicon-user"></span> Profile</a></li> -->
@@ -406,21 +448,15 @@
 <!-- <a class="ex1" href="default.asp">-->
         <div id="wrapper"  style="background-color:black" >
             <div id="sidebar-wrapper"    style="background-color:#222" >
-                <aside id="sidebar"  style="background-color:#222; " >
+                <aside id="sidebar"  style="background-color:#222" >
                     <ul id="sidemenu" class="sidebar-nav  " style="background-color: #222"  >
-                         <li>
-                            <a class="ex1">
-                                 <span style="width:20%; font-size:16px;  color: #D5D5D5;"  > &nbsp;</span>
+                        <li  >
+                            <a href="#/admin"     class="ex1">
+                                <span class="sidebar-icon"   ><i class="fa fa-dashboard"></i></span>
+                                <span   style="width:20%; font-size:16px;  color: #D5D5D5;"  >Dashboard</span>
                             </a>
                         </li>
-                        <li >
-                           <a href="#/dashboard"     class="ex1">
-                               <span class="sidebar-icon"   ><i class="fa fa-dashboard"></i></span>
-                               <span   style="width:20%; font-size:16px;  color: #D5D5D5;"  >Dashboard</span>
-                           </a>
-                       </li>
-
-                        <li >
+                        <li   >
                             <a  href="#/chart"   class="ex1">
                                 <span class="sidebar-icon"  ><i class="fa fa-bar-chart-o"></i></span>
                                 <span class="sidebar-title" style="color: #D5D5D5; font-size:16px; ">Charts</span>
@@ -432,36 +468,12 @@
                                 <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;">Messaging</span>
                              </a>
                          </li>
-
-                      <!--   <li  >
-                             <a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-3">
-                                 <span class="sidebar-icon"><i class="fa fa-newspaper-o"></i></span>
-                                 <span class="sidebar-title">Blog</span>
-                                 <b class="caret"></b>
-                             </a>
-                             <ul id="submenu-3" class="panel-collapse collapse panel-switch" role="menu">
-                                 <li><a href="#"><i class="fa fa-caret-right"></i>Posts</a></li>
-                                 <li><a href="#"><i class="fa fa-caret-right"></i>Comments</a></li>
-                             </ul>
-                         </li>
-
-                         <div class="bar bar-header item-input-inset">
-                           <label class="item-input-wrapper" >
-                             <i class="icon ion-ios-search placeholder-icon"></i>
-                             <input type="search" ng-model="storeName.sname"  placeholder="Please add a Store Name">
-                           </label>
-                           <button class="button button-clear" ng-click="addStore1()" style="color:black">
-                             Add Store
-                           </button>
-                         </div>
-
-                       -->
-                         <li  >
-                             <a href="#/storeNames"class="ex1">
-                                 <span class="sidebar-icon" style="color:#D5D5D5"><i class="fa fa-terminal"></i></span>
-                                 <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;">Storenames</span>
-                             </a>
-                         </li>
+                        <li  >
+                            <a href="#/storeNames"class="ex1">
+                                <span class="sidebar-icon" style="color:#D5D5D5"><i class="fa fa-database"></i></span>
+                                <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;">Storenames</span>
+                            </a>
+                        </li>
                         <li  >
                             <a href="#/storelines"class="ex1">
                                 <span class="sidebar-icon" style="color:#D5D5D5"><i class="fa fa-terminal"></i></span>
@@ -470,69 +482,68 @@
                         </li>
                         <li  >
                             <a href="#/peopleline" class="ex1">
-                                <span class="sidebar-icon" style="color:#D5D5D5"><i class="fa fa-terminal"></i></span>
-                                <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;">Peoplelines</span>
+                                <span class="sidebar-icon" style="color:steelblue"><i class="fa fa-terminal"></i></span>
+                                <span class="sidebar-title" style="color:steelblue; font-size:16px;">Peoplelines</span>
                             </a>
                         </li>
-                        <li  >
-                            <a href="#/analytics" class="ex1">
-                                <span class="sidebar-icon" style="color:#D5D5D5"><i class="fa fa-terminal"></i></span>
-                                <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;">Data</span>
-                            </a>
-                        </li>
-
-                        <li  >
-                            <a href="#/input" class="ex1">
-                                <span class="sidebar-icon" style="color:#D5D5D5"><i class="fa fa-terminal"></i></span>
-                                <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;">InputData</span>
-                            </a>
-                        </li>
-                        <li  ng-show="yourFunction">
-                            <a href="#/combined" class="ex1">
-                                <span class="sidebar-icon" style="color:#D5D5D5"><i class="fa fa-terminal"></i></span>
-                                <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;">Overview</span>
-                            </a>
-                        </li>
-                        <li >
-                            <a href="#/admin" class="ex1">
-                                <span class="sidebar-icon" style="color:#D5D5D5"><i class="fa fa-terminal"></i></span>
-                                <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;">Admin</span>
-                            </a>
-                        </li>
-
-                        <li >
-                          <!--  <button   ng-controller="StorelinesCtrl" id="mainController2" >
-                              press
-                            </button>   -->
-                            <a   class="ex1" ng-controller="StorelinesCtrl" id="mainController2"
-                                  onclick="myFunction44()" style="cursor: pointer;">
-                                <span class="sidebar-icon" style="color:#D5D5D5"> <i class="fa fa-terminal"></i></span>
-                                <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;" >
-                                  Logout
-                                </span>
-                            </a>
-
-                        </li>
-
-
 
                     </ul>
                 </aside>
             </div>
-         </div>
+            <main id="page-content-wrapper" role="main" >
+            </main>
+        </div>
 
-          <!-- THIS IS NEEDED FOR JAVASCRIPT FUNCTION TO CALL ANGULARJS FUNCTION !
-         <div id="YourElementId" > </div>
--->
 
     <ion-nav-view class="has-header" style="margin-left:20%; width:80%; "> </ion-nav-view>
 
 </div>
 
+    <script>
+
+
+$('#sidebar > a').on('click', function (e) {
+    e.preventDefault();
+
+    if(!$(this).hasClass("active")){
+        var lastActive = $(this).closest("#sidebar").children(".active");
+        lastActive.removeClass("active");
+        lastActive.next('div').collapse('hide');
+        $(this).addClass("active");
+        $(this).next('div').collapse('show');
+
+    }
+
+});
+
+
+    /*
+    window.plugins.AdMob.setOptions( {
+      publisherId: "ca-app-pub-5723835880788576/6817268680",
+      interstitialAdId: "ca-app-pub-5723835880788576/1892955507",
+      bannerAtTop: false, // set to true, to put banner at top
+      overlap: false, // set to true, to allow banner overlap webview
+      offsetTopBar: false, // set to true to avoid ios7 status bar overlap
+      isTesting: false, // receiving test ad
+      autoShow: true // auto show interstitial ad when loaded
+    });
+    // display the banner at startup
+    window.plugins.AdMob.createBannerView();
+
+    // create interstitial ad
+    window.plugins.AdMob.createInterstitialView();
+    window.plugins.AdMob.showInterstitialAd(
+      true,
+      function(){},
+      function(e){alert(JSON.stringify(e));}
+    );
+    */
+      </script>
 
     <!-- your app's js -->
     <script src="js/Chart/Chart.min.js"></script>
-    <script src="js/Chart/angular-chart.min.js"></script>
+<script src="js/Chart/angular-chart.min.js"></script>
+
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
@@ -540,47 +551,78 @@
 
     <script>
 
-    $('#sidebar > a').on('click', function (e) {
-        e.preventDefault();
-
-        if(!$(this).hasClass("active")){
-            var lastActive = $(this).closest("#sidebar").children(".active");
-            lastActive.removeClass("active");
-            lastActive.next('div').collapse('hide');
-            $(this).addClass("active");
-            $(this).next('div').collapse('show');
-
-        }
-
-    });
-
-
     function goBack() {   window.history.back();   }
 
-   //  var socket = io.connect('http://192.168.1.115:3000');
+     //SOCKET.IO FUNCTIONS:
+  //  var socket = io();fff
+  //  var socket = io.connect('https://thawing-ocean-11742.herokuapp.com/#/:3000');
+    //http://192.168.1.115: THIS WORKS FOR MOBILE LOGIN.
+  //  var socket = io.connect('http://192.168.1.115:3000');
     var socket = io.connect('https://lineups-adminone.herokuapp.com/#/:3000');
-
-     socket.on('broadcast',function(data){ console.log(data.description); });
+//https://thawing-ocean-11742.herokuapp.com/#/home
+//http://192.168.1.115:3000
+    socket.on('broadcast',function(data){ console.log(data.description); });
 
     socket.on('passInfoBack', function () {  console.log('this Passed Info Back from Button2!!!!') });
 
-    function myFunction44() {
+/*
+    // similar behavior as an HTTP redirect
+    window.location.replace("http://stackoverflow.com");
 
-      setTimeout(function() {
-
-        //    angular.element(document.getElementById('mainController')).scope().makeAlert('This is for Test');
-        angular.element(document.getElementById('mainController2')).scope().logoutFunction();
-
-      }, 0);
-    }
+    // similar behavior as clicking on a link
+    window.location.href = "http://stackoverflow.com";
 
 
+        Using an angular abstraction of ionic.Platform
 
-    $("button").click(function(){
-      console.log('blue');
-        angular.element(document.getElementById('mainController2')).scope().logoutFunction();
-    });
+        //The pause event fires when the native platform puts the application
+        // into the background, typically when the user switches to a different
+        // application.
+        $ionicPlatform.on('pause', function () {
+            // Handle event on pause
+        });
+        // The resume event fires when the native platform
+        //  pulls the application out from the background.
+        $ionicPlatform.on('resume', function () {
+            // Handle event on resume
+        });
 
+
+    "Is there any way to check whether the app is running in foreground or background?"
+
+    Yes
+    1) When an app becomes inactive (runs in the background) Cordova fires the pause event,
+    and when an app becomes active again (brought to the foreground) Cordova fires the resume event.
+    2) From these events, one can use a variable to store the state as "foreground" or "background".
+
+        document.addEventListener("deviceReady", function readyCallback() {
+        var isAppInForeground = true;
+
+        document.addEventListener("pause", function pauseCallback() {
+          isAppInForeground = false;
+        }, false);
+
+        document.addEventListener("resume", function resumeCallback() {
+          isAppInForeground = true;
+        }, false);
+
+      });
+
+      document.addEventListener("deviceReady", function readyCallback() {
+      var isAppInForeground = true;
+
+      document.addEventListener("pause", function pauseCallback() {
+        isAppInForeground = false;
+      }, false);
+
+      document.addEventListener("resume", function resumeCallback() {
+        isAppInForeground = true;
+      }, false);
+
+      });
+
+
+*/
 
 
     </script>

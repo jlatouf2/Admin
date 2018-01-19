@@ -1,6 +1,7 @@
 "use strict";
 //window.alert('message');
 
+
 /*
 document.addEventListener("deviceready", function() {
           console.log(token);     window.alert(token);
@@ -98,7 +99,7 @@ function myFunction() {   alert('funciton called');    }
                 //  angular.element(document.getElementById('YourElementId')).scope().myfunction22();
               }
           },
-          
+
           function(msg){  alert( "Success callback " +msg);},
           function(err){   alert( "Error callback " +err ); });
            window.alert("DEVICE RESUMED");

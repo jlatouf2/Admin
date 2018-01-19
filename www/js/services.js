@@ -8,6 +8,22 @@ angular.module('starter').factory('AuthService' ,
 
   //  $rootScope.token = localStorage.getItem("ok");
 
+  localStorage.setItem("loginCheck", 'loggedin');
+  console.log("Check!: "+ localStorage.getItem("loginCheck"));
+
+  localStorage.setItem("key33", 'loggedintrue');
+
+  console.log(localStorage.getItem('key33'));
+
+    //THIS IS HOW YOU SET THE FUNCTION:
+
+
+
+    //$rootScope.yourFunction = localStorage.setItem("your_local_storage", undefined);
+    // $rootScope.yourFunction = localStorage.setItem("your_local_storage", undefined);
+
+
+
         console.log(localStorage.getItem("ok"));
         console.log($rootScope.token);
 
@@ -148,31 +164,23 @@ angular.module('starter').factory('AuthService' ,
       $http.post('https://lineups-adminone.herokuapp.com/adminLogin', {email : email, password : password, noteToken : noteToken} )
          .success(function( data) {
            console.log (data);
-           $location.path('/profile');
-
-        /*    $rootScope.userdata = data;
-            //Its refered to as local because its stored in the database as local:
-            $rootScope.fullName= data.user.firstname +" "+ data.user.lastname;
-            $rootScope.userid= data.user._id; $rootScope.useremail = data.user.email;
-            $rootScope.userPassword = data.user.password;
-          //  $rootScope.usertoken = data.token;
-          $rootScope.usertoken = data.user.notificationkey;
-          */
-        //  $rootScope.adminLoggedin = true;
+    /*    //  $rootScope.adminLoggedin = true;
             var blog = true;
           localStorage.setItem("adminLogin", blog);
           console.log(localStorage.getItem("adminLogin"));
             $rootScope.failedLogin = false;
-
-
-
               localStorage.setItem("ok", $rootScope.token = true);
       //     $rootScope.userdata2 = function(){   return localStorage.getItem('ok') };
-
           console.log(localStorage.getItem("ok"));
-
         //  $rootScope.token = localStorage.getItem("ok");
+        */
 
+        localStorage.setItem("your_local_storage", 'true');
+        console.log($rootScope.yourFunction);
+        $rootScope.yourFunction =  localStorage.getItem("your_local_storage");
+        console.log($rootScope.yourFunction);
+
+        $location.path('/dashboard');
 
 
         }).error(function (data) {
@@ -189,16 +197,21 @@ angular.module('starter').factory('AuthService' ,
             $rootScope.useremail = null;  $rootScope.fullName = null;
             $rootScope.userid = null;     $rootScope.userPassword = null;
 
-            $rootScope.token = null;     $rootScope.imageSaved = false;
-             $rootScope.adminLoggedin = true;
-          //  $rootScope.token = localStorage.getItem("ok");
+               $rootScope.imageSaved = false;
 
-            localStorage.setItem("ok", null);  $rootScope.token = null;
+                 //localStorage.getItem("your_local_storage") ;
+
+                    localStorage.setItem("your_local_storage", undefined);
+
+                   $rootScope.yourFunction = null ;
+                   console.log($rootScope.yourFunction);
+
+
 
             $http.get('/logout')
               .success(function () {    console.log('LOGGED OUT!');    })
               .error(function () {      console.log('NOT LOGGED OUT!');   });
-              $location.path('/app/home');
+              $location.path('/admin');
     }
 
 

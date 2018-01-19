@@ -1056,6 +1056,14 @@ app.post('/postData', function(req, res, data) {
   res.send(data);
 });
 
+app.post('/getArray', function(req, res, data) {
+  console.log('sklfdlsdkj');
+   console.log(req.body.foo);
+   //console.log(req.body.foo);
+res.send(req.body.foo);
+
+ });
+
 
 app.post('/postData22', function(req, res, data) {
   console.log(data);

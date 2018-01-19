@@ -1,7 +1,25 @@
 <ion-view view-title="Storelines">
-  <ion-content style="margin-top:50px;">
+  <ion-content style="margin-top:50px; margin-right:40px">
 
-            <!-- HEADER -->
+
+    <div class = "row responsive-sm">
+       <div class = "col ">
+
+         <h1 class="page-header" style="margin-left:20px">Storelines</h1>
+
+       </div>
+       <div class = "col">
+         <div style="text-align:right">
+              <div ng-switch on="selected">
+                  <button class="btn btn-primary" ng-switch-when='true' ng-click='button3()'>Hide Actions</button>
+                  <button class="btn btn-primary" ng-switch-when='false' ng-click='button4()'>Show Actions</button>
+              </div>
+          </div>
+
+       </div>
+     </div>
+
+            <!-- HEADER
       <div style="color:white; text-align: center; background: #005596 url(img/uwinBannerBG.png) repeat 0 0; vertical-align: middle;
           line-height: 50px;   font-size: 15px;" >
           <span style="margin-left:50px"> </span>
@@ -11,10 +29,10 @@
           <span style="color:white" class="glyphicon glyphicon-plus"></span>
           </button>
       </div>
-
+-->
 
             <!-- TITLE -->
-      <h1 class="bob3" style="text-align:center;">Lines Available in Store: {{grabStorename || 'StoreName Not Passed!'}} </h1>
+      <h1 class="" style="text-align:center;">Lines Available in Store: {{grabStorename || 'StoreName Not Passed!'}} </h1>
 
 
       <!-- DELETE BUTTON -->
@@ -34,36 +52,102 @@
         </div>
 
 
+
         <!-- STORELINES TABLE -->
 
-      <div class="table-responsive">
-      	<table class="table table-hover">
-      		<thead>
-      			<tr>
-      				<th><span style="font-size:20px;"> </span>
-                <button class="btn btn-default btn" style="width:100%"  ng-click="openlinemodal2()">Add Line </button></th>
-            			</tr>
-            		</thead>
-            		<tbody>
-            			<tr ng-hide="numberLinesZero" ng-repeat="country in countries | filter:search | orderBy:'line'">
-              				<td><a style="background-color:white; border:none; text-align: center;" href="#/peopleline" ng-click="checkLineAdminFcn(country.line)"class="list-group-item active" >
-                          <span style="color:black;">{{ country.line}} </span>
-                      </td>
-                      <td  style="width:80px"  ng-show="deleteButton">
-                        <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteLine(country.line)">Delete</button>
-                      </td>
-            			</tr>
-                  <tr ng-show="numberLinesZero" >
-                      <td><a style="background-color:white; border:none; text-align: center;" href=""class="list-group-item active" >
-                          <span style="color:black;">THIS IS EMPTY </span>
-                      </td>
-                      <td  style="width:80px"  ng-show="deleteButton">
-                        <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteLine(country.line)">Delete</button>
-                      </td>
-                  </tr>
-            		</tbody>
-      	</table>
+        <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+        </style>
+
+
+      <div class="card"  >
+          <div class="item item-divider">
+              Messaging Contact List
+          </div>
+
+
+          <div class="card" ng-show="textgoesAway">
+            <div class="item item-text-wrap">
+              <div>
+                <div class=" item item-text-wrap" style="font-size: 25px;   ">
+                <div class="" style="text-align:center; font-size:30px;">
+                  <u> Please select which line to add</u> <br> <br> </div>
+
+
+                  <div class = "row responsive-sm" style="text-align:center">
+                      <div class = "col">
+                        <button type="button" style="width:60%" ng-click="One()" class="btn btn-primary">Line1</button>
+
+                      </div>
+                     <div class = "col">
+                       <button type="button" style="width:60%" ng-click="Two()" class="btn btn-primary">Line2</button>
+
+                     </div>
+                     <div class = "col">
+                       <button type="button" style="width:60%" ng-click="Three()" class="btn btn-primary">Line3</button>
+
+                     </div>
+                    <div class = "col">
+                      <button type="button" style="width:60%" ng-click="Four()" class="btn btn-primary">Line4</button>
+
+                    </div>
+                    <div class = "col">
+                      <button type="button" style="width:60%" ng-click="Five()" class="btn btn-primary">Line5</button>
+
+                    </div>
+                 </div>
+
+
+                </div>
+              </div>
+            </div>
+        </div>
+
+            <div class="table-responsive" style="padding:20px;">
+            	<table class="table table-hover">
+            		<thead>
+            			<tr>
+            				<th><span style="font-size:20px;"> </span>
+                      <button class="btn btn-default btn" style="width:100%; background-color:skyblue"  ng-click="openlinemodal2()">Add Line </button></th>
+                  			</tr>
+                  		</thead>
+                  		<tbody>
+                  			<tr ng-hide="numberLinesZero" ng-repeat="country in countries | filter:search | orderBy:'line'">
+                    				<td><a style="background-color:white; border:none; text-align: center;" href="#/peopleline" ng-click="checkLineAdminFcn(country.line)"class="list-group-item active" >
+                                <span style="color:black;">{{ country.line}} </span>
+                            </td>
+                            <td  style="width:80px"  ng-show="deleteButton">
+                              <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteLine(country.line)">Delete</button>
+                            </td>
+                  			</tr>
+                        <tr ng-show="numberLinesZero" >
+                            <td><a style="background-color:white; border:none; text-align: center;" href=""class="list-group-item active" >
+                                <span style="color:black;">THIS IS EMPTY </span>
+                            </td>
+                            <td  style="width:80px"  ng-show="deleteButton">
+                              <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteLine(country.line)">Delete</button>
+                            </td>
+                        </tr>
+                  		</tbody>
+            	</table>
+            </div>
+          </div>
+
+
+                <div  style="text-align:center">
+                    <button type="button" style="width:200px; " ng-click="deleteMode()"   class="btn btn-danger">Delete Mode</button>
+                </div>
+
+
+
+  <div class = "row responsive-sm">
+      <div class = "col">
       </div>
+     <div class = "col">
+     </div>
+ </div>
 
 
       <div style="height:40px;">

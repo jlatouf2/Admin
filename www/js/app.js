@@ -13,17 +13,39 @@ angular.module('starter', ['ionic', 'starter.controllers',  'ngCordova', 'chart.
       // for form inputs)
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
-      cordova.plugins.Keyboard.disableScroll(true);
+       cordova.plugins.Keyboard.disableScroll(true);
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
-
-
   });
+
+     if ($rootScope.blueman2 === true) {
+      console.log('THIS IS SIGNED IN!');
+    } else {
+      console.log('THIS IS NOT SIGNED IN!');
+    }
+
+    if (localStorage.getItem("loginCheck") === 'loggedin') {
+      console.log('LOGIN WORKS!');
+    } else {
+      console.log('LOGIN DOES NOT WORK!');
+    }
+
+/*
+      localStorage.setItem("your_local_storage", 'true');
+      console.log($rootScope.yourFunction);
+      $rootScope.yourFunction =  localStorage.getItem("your_local_storage");
+      console.log($rootScope.yourFunction);
+*/
+
+if (  localStorage.getItem("your_local_storage") === 'true') {
+    $rootScope.yourFunction = 'true' ;
+}
+      //THIS IS HOW YOU DELETE THE FUNCTION:
+    //    $rootScope.yourFunction = localStorage.setItem("your_local_storage", undefined);
+       console.log($rootScope.yourFunction);
+
 
 })
 
@@ -96,6 +118,22 @@ angular.module('starter', ['ionic', 'starter.controllers',  'ngCordova', 'chart.
           templateUrl: 'templates/chart.html',
           controller: 'ChartCtrl'
       })
+          .state('input', {
+          url: '/input',
+          templateUrl: 'templates/input.html',
+          controller: 'InputCtrl'
+      })
+          .state('dashboard', {
+          url: '/dashboard',
+          templateUrl: 'templates/dashboard.html',
+          controller: 'DashboardCtrl'
+      })
+      .state('combined', {
+      url: '/combined',
+      templateUrl: 'templates/combined.html',
+      controller: 'CombinedCtrl'
+  })
+
 
         .state('home', {
             url: "/home",
