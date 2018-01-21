@@ -1,13 +1,11 @@
 <ion-view view-title="Storenames">
-    <ion-content style="margin-top:50px; margin-right:40px">
+    <ion-content style="margin-top:50px;  ">
 
 
 
       <div class = "row responsive-sm">
          <div class = "col ">
-
-           <!-- TITLE -->
-           <h1 class="page-header">Storenames</h1>
+           <h1 class="page-header" id="messagingScreen2">Storenames</h1>
 
          </div>
          <div class = "col">
@@ -22,7 +20,7 @@
        </div>
 
 
-<h1 class="" style="text-align:center;">Stores Available in Area</h1>
+<h1 class="" style="text-align:center;" id="messagingScreen">Stores Available in Area</h1>
 
 
 
@@ -50,36 +48,7 @@
  </div>
 -->
 
-<style>
-table, th, td {
-    border: 1px solid black;
-}
-</style>
 
-<div class="card"  ng-show="textgoesAway">
-  <div class = "row responsive-sm">
-      <div class = "col">
-           <div class="  " style="font-size: 20px;   ">
-
-              <div ng-show="wordspace" style=" padding-left:20px">
-                {{words}}
-                 <button ng-show="wordspace" ng-click="findGPS();">GetLocation</button>
-              </div>
-
-              <div ng-hide="wordspace" style=" padding-left:20px">
-              Latitude: {{latitude}} <br>
-              Longitudue: {{longitude}}
-            </div>
-
-           </div>
-     </div>
-     <div class = "col">
-       <div class=" " style="font-size: 20px;   text-align:right ">
-          <button type="button" style="width:100px;" ng-click="deleteMode()" data-dismiss="modal" class="btn btn-danger">Delete Mode</button>
-       </div>
-    </div>
- </div>
-</div>
 
 
 
@@ -100,8 +69,34 @@ table, th, td {
 </div>
 
 
+<div class = "row responsive-sm">
+     <div class = "col ">
 
+       <div class="card" ng-show="textgoesAway">
+           <div class="item item-divider">
+               A line chart
+           </div>
+           <div class="item item-text-wrap">
+             <div class="  " style="font-size: 25px; text-align:center ">
+               <div ng-if="wordspace" style=" ">
+                 {{words}}
+               </div>
+               {{latitude}}
+               {{longitude}}
 
+                <button ng-if="wordspace" ng-click="findGPS();">GetLocation</button>
+                <br><br>
+                <!------- DELETE MODE! --------->
+                <div class="bob3" style="font-size: 20px;   text-align:center ">
+                  Press to Enter Delete Mode  <br>
+                  <button type="button" style="width:200px;" ng-click="deleteMode()" data-dismiss="modal" class="btn btn-danger">Delete Mode</button> <br>
+                </div>
+            </div>
+           </div>
+
+     </div>
+  </div>
+  </div>
 
   <!-- STORENAMES TABLE -->
 
@@ -112,56 +107,80 @@ table, th, td {
   </style>
 
 
-<div class="card"  >
-    <div class="item item-divider">
-        Messaging Contact List
-    </div>
-
-
-        <div class="table-responsive" style="padding:20px;">
-        <table class="table  table-hover">
-          <thead>
-              <tr >
-                <div class="card" style="   ">
-                  <div class="bar bar-header item-input-inset">
-                    <label class="item-input-wrapper" >
-                      <i class="icon ion-ios-search placeholder-icon"></i>
-                      <input type="search" ng-model="storeName.sname"  placeholder="Please add a Store Name">
-                    </label>
-                    <button class="button button-clear" ng-click="addStore1()" style="color:black">
-                      Add Store
-                    </button>
-                  </div>
-                </div>
-              </tr>
-          </thead>
-              <tbody style="background-color:white; border:none">
-                    <tr ng-hide="numberLinesZero" style="text-align: center;" ng-repeat="storewithName in storewithNames | filter:search | orderBy:'store'">
-                        <td>
-                          <a  style="background-color:white; border:none"  href="#/storelines"   ng-click="grabStuff(storewithName.store)" class="list-group-item ">
-                          <span style="color:black;font-weight: bold;">{{storewithName.store}} <br>
-                        </td>
-
-                        <td  style="width:20%"  ng-show="deleteButton">
-                          <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteName2(storewithName.store)">Delete</button>
-                        </td>
-                    </tr>
-
-                    <tr ng-show="numberLinesZero" >
-                        <td><a style="background-color:white; border:none; text-align: center;" href=""class="list-group-item active" >
-                            <span style="color:black;">PLEASE WAIT UNTIL THE GEOLOCATION UPDATES <br>
-                              THE PAGE OR ADD STORE YOURSELF  </span>
-                        </td>
-                        <td  style="width:80px"  ng-show="deleteButton">
-                          <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteLine(storewithName.line)">Delete</button>
-                        </td>
-                    </tr>
-
-              </tbody>
-        </table>
-        </div>
+  <div class = "row responsive-sm">
+       <div class = "col ">
+         <div class="card" style="   ">
+           <div class="bar bar-header item-input-inset">
+             <label class="item-input-wrapper" >
+               <i class="icon ion-ios-search placeholder-icon"></i>
+               <input type="search" ng-model="storeName.sname"  placeholder="Please add a Store Name">
+             </label>
+             <button class="button button-clear" ng-click="addStore1()" style="color:black">
+               Add Store
+             </button>
+           </div>
+         </div>
+      </div>
   </div>
 
+
+
+  <div class = "row responsive-sm">
+       <div class = "col ">
+
+    <div class="card"  >
+        <div class="item item-divider">
+            Messaging Contact List
+        </div>
+
+
+            <div class="table-responsive"  >
+            <table class="table  table-hover">
+              <thead>
+            <!--      <tr >
+                    <div class="card" style="   ">
+                      <div class="bar bar-header item-input-inset">
+                        <label class="item-input-wrapper" >
+                          <i class="icon ion-ios-search placeholder-icon"></i>
+                          <input type="search" ng-model="storeName.sname"  placeholder="Please add a Store Name">
+                        </label>
+                        <button class="button button-clear" ng-click="addStore1()" style="color:black">
+                          Add Store
+                        </button>
+                      </div>
+                    </div>
+                  </tr>   -->
+
+              </thead>
+                  <tbody style="background-color:white; border:none">
+                        <tr ng-hide="numberLinesZero" style="text-align: center;" ng-repeat="storewithName in storewithNames | filter:search | orderBy:'store'">
+                            <td>
+                              <a  style="background-color:white; border:none"  href="#/storelines"   ng-click="grabStuff(storewithName.store)" class="list-group-item ">
+                              <span style="color:black;font-weight: bold;">{{storewithName.store}} <br>
+                            </td>
+
+                            <td  style="width:20%"  ng-show="deleteButton">
+                              <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteName2(storewithName.store)">Delete</button>
+                            </td>
+                        </tr>
+
+                        <tr ng-show="numberLinesZero" >
+                            <td><a style="background-color:white; border:none; text-align: center;" href=""class="list-group-item active" >
+                                <span style="color:black;">PLEASE WAIT UNTIL THE GEOLOCATION UPDATES <br>
+                                  THE PAGE OR ADD STORE YOURSELF  </span>
+                            </td>
+                            <td  style="width:80px"  ng-show="deleteButton">
+                              <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteLine(storewithName.line)">Delete</button>
+                            </td>
+                        </tr>
+
+                  </tbody>
+            </table>
+            </div>
+      </div>
+
+    </div>
+</div>
 
 
 <div style="height:40px;">

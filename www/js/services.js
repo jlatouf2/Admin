@@ -206,12 +206,14 @@ angular.module('starter').factory('AuthService' ,
                    $rootScope.yourFunction = null ;
                    console.log($rootScope.yourFunction);
 
+                   $location.path('/admin');
 
 
+      /*
             $http.get('/logout')
               .success(function () {    console.log('LOGGED OUT!');    })
               .error(function () {      console.log('NOT LOGGED OUT!');   });
-              $location.path('/admin');
+              */
     }
 
 

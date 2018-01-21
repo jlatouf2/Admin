@@ -1,30 +1,73 @@
 <ion-view view-title="Messaging">
-    <ion-content style="margin-top:50px; margin-right:50px">
+    <ion-content style="margin-top:50px;  ">
 
-      <h1 class="page-header">Messaging</h1>
+      <h1 class="page-header" id="messagingScreen2">Messaging</h1>
 
 
-  <h1 class="" style="text-align:center;">Please select person for notification</h1>
+  <h1 style="text-align:center;" id="messagingScreen" >Please select person for notification</h1>
 
 <!--  <button ng-click="messageAll()">Message All</button>      -->
 
- 
-<div class="card"  >
-  <div class="item item-divider">
-      Input Message to Send to Contacts
+
+
+<div class = "row responsive-sm">
+     <div class = "col ">
+       <div class="card">
+           <div class="item item-divider">
+               A line chart
+           </div>
+
+               <div class="item item-text-wrap">
+
+                        <div class="bar bar-header item-input-inset">
+                          <label class="item-input-wrapper" >
+                            <i class="icon ion-ios-search placeholder-icon"></i>
+                            <input type="search" ng-model="message.body"  placeholder="Please add a Store Name">
+                          </label>
+                          <button class="button button-clear" ng-click="addStore1()" style="color:black">
+                            Message
+                          </button>
+                        </div>
+                 </div>
+        </div>
+
+     </div>
   </div>
 
-  <div class="bar bar-header item-input-inset">
-    <label class="item-input-wrapper" >
-      <i class="icon ion-ios-search placeholder-icon"></i>
-      <input type="search" ng-model="message.body"  placeholder="Please add a Store Name">
-    </label>
-    <button class="button button-clear" ng-click="addStore1()" style="color:black">
-      Message
-    </button>
+
+  <div class = "row responsive-sm">
+  <div class = "col ">
+    <div class="card">
+
+       <div class="item item-divider">
+          Messaging Contact List
+      </div>
+      <div class="table-responsive"  style="padding:20px;">
+       <table class="table" style="border="1"">
+         <thead>
+           <tr>
+             <th><span style="font-size:20px;"> </span>
+                <button class="btn btn-default btn" style="width:100%; background-color:skyblue"  ng-click="messageAll()">
+                <span style="font-size:20px;">  <b>Message All</b></span> </button></th>
+           </tr>
+           </thead>
+
+         <tbody >
+               <tr   style="word-wrap: break-word; text-align: center;" ng-repeat="usercontent in usercontents | filter:search | orderBy:'store'">
+                   <td  style="">
+                     <a       ng-click="grabStuff(usercontent.notificationkey, usercontent.email)" class="list-group-item ">
+                     <span style="color:black;font-weight: bold; ">{{ usercontent.email}}</span> <br>
+
+                   </td>
+               </tr>
+         </tbody>
+       </table>
+     </div>
+
   </div>
+
 </div>
-
+</div>
 
 
 <br>
@@ -51,34 +94,6 @@ table, th, td {
 }
 </style>
 
-<div class="card"  >
-    <div class="item item-divider">
-        Messaging Contact List
-    </div>
-    <div class="table-responsive"  style="padding:20px;">
-     <table class="table" style="border="1"">
-       <thead>
-         <tr>
-           <th><span style="font-size:20px;"> </span>
-              <button class="btn btn-default btn" style="width:100%; background-color:skyblue"  ng-click="messageAll()">
-              <span style="font-size:20px;">  <b>Message All</b></span> </button></th>
-               </tr>
-
-             </thead>
-
-       <tbody  >
-             <tr ng-hide="numberLinesZero" style="word-wrap: break-word; text-align: center;" ng-repeat="usercontent in usercontents | filter:search | orderBy:'store'">
-                 <td  style="">
-                   <a       ng-click="grabStuff(usercontent.notificationkey, usercontent.email)" class="list-group-item ">
-                   <span style="color:black;font-weight: bold; ">{{ usercontent.email}}</span> <br>
-
-                 </td>
-             </tr>
-       </tbody>
-     </table>
-   </div>
-
- </div>
 
 
 

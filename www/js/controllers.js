@@ -34,9 +34,10 @@ angular.module('starter.controllers', [])
 
         $scope.$on('$stateChangeSuccess', function () {
           console.log($rootScope.token);
-            if (  $rootScope.token !== 'true') {
+      /*      if (  $rootScope.token !== 'true') {
               $location.path('/admin');
             }
+              */
           });
 
         $scope.noteToken = localStorage.getItem("TokenData");
@@ -1448,13 +1449,61 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
 
            /*   --------GRAPH DATA:-----------     */
 
+
+           $scope.$on('$stateChangeSuccess', function () {
+             socket.emit('storeName', {postal: $scope.postal },function (data) {
+                   console.log(data);    console.log(data[0].store);
+                   console.log(data.length);
+                   $scope.storeAvailable = data.length;
+                    $timeout(function () { $scope.numberLinesZero = false; $scope.storewithNames = data; }, 0);
+              });
+
+              socket.emit('numberofLines',  {store:  localStorage.getItem("StoreName")  },function (data) {
+               console.log(data); console.log(data.length);
+                 $timeout(function () { $rootScope.numberLines= data.length;  $scope.countries = data;
+                   }, 0);
+              });
+
+              socket.emit('getAllPeople', {store : localStorage.getItem("StoreName")},function (data) {
+                      console.log(data);
+                      console.log(data.length);
+
+                         for(var i=1; i<data.length; i++) {
+                          // console.log(data[i].created);
+                           $scope.whiteArray = [data[i].created, data[i].created]   ;
+                           $scope.whiteArray.push(data[i].created );
+
+                        }
+                        console.log($scope.whiteArray);
+
+                          for (var created in data) {
+                              //console.log(data[created]);
+                              console.log(data[created].created);
+                              $scope.whiteArray.push(data[created].created );
+
+                              //  console.log("User " + data[created].created + " is #" + created); // "User john is #234"
+                            }
+                            console.log($scope.whiteArray);
+
+              });
+           });
+
+                /*
+                1) add coordinates to each peice of data that is added to the DATABASE
+                2) when you get data back:
+                EX: getting all people back from database:
+                -take all the times and on x axis of graph: have the days of month (1,2,3,4 --> 31)
+                3)y axis:
+                */
+
+
         $scope.bluetwo = 'black';
 
            $scope.line = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            series: ['Series A', 'Series B'],
+             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', "Augest"],
+             series: ['Series A', 'Series B'],
             data: [
-              [65, 59, 80, 81, 56, 55, 40],
+              [65, 2, 2, 2, 2, 55, 40],
               [28, 48, 40, 19, 86, 27, 90]
             ],
             onClick: function (points, evt) {
@@ -1462,12 +1511,26 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
             }
            };
 
+
+           $scope.line23 = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', "Augest"],
+            series: ['Series A', 'Series B'],
+            data: [
+              [100, 2, 2, 2, 2, 100, 40],
+              [28, 100, 100, 19, 86, 27, 90]
+            ],
+            onClick: function (points, evt) {
+              console.log(points, evt);
+            }
+           };
+
+
            $scope.bar = {
             labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
           series: ['Series A', 'Series B'],
 
           data: [
-             [65, 59, 80, 81, 56, 55, 40],
+             [65, 59, 65, 59, 56, 55, 40],
              [28, 48, 40, 19, 86, 27, 90]
           ]
 
@@ -1513,7 +1576,7 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
            $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
            $scope.series = ['Series A', 'Series B'];
            $scope.data = [
-               [65, 59, 80, 81, 56, 55, 40],
+               [65, 59, 2, 2, 2, 55, 40],
                [28, 48, 40, 19, 86, 27, 90]
            ];
 

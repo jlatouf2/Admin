@@ -6,7 +6,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic', 'starter.controllers',  'ngCordova', 'chart.js'])
 
-.run(function($ionicPlatform, $rootScope,   $cordovaPushV5) {
+.run(function($ionicPlatform, $rootScope,   $cordovaPushV5, $location, $state) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -20,31 +20,38 @@ angular.module('starter', ['ionic', 'starter.controllers',  'ngCordova', 'chart.
     }
   });
 
-     if ($rootScope.blueman2 === true) {
-      console.log('THIS IS SIGNED IN!');
-    } else {
-      console.log('THIS IS NOT SIGNED IN!');
-    }
-
     if (localStorage.getItem("loginCheck") === 'loggedin') {
       console.log('LOGIN WORKS!');
     } else {
       console.log('LOGIN DOES NOT WORK!');
     }
 
-/*
+        /*
       localStorage.setItem("your_local_storage", 'true');
       console.log($rootScope.yourFunction);
       $rootScope.yourFunction =  localStorage.getItem("your_local_storage");
       console.log($rootScope.yourFunction);
-*/
+        */
 
-if (  localStorage.getItem("your_local_storage") === 'true') {
-    $rootScope.yourFunction = 'true' ;
-}
+      if (  localStorage.getItem("your_local_storage") === 'true') {
+          $rootScope.yourFunction = 'true' ;
+      }
       //THIS IS HOW YOU DELETE THE FUNCTION:
     //    $rootScope.yourFunction = localStorage.setItem("your_local_storage", undefined);
        console.log($rootScope.yourFunction);
+
+        //NOTE: THIS IS THE FUNCTION THAT ALLOWS THE CONTROLLER TO BLOCK ACCESS TO ROUTING:
+       $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+              if (  localStorage.getItem("your_local_storage") === 'true') {
+                 $rootScope.yourFunction = 'true' ;
+                 console.log('LOGGED IN');
+             } else {
+                $location.path('/admin');
+                console.log('NOT LOGGED IN');
+
+              }
+
+       });
 
 
 })
@@ -134,11 +141,11 @@ if (  localStorage.getItem("your_local_storage") === 'true') {
       controller: 'CombinedCtrl'
   })
 
-
         .state('home', {
             url: "/home",
             templateUrl: "templates/home.html",
             controller: "firstController"
         });
-    $urlRouterProvider.otherwise('/home');
+        
+    $urlRouterProvider.otherwise('/dashboard');
 });

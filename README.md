@@ -165,3 +165,102 @@ https://itsolutionstuff.com/post/how-to-call-angularjs-controller-function-in-jq
     <div   ng-controller="StorelinesCtrl" id="mainController">
         <button>Click Here</button>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <ion-view view-title="Analytics">
+        <ion-content style="margin-top:50px;  ">
+
+          <h1 class="page-header">Data</h1>
+
+
+        <div class = "row responsive-sm">
+             <div class = "col ">
+               <div class="card">
+
+                          <div class="container table-responsive" ng-show="numberLinesAnalytics"  >
+                            <ul class="nav nav-tabs"  style="text-align:center;">
+                             <li class="active" style=" width:50%;"><a data-toggle="tab" ng-click="positionButton()" href="">PEOPLE DATA</a></li>
+                             <li style=" width:50%;"><a data-toggle="tab" href="" ng-click="displacementButton()">USER DATA</a></li>
+                           </ul>
+
+                           <table class="table-responsive table-striped">
+                             <thead>
+                               <tr>
+                                 <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+                                   Identification</th>
+                                 <th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+                                   Email</th>
+                                 <th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+                                   Store</th>
+                               <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+                                 Line</th>
+                                 <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+                                   Created</th>
+                               </tr>
+                             </thead>
+                             <tbody>
+                               <tr style="" ng-repeat="usercontent in usercontents | filter:search | orderBy:'usercontent._id'">
+                                 <td style="width:20%; text-align: center; max-width:200px; border: 1px solid black; border-collapse: collapse;">{{ usercontent._id }}</td>
+                                 <td style="width:20%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.email }}</td>
+                                 <td style="width:20%; text-align: center; max-width:200px; border: 1px solid black; border-collapse: collapse;">{{ usercontent.store }}</td>
+                                 <td style="width:20%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.line }}</td>
+                                 <td style="width:20%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.created }}</td>
+                               </tr>
+
+                             </tbody>
+                           </table>
+                         </div>
+
+
+                         <div class="container table-responsive"  ng-hide="numberLinesAnalytics"  >
+                            <ul class="nav nav-tabs"  style="text-align:center;">
+                             <li class="active" style=" width:50%;"><a data-toggle="tab" ng-click="positionButton()" href="">PEOPLE DATA</a></li>
+                             <li style=" width:50%;"><a data-toggle="tab" href="" ng-click="displacementButton()">USER DATA</a></li>
+                           </ul>
+                           <table class="table table-striped">
+                             <thead>
+                               <tr>
+                                 <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+                                   Identification</th>
+                                 <th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+                                   Email</th>
+                                 <th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+                                   Firstname</th>
+                               <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+                                 Lastname</th>
+                               </tr>
+                             </thead>
+                             <tbody>
+                               <tr  style="" ng-repeat="usercontent in usercontents | filter:search | orderBy:'usercontent._id'">
+                                 <td style="width:25%; text-align: center; max-width:200px; border: 1px solid black; border-collapse: collapse;">{{ usercontent._id }}</td>
+                                 <td style="width:25%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.email }}</td>
+                                 <td style="width:25%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.firstname }}</td>
+                                 <td style="width:25%; text-align: center; max-width:200px; border: 1px solid black; border-collapse: collapse;">{{ usercontent.lastname }}</td>
+                               </tr>
+                             </tbody>
+                           </table>
+                         </div>
+
+             </div>
+          </div>
+        </div>
+
+
+
+
+    <div style="margin-bottom:40px;">
+    </div>
+
+
+    </ion-content>
+    </ion-view>

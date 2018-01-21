@@ -168,7 +168,7 @@
 
   ----->
 
-    <div id="navbar-wrapper">
+    <div id="navbar-wrapper" ng-show="yourFunction">
             <header >
               <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 0; background-color: #222; border:none" >
                <div class="container-fluid"  >
@@ -179,7 +179,7 @@
                        <span class="icon-bar" style="background-color:black;"></span>
                      </button>
 
-                        <a class="navbar-brand  " href=""  style="font-size: 22px; color: #D5D5D5;" >SB Admin v2.0</a>
+                        <a class="navbar-brand  " href=""  style="font-size: 22px; color: #D5D5D5;" >Lineups Admin</a>
 
                      </div>
                      <div class="collapse navbar-collapse" id="myNavbar">
@@ -404,7 +404,7 @@
         </div>
 
 <!-- <a class="ex1" href="default.asp">-->
-        <div id="wrapper"  style="background-color:black" >
+        <div id="wrapper"  style="background-color:black"  ng-show="yourFunction">
             <div id="sidebar-wrapper"    style="background-color:#222" >
                 <aside id="sidebar"  style="background-color:#222; " >
                     <ul id="sidemenu" class="sidebar-nav  " style="background-color: #222"  >
@@ -476,34 +476,38 @@
                         </li>
                         <li  >
                             <a href="#/analytics" class="ex1">
-                                <span class="sidebar-icon" style="color:#D5D5D5"><i class="fa fa-terminal"></i></span>
+                                <span class="sidebar-icon" style="color:#D5D5D5"><i class="glyphicon glyphicon-tasks"></i></span>
                                 <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;">Data</span>
                             </a>
                         </li>
 
                         <li  >
                             <a href="#/input" class="ex1">
-                                <span class="sidebar-icon" style="color:#D5D5D5"><i class="fa fa-terminal"></i></span>
+                                <span class="sidebar-icon" style="color:#D5D5D5"><i class="glyphicon glyphicon-file"></i></span>
                                 <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;">InputData</span>
                             </a>
                         </li>
-                        <li  ng-show="yourFunction">
+                      <!--  <li  ng-show="yourFunction">   -->
+                      <li  >
                             <a href="#/combined" class="ex1">
-                                <span class="sidebar-icon" style="color:#D5D5D5"><i class="fa fa-terminal"></i></span>
+                                <span class="sidebar-icon" style="color:#D5D5D5"><i class="glyphicon glyphicon-asterisk"></i></span>
                                 <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;">Overview</span>
-                            </a>
-                        </li>
-                        <li >
-                            <a href="#/admin" class="ex1">
-                                <span class="sidebar-icon" style="color:#D5D5D5"><i class="fa fa-terminal"></i></span>
-                                <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;">Admin</span>
                             </a>
                         </li>
 
                         <li >
-                          <!--  <button   ng-controller="StorelinesCtrl" id="mainController2" >
+                          <!--
+
+                          <li >
+                              <a href="#/admin" class="ex1">
+                                  <span class="sidebar-icon" style="color:#D5D5D5"><i class="fa fa-terminal"></i></span>
+                                  <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;">Admin</span>
+                              </a>
+                          </li>
+
+                           <button   ng-controller="StorelinesCtrl" id="mainController2" >
                               press
-                            </button>   -->
+                            </button>
                             <a   class="ex1" ng-controller="StorelinesCtrl" id="mainController2"
                                   onclick="myFunction44()" style="cursor: pointer;">
                                 <span class="sidebar-icon" style="color:#D5D5D5"> <i class="fa fa-terminal"></i></span>
@@ -512,7 +516,20 @@
                                 </span>
                             </a>
 
+                            <div   ng-controller="StorelinesCtrl" ng-click="logoutFunction()">
+                                <button>Plugged</button>
+                            </div>
+
+                          -->
+                          <a   class="ex1" ng-controller="StorelinesCtrl"
+                                ng-click="logoutFunction()" style="cursor: pointer;">
+                              <span class="sidebar-icon" style="color:#D5D5D5"> <i class="glyphicon glyphicon-log-out"></i></span>
+                              <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;" >
+                                Logout
+                              </span>
+                          </a>
                         </li>
+
 
 
 
@@ -557,8 +574,8 @@
 
     function goBack() {   window.history.back();   }
 
-   //  var socket = io.connect('http://192.168.1.115:3000');
-    var socket = io.connect('https://lineups-adminone.herokuapp.com/#/:3000');
+     var socket = io.connect('http://192.168.1.115:3000');
+  //  var socket = io.connect('https://lineups-adminone.herokuapp.com/#/:3000');
 
      socket.on('broadcast',function(data){ console.log(data.description); });
 

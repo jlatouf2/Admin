@@ -30,6 +30,42 @@ a.ex1:hover, a.ex1:active {background-color: black;}
     padding: 1px;
 }
 */
+
+@media screen and (max-width: 480px) {
+  /*  h1 {
+        background-color: lightgreen;
+    }
+    visibility: hidden; and/or display:none;
+    */
+    #blackcheck {
+       margin-right:0px;
+       display:none;
+    }
+
+    #messagingScreen {
+        font-size:20px;
+    }
+    #messagingScreen2 {
+        font-size:25px;
+    }
+    #dataText {
+        width:100px
+    }
+
+
+}
+
+
+
+@media screen and (min-width: 480px) {
+     #blackcheck2 {
+       margin-right:0px;
+       display:none;
+
+    }
+}
+
+
 #wrapper {
     padding-top: 50px;
     padding-left: 0;
@@ -42,12 +78,15 @@ a.ex1:hover, a.ex1:active {background-color: black;}
 @media (min-width: 992px) {
     #wrapper {
         padding-left: 225px;
+
     }
 }
+/*  THIS WIDTH SETS THE SIDEBAR WIDTH: */
 
 @media (min-width: 992px) {
     #wrapper #sidebar-wrapper {
-        width: 225px;
+        width: 250px;
+
     }
 }
 
@@ -70,11 +109,11 @@ a.ex1:hover, a.ex1:active {background-color: black;}
     transition: all .5s ease;
 }
 
-
+/*  THIS WIDTH SETS THE HIGHLIGHT WIDTH: */
 #sidebar-wrapper .sidebar-nav {
     position: absolute;
     top: 0;
-    width: 225px;
+    width: 250px;
     font-size: 14px;
     margin: 0;
     padding: 0;

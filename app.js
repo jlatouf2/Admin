@@ -306,6 +306,15 @@ socket.on('getPeopleLine', function (data, callback) {
       });
 });
 
+socket.on('getAllPeople', function (data, callback) {
+  PeopleLine.find({ })
+    .exec(function(err, posts) {
+        if (err) { return next(err); }
+      callback(posts);  console.log(posts);
+      });
+});
+
+
 socket.on('getLineCoordinates', function (data, callback) {
   Store.find( {store: data.store})
     .exec(function(err, posts) {

@@ -1,10 +1,10 @@
 <ion-view view-title="Peopleline">
-  <ion-content style="margin-top:50px; margin-right:30px">
+  <ion-content style="margin-top:50px; ">
 
     <div class = "row responsive-sm">
        <div class = "col ">
 
-         <h1 class="page-header" style="margin-left:20px">Peopleline</h1>
+         <h1 class="page-header" style="margin-left:20px" id="messagingScreen2">Peopleline</h1>
 
        </div>
        <div class = "col">
@@ -36,7 +36,7 @@
               <!-- TITLE / INFORMATION ! -->
 
 
-              <h1 class=" " style="text-align:center;"> <u> {{grabStorename || Store}}<span style="margin-left:50px;">Line # {{grabLineNumber}} </span> </u></h1>
+              <h1 class=" " style="text-align:center;" id="messagingScreen"> <u> {{grabStorename || Store}}<span style="margin-left:50px;">Line # {{grabLineNumber}} </span> </u></h1>
 
 
           <!--  <div class="bob3" style="font-size:30px;text-align:center;">Lines #: {{grabLineNumber || 'Line not passed!'}} </div>
@@ -70,7 +70,7 @@
           </div>
           -->
 
- 
+
 
           <!-- THIS IS NEEDED FOR JAVASCRIPT FUNCTION TO CALL ANGULARJS FUNCTION ! -->
           <div id="YourElementId" > </div>
@@ -229,75 +229,85 @@
   </div>
 
 
-            <!-- TABLE BEGINS! -->
-            <div class="card"  >
-
-              <div class="item item-divider">
-                  Messaging Contact List
-              </div>
-
-					<div class="table-responsive" style="padding:20px;">
-						<table class="table table-hover">
-   							<thead>
-                  <ul class="nav nav-tabs"  style="text-align:center;">
-                    <li class="active" style=" width:33%;"><a data-toggle="tab" ng-click="positionButton()" href="">
-                      <span style="font-size:15px"><b>POSITION</b> </span></a></li>
-                    <li style=" width:33%;"><a data-toggle="tab" href="" ng-click="optimizeStart()">
-                      <span style="font-size:15px"><b>OPTIMIZE</b></a></li>
-                    <li style=" width:33%;"><a data-toggle="tab" href="" ng-click="displacementButton()">
-                      <span style="font-size:15px"><b>DISTANCE</b></a></li>
-                  </ul>
-  							</thead>
-   							<tbody>
-
-    								<tr ng-hide="numberLinesZero2" style="text-align: ;" ng-class="{'selected':$index == 0}"  ng-repeat="person in people | filter:search | orderBy:'person.created'" >
-    									<td > <a style="background-color:white; border:none; "  href="#/details" ng-click="findDistance22($index,  person.email, person.store, person.line, person.created, person.notificationkey )" class="list-group-item active ">
-                        <div >
-                          <!--    <img ng-show= "imageSaved" class="img-circle" style="display:block; float: left; weight:50px; height:50px;  border-style: dotted; " src="{{black2}}" > -->
-                          <img ng-hide="imageSaved" class="img-circle" style="display:block; weight:50px; height:50px; float: left; border-style: dotted; " src="img/images-3.jpeg" >
-
-                          <span style="color:black;"  >{{person.email}} <br> Position:{{$index+1}} </span>
-                         <!--  <span style="color:black;" ng-if="$index ==  0" ng-style="myObj">{{person.email}} <br> Position:{{$index+1}} </span>   -->
-                         <span style="color:black; float:right;">  {{ clock | date:'HH:mm:ss'}} <br>{{person.propertyTwo}} {{person.addstuff}}  </span>
-
-                        </div>    <!-- Need to store userid in DB then get all from DB and put in:
-                           {{"http://graph.facebook.com/" +person.iduserid+ "/picture?type=square"}} +    -->
-                      </td>
-
-                      <td style="width:80px;"  ng-show="deleteButton">
-                        <button class="btn btn-danger btn" style="float:right;  height:40px;  margin-top:10px" ng-click="deletePeople2(person.email)">Delete</button>
-                      </td>
-    								</tr>
-
-                    <tr ng-show="numberLinesZero2" style="text-align: left;"   ng-repeat="person in people | filter:search | orderBy:'person.distance'" >
-    									<td> <a style="background-color:white; border:none; text-align: left" href="/#/details" ng-click="checkPeopleFcn(person.local.email)" class="list-group-item active ">
-                          <div>
-                        <!--    <img ng-show= "imageSaved" class="img-circle" style="display:block; float: left;  weight:50px; height:50px;  border-style: dotted; " src="{{black2}}" >   -->
-                            <img ng-hide="imageSaved" class="img-circle" style="display:block; weight:50px; height:50px; float: left; border-style: dotted; " src="img/images-3.jpeg" >
-
-                            <span style="color:black;" >
-                              Person:    {{person.email}} <br>
-                              Distance:  {{person.distance}}<br>
-                              Position:   {{$index+1}}
-                            </span>
-                          </div>
-
-                      <!--      <button class="btn btn-danger btn-xs" style="float: right; " ng-click="removeName($index)">Delete</button> -->
-
-                      </td>
 
 
-                      <td  style="width:80px"  ng-show="deleteButton">
-                        <button class="btn btn-danger btn" style="float:right;  margin-top:5px" ng-click="deletePeople2(person.email)">Delete</button>
-                      </td>
-    								</tr>
 
 
-  							</tbody>
-						</table>
-					</div>
-        </div>
-          <div style="height:40px;">
+  <div class = "row responsive-sm">
+       <div class = "col ">
+
+         <div class="card">
+             <div class="item item-divider">
+                 A line chart
+             </div>
+             <div class="item item-text-wrap">
+
+        					<div class="table-responsive"  >
+       						<table class="table table-hover">
+          							<thead>
+                         <ul class="nav nav-tabs"  style="text-align:center;">
+                           <li class="active" style=" width:33%;"><a data-toggle="tab" ng-click="positionButton()" href="">
+                             <span style="font-size:15px"><b>POSITION</b> </span></a></li>
+                           <li style=" width:33%;"><a data-toggle="tab" href="" ng-click="optimizeStart()">
+                             <span style="font-size:15px"><b>OPTIMIZE</b></a></li>
+                           <li style=" width:33%;"><a data-toggle="tab" href="" ng-click="displacementButton()">
+                             <span style="font-size:15px"><b>DISTANCE</b></a></li>
+                         </ul>
+         							</thead>
+          							<tbody>
+
+           								<tr ng-hide="numberLinesZero2" style="text-align: ;" ng-class="{'selected':$index == 0}"  ng-repeat="person in people | filter:search | orderBy:'person.created'" >
+           									<td > <a style="background-color:white; border:none; "  href="#/details" ng-click="findDistance22($index,  person.email, person.store, person.line, person.created, person.notificationkey )" class="list-group-item active ">
+                               <div >
+                                 <!--    <img ng-show= "imageSaved" class="img-circle" style="display:block; float: left; weight:50px; height:50px;  border-style: dotted; " src="{{black2}}" > -->
+                                 <img ng-hide="imageSaved" class="img-circle" style="display:block; weight:50px; height:50px; float: left; border-style: dotted; " src="img/images-3.jpeg" >
+
+                                 <span style="color:black;"  >{{person.email}} <br> Position:{{$index+1}} </span>
+                                <!--  <span style="color:black;" ng-if="$index ==  0" ng-style="myObj">{{person.email}} <br> Position:{{$index+1}} </span>   -->
+                                <span style="color:black; float:right;">  {{ clock | date:'HH:mm:ss'}} <br>{{person.propertyTwo}} {{person.addstuff}}  </span>
+
+                               </div>    <!-- Need to store userid in DB then get all from DB and put in:
+                                  {{"http://graph.facebook.com/" +person.iduserid+ "/picture?type=square"}} +    -->
+                             </td>
+
+                             <td style="width:80px;"  ng-show="deleteButton">
+                               <button class="btn btn-danger btn" style="float:right;  height:40px;  margin-top:10px" ng-click="deletePeople2(person.email)">Delete</button>
+                             </td>
+           								</tr>
+
+                           <tr ng-show="numberLinesZero2" style="text-align: left;"   ng-repeat="person in people | filter:search | orderBy:'person.distance'" >
+           									<td> <a style="background-color:white; border:none; text-align: left" href="/#/details" ng-click="checkPeopleFcn(person.local.email)" class="list-group-item active ">
+                                 <div>
+                               <!--    <img ng-show= "imageSaved" class="img-circle" style="display:block; float: left;  weight:50px; height:50px;  border-style: dotted; " src="{{black2}}" >   -->
+                                   <img ng-hide="imageSaved" class="img-circle" style="display:block; weight:50px; height:50px; float: left; border-style: dotted; " src="img/images-3.jpeg" >
+
+                                   <span style="color:black;" >
+                                     Person:    {{person.email}} <br>
+                                     Distance:  {{person.distance}}<br>
+                                     Position:   {{$index+1}}
+                                   </span>
+                                 </div>
+                              </td>
+                              <td  style="width:80px"  ng-show="deleteButton">
+                               <button class="btn btn-danger btn" style="float:right;  margin-top:5px" ng-click="deletePeople2(person.email)">Delete</button>
+                             </td>
+           								</tr>
+          							</tbody>
+       						</table>
+       					</div>
+
+
+             </div>
+         </div>
+
+       </div>
+    </div>
+
+
+
+
+
+           <div style="height:40px;">
           </div>
 
 
