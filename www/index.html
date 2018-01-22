@@ -324,8 +324,8 @@
 
     function goBack() {   window.history.back();   }
 
-     var socket = io.connect('http://192.168.1.115:3000');
-  //  var socket = io.connect('https://lineups-adminone.herokuapp.com/#/:3000');
+  //   var socket = io.connect('http://192.168.1.115:3000');
+   var socket = io.connect('https://lineups-adminone.herokuapp.com/#/:3000');
 
      socket.on('broadcast',function(data){ console.log(data.description); });
 
