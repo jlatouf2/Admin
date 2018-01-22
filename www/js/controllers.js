@@ -1436,8 +1436,8 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
 .controller('AdminCtrl', function($scope, $location, $http, $rootScope, AuthService ) {
 
                  $scope.noteToken = localStorage.getItem("TokenData");
-                $scope.email = {email1 : "jlatouf2@gmail.comsadfasfaf777"};
-                $scope.password = {password1 : "jarredl"};
+                $scope.email = {email1 : "example@google.com"};
+                $scope.password = {password1 : "adminlogin"};
 
                     /*   --------LOGIN FUNCTION-----------     */
                $scope.ServiceFunction5 = function () { AuthService.AdminLogin($scope.email.email1, $scope.password.password1, $scope.noteToken); };

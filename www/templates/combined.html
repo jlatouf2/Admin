@@ -21,156 +21,153 @@
 
             <style> table, th, td { border: 1px solid black; } </style>
 
-<div class = "row responsive-sm">
-     <div class = "col ">
 
-       <div class="card" >
-           <div class="item item-divider" style="text-align:center">
-              <a href="#/chart" > StoreNames </a>
-           </div>
-           <div class="item item-text-wrap" >
+  <div class = "row responsive-sm">
+       <div class = "col ">
+             <div class="card" >
+                 <div class="item item-divider" style="text-align:center">
+                    <a href="#/chart" > StoreNames </a>
+                 </div>
+                 <div class="item item-text-wrap" >
 
-             <div class="table-responsive" style="height:300px">
+                   <div class="table-responsive" style="height:300px">
 
-             <table class="table  table-hover">
-                Number of Stores: {{storeAvailable}}
+                   <table class="table  table-hover">
+                      Number of Stores: {{storeAvailable}}
 
-                    <tbody style="background-color:white; border:none">
-                         <tr ng-hide="numberLinesZero" style="text-align: center; " ng-repeat="storewithName in storewithNames | filter:search | orderBy:'store'">
-                             <td >
-                               <a  style="background-color:white; border:none"    ng-click="grabStuff(storewithName.store)" class="list-group-item ">
-                               <span style="color:black;font-weight: bold;">{{storewithName.store}} <br>
-                             </td>
+                          <tbody style="background-color:white; border:none">
+                               <tr ng-hide="numberLinesZero" style="text-align: center; " ng-repeat="storewithName in storewithNames | filter:search | orderBy:'store'">
+                                   <td >
+                                     <a  style="background-color:white; border:none"    ng-click="grabStuff(storewithName.store)" class="list-group-item ">
+                                     <span style="color:black;font-weight: bold;">{{storewithName.store}} <br>
+                                   </td>
 
-                             <td  style="width:20%"  ng-show="deleteButton">
-                               <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteName2(storewithName.store)">Delete</button>
-                             </td>
-                         </tr>
+                                   <td  style="width:20%"  ng-show="deleteButton">
+                                     <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteName2(storewithName.store)">Delete</button>
+                                   </td>
+                               </tr>
 
-                         <tr ng-show="numberLinesZero" >
-                             <td><a style="background-color:white; border:none; text-align: center;" href=""class="list-group-item active" >
-                                 <span style="color:black;">PLEASE WAIT UNTIL THE GEOLOCATION UPDATES <br>
-                                   THE PAGE OR ADD STORE YOURSELF  </span>
-                             </td>
-                             <td  style="width:80px"  ng-show="deleteButton">
-                               <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteLine(storewithName.line)">Delete</button>
-                             </td>
-                         </tr>
+                               <tr ng-show="numberLinesZero" >
+                                   <td><a style="background-color:white; border:none; text-align: center;" href=""class="list-group-item active" >
+                                       <span style="color:black;">PLEASE WAIT UNTIL THE GEOLOCATION UPDATES <br>
+                                         THE PAGE OR ADD STORE YOURSELF  </span>
+                                   </td>
+                                   <td  style="width:80px"  ng-show="deleteButton">
+                                     <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteLine(storewithName.line)">Delete</button>
+                                   </td>
+                               </tr>
 
-                   </tbody>
-             </table>
-           </div>
-
-
-
-            </div>
-       </div>
-
-     </div>
-     <div class = "col">
-         <div class="card">
-             <div class="item item-divider" style="text-align:center">
-                <a href="#/messaging">   StoreLines : <br> {{grabStorename ||  ''}} </a>
+                         </tbody>
+                   </table>
+                 </div>
+                   </div>
              </div>
-             <div class="item item-text-wrap">
+         </div>
 
-                 <div class="table-responsive"  >
-                 	<table class="table table-hover">
-                 		<thead >
-                        <tr >
+         <div class = "col">
+             <div class="card">
+                 <div class="item item-divider" style="text-align:center">
+                    <a href="#/messaging">   StoreLines : <br> {{grabStorename ||  ''}} </a>
+                 </div>
+                 <div class="item item-text-wrap">
 
-                          <span style="text-align:center"></span>
-                        </tr>
-                        		</thead>
-                       		<tbody>
+                     <div class="table-responsive"  >
+                     	<table class="table table-hover">
+                     		<thead >
+                            <tr >
 
-                       			<tr ng-hide="numberLinesZero1" ng-repeat="country in countries | filter:search | orderBy:'line'">
-                         				<td><a style="background-color:white; border:none; text-align: center;"  ng-click="checkLineAdminFcn(country.line)"class="list-group-item active" >
-                                     <span style="color:black;">{{ country.line}} </span>
-                                 </td>
-                                 <td  style="width:80px"  ng-show="deleteButton">
-                                   <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteLine(country.line)">Delete</button>
-                                 </td>
-                       			</tr>
-                             <tr ng-show="numberLinesZero1" >
-                                 <td><a style="background-color:white; border:none; text-align: center;" href=""class="list-group-item active" >
-                                     <span style="color:black;">THIS IS EMPTY </span>
-                                 </td>
-                                 <td  style="width:80px"  ng-show="deleteButton">
-                                   <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteLine(country.line)">Delete</button>
-                                 </td>
-                             </tr>
-                       		</tbody>
-                 	</table>
+                              <span style="text-align:center"></span>
+                            </tr>
+                            		</thead>
+                           		<tbody>
+
+                           			<tr ng-hide="numberLinesZero1" ng-repeat="country in countries | filter:search | orderBy:'line'">
+                             				<td><a style="background-color:white; border:none; text-align: center;"  ng-click="checkLineAdminFcn(country.line)"class="list-group-item active" >
+                                         <span style="color:black;">{{ country.line}} </span>
+                                     </td>
+                                     <td  style="width:80px"  ng-show="deleteButton">
+                                       <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteLine(country.line)">Delete</button>
+                                     </td>
+                           			</tr>
+                                 <tr ng-show="numberLinesZero1" >
+                                     <td><a style="background-color:white; border:none; text-align: center;" href=""class="list-group-item active" >
+                                         <span style="color:black;">THIS IS EMPTY </span>
+                                     </td>
+                                     <td  style="width:80px"  ng-show="deleteButton">
+                                       <button class="btn btn-danger btn" style="float:right; margin-top:5px" ng-click="deleteLine(country.line)">Delete</button>
+                                     </td>
+                                 </tr>
+                           		</tbody>
+                     	</table>
+                     </div>
+
                  </div>
 
-             </div>
+            </div>
+         </div>
 
-        </div>
-     </div>
+         <div class = "col">
+             <div class="card">
+                 <div class="item item-divider" style="text-align:center">
+                    <a href="#/storeNames">   PeopleinLine: <br> {{grabStorename || Store}} Line # {{grabLineNumber}} </a>
+                 </div>
+                 <div class="item item-text-wrap">
+                   <div class="table-responsive"  >
+         						<table class="table table-hover">
+            							<thead>
+                           <ul class="nav nav-tabs"  style="text-align:center;">
+                             <li class="active" style=" width:50%;"><a data-toggle="tab" ng-click="positionButton()" href="">
+                               <span style="font-size:12px"><b>POSITION</b> </span></a></li>
+                              <li style=" width:50%;"><a data-toggle="tab" href="" ng-click="displacementButton()">
+                               <span style="font-size:12px"><b>DISTANCE</b></a></li>
+                           </ul>
+           							</thead>
 
-     <div class = "col">
-         <div class="card">
-             <div class="item item-divider" style="text-align:center">
-                <a href="#/storeNames">   PeopleinLine: <br> {{grabStorename || Store}} Line # {{grabLineNumber}} </a>
-             </div>
-             <div class="item item-text-wrap">
-               <div class="table-responsive"  >
-     						<table class="table table-hover">
-        							<thead>
-                       <ul class="nav nav-tabs"  style="text-align:center;">
-                         <li class="active" style=" width:50%;"><a data-toggle="tab" ng-click="positionButton()" href="">
-                           <span style="font-size:12px"><b>POSITION</b> </span></a></li>
-                          <li style=" width:50%;"><a data-toggle="tab" href="" ng-click="displacementButton()">
-                           <span style="font-size:12px"><b>DISTANCE</b></a></li>
-                       </ul>
-       							</thead>
+            							<tbody>
 
-        							<tbody>
+             								<tr ng-hide="numberLinesZero2" style="text-align: ;" ng-class="{'selected':$index == 0}"  ng-repeat="person in people | filter:search | orderBy:'person.created'" >
+             									<td > <a style="background-color:white; border:none; "  href="#/details" ng-click="findDistance22($index,  person.email, person.store, person.line, person.created, person.notificationkey )" class="list-group-item active ">
+                                 <div >
+                                  <!--  <img ng-hide="imageSaved" class="img-circle" style="display:block; weight:50px; height:50px; float: left; border-style: dotted; " src="img/images-3.jpeg" >  -->
 
-         								<tr ng-hide="numberLinesZero2" style="text-align: ;" ng-class="{'selected':$index == 0}"  ng-repeat="person in people | filter:search | orderBy:'person.created'" >
-         									<td > <a style="background-color:white; border:none; "  href="#/details" ng-click="findDistance22($index,  person.email, person.store, person.line, person.created, person.notificationkey )" class="list-group-item active ">
-                             <div >
-                              <!--  <img ng-hide="imageSaved" class="img-circle" style="display:block; weight:50px; height:50px; float: left; border-style: dotted; " src="img/images-3.jpeg" >  -->
+                                   <span style="color:black;"  >{{person.email}} <br> Position:{{$index+1}} </span>
+                                   <span style="color:black; float:right;">  {{ clock | date:'HH:mm:ss'}} <br>{{person.propertyTwo}} {{person.addstuff}}  </span>
 
-                               <span style="color:black;"  >{{person.email}} <br> Position:{{$index+1}} </span>
-                               <span style="color:black; float:right;">  {{ clock | date:'HH:mm:ss'}} <br>{{person.propertyTwo}} {{person.addstuff}}  </span>
+                                 </div>
+                               </td>
 
-                             </div>
-                           </td>
+                               <td style="width:80px;"  ng-show="deleteButton">
+                                 <button class="btn btn-danger btn" style="float:right;  height:40px;  margin-top:10px" ng-click="deletePeople2(person.email)">Delete</button>
+                               </td>
+             								</tr>
 
-                           <td style="width:80px;"  ng-show="deleteButton">
-                             <button class="btn btn-danger btn" style="float:right;  height:40px;  margin-top:10px" ng-click="deletePeople2(person.email)">Delete</button>
-                           </td>
-         								</tr>
+                             <tr ng-show="numberLinesZero2" style="text-align: left;"   ng-repeat="person in people | filter:search | orderBy:'person.distance'" >
+             									<td> <a style="background-color:white; border:none; text-align: left" href="/#/details" ng-click="checkPeopleFcn(person.local.email)" class="list-group-item active ">
+                                   <div>
+                                 <!--    <img ng-show= "imageSaved" class="img-circle" style="display:block; float: left;  weight:50px; height:50px;  border-style: dotted; " src="{{black2}}" >   -->
+                                     <img ng-hide="imageSaved" class="img-circle" style="display:block; weight:50px; height:50px; float: left; border-style: dotted; " src="img/images-3.jpeg" >
 
-                         <tr ng-show="numberLinesZero2" style="text-align: left;"   ng-repeat="person in people | filter:search | orderBy:'person.distance'" >
-         									<td> <a style="background-color:white; border:none; text-align: left" href="/#/details" ng-click="checkPeopleFcn(person.local.email)" class="list-group-item active ">
-                               <div>
-                             <!--    <img ng-show= "imageSaved" class="img-circle" style="display:block; float: left;  weight:50px; height:50px;  border-style: dotted; " src="{{black2}}" >   -->
-                                 <img ng-hide="imageSaved" class="img-circle" style="display:block; weight:50px; height:50px; float: left; border-style: dotted; " src="img/images-3.jpeg" >
+                                     <span style="color:black;" >
+                                       Person:    {{person.email}} <br>
+                                       Distance:  {{person.distance}}<br>
+                                       Position:   {{$index+1}}
+                                     </span>
+                                   </div>
+                               </td>
+                                <td  style="width:80px"  ng-show="deleteButton">
+                                 <button class="btn btn-danger btn" style="float:right;  margin-top:5px" ng-click="deletePeople2(person.email)">Delete</button>
+                               </td>
+             								</tr>
 
-                                 <span style="color:black;" >
-                                   Person:    {{person.email}} <br>
-                                   Distance:  {{person.distance}}<br>
-                                   Position:   {{$index+1}}
-                                 </span>
-                               </div>
-                           </td>
-                            <td  style="width:80px"  ng-show="deleteButton">
-                             <button class="btn btn-danger btn" style="float:right;  margin-top:5px" ng-click="deletePeople2(person.email)">Delete</button>
-                           </td>
-         								</tr>
+           							</tbody>
+         						</table>
+         					</div>
+                 </div>
 
-       							</tbody>
-     						</table>
-     					</div>
-             </div>
+            </div>
+         </div>
 
-        </div>
-     </div>
-
- </div>
+    </div>
 
 
  <div class = "row responsive-sm">
@@ -196,7 +193,6 @@
         </div>
       </div>
   </div>
-
 
 
 </ion-content>

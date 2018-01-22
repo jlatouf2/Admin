@@ -2,71 +2,78 @@
   <ion-content style="margin-top:50px; "  >
 
 
-  <div style="margin-right:250px">
-
-  <div class = "row responsive-sm" id="blackcheck">
-       <div class = "col ">
-         <h1 class="bob3 page-header"  style="text-align: center;"><u> Admin </u></h1>
-
-     <div class="card" style="margin: 0 auto; width:400px; ">
-      <div class="item item-text-wrap" >
-
-        <img   style=" margin-left: auto; margin-right: auto; display: block; " src="img/login_face.png" >
+      <div style="margin-right:250px">
 
 
-        <div class="list">
-          <label class="item item-input item-stacked-label">
-            <span class="input-label bob3" style="font-size:30px">Email</span>
-            <input type="text" ng-model="email.email1" placeholder="john@suhr.com" style="font-size:20px">
-          </label>
-          <label class="item item-input item-stacked-label">
-            <span class="input-label bob3" style="font-size:30px">password</span>
-            <input type="password" ng-model="password.password1" placeholder="*******" style="font-size:20px">
-          </label>
+        <div ng-show="failedLogined"  class="alert alert-danger" style="text-align:center">
+          <strong >{{messageLogined}}</strong>
+        </div>
 
-          <div class="bob3" style="  margin: 0 auto; ">
-              <br> <br>
-              <a type="button" style="width:100%" class="btn btn-primary" ng-click="ServiceFunction5()">
-                <span  style="font-size: 25px;"> Log In </span>
-              </a>
+
+
+      <div class = "row responsive-sm" id="blackcheck" >
+           <div class = "col ">
+             <h1 class="bob3 page-header"  style="text-align: center; "><u> Admin </u></h1>
+
+         <div class="card" style="margin: 0 auto; width:400px;  ">
+          <div class="item item-text-wrap"  style="background-color:#;">
+
+            <img   style=" margin-left: auto; margin-right: auto; display: block;  " src="img/login_face.png" >
+
+
+            <div class="list">
+              <label class="item item-input item-stacked-label">
+                <span class="input-label bob3" style="font-size:30px">Email</span>
+                <input type="text" ng-model="email.email1" placeholder="john@suhr.com" style="font-size:20px">
+              </label>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label bob3" style="font-size:30px">password</span>
+                <input type="password" ng-model="password.password1" placeholder="*******" style="font-size:20px">
+              </label>
+
+              <div class="bob3" style="  margin: 0 auto; ">
+                  <br> <br>
+                  <a type="button" style="width:100%" class="btn btn-primary" ng-click="ServiceFunction5()">
+                    <span  style="font-size: 25px;"> Log In </span>
+                  </a>
+              </div>
           </div>
+        </div>
+        </div>
       </div>
     </div>
     </div>
-  </div>
-</div>
-</div>
 
 
-<div class = "row responsive-sm" id="blackcheck2">
-     <div class = "col ">
+    <div class = "row responsive-sm" id="blackcheck2">
+         <div class = "col ">
 
-       <h1 class="bob3 page-header"  style="text-align: center;"><u> Admin </u></h1>
+           <h1 class="bob3 page-header"  style="text-align: center;"><u> Admin </u></h1>
 
-   <div class="card" style="margin: 0 auto; ">
-    <div class="item item-text-wrap" >
-      <img   style=" margin-left: auto; margin-right: auto; display: block;  width:150px" src="img/login_face.png" >
-      <div class="list">
-        <label class="item item-input item-stacked-label">
-          <span class="input-label  " style="font-size:20px">Email</span>
-          <input type="text" ng-model="email.email1" placeholder="john@suhr.com" style="font-size:20px">
-        </label>
-        <label class="item item-input item-stacked-label">
-          <span class="   " style="font-size:20px">Password</span>
-          <input type="password" ng-model="password.password1" placeholder="*******" style="font-size:20px">
-        </label>
+       <div class="card" style="margin: 0 auto; ">
+        <div class="item item-text-wrap" >
+          <img   style=" margin-left: auto; margin-right: auto; display: block;  width:150px" src="img/login_face.png" >
+          <div class="list">
+            <label class="item item-input item-stacked-label">
+              <span class="input-label  " style="font-size:20px">Email</span>
+              <input type="text" ng-model="email.email1" placeholder="john@suhr.com" style="font-size:20px">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="   " style="font-size:20px">Password</span>
+              <input type="password" ng-model="password.password1" placeholder="*******" style="font-size:20px">
+            </label>
 
-        <div class="bob3" style="  margin: 0 auto; ">
-            <br> <br>
-            <a type="button" style="width:100%" class="btn btn-primary" ng-click="ServiceFunction5()">
-              <span  style="font-size: 25px;"> Log In </span>
-            </a>
+            <div class="bob3" style="  margin: 0 auto; ">
+                <br> <br>
+                <a type="button" style="width:100%" class="btn btn-primary" ng-click="ServiceFunction5()">
+                  <span  style="font-size: 25px;"> Log In </span>
+                </a>
+            </div>
         </div>
+      </div>
+      </div>
     </div>
-  </div>
-  </div>
-</div>
-</div>
+    </div>
 
 
   </ion-content>

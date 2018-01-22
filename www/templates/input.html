@@ -3,32 +3,38 @@
 
     <h1 class="page-header">Input</h1>
 
+    <div class = "row responsive-sm">
+         <div class = "col ">
 
-
-    <div style="padding-right:30px;">
-      <div class="card"   >
-        <div class="item item-divider">
-            Information
-        </div>
-        <div class="form-group" style="padding:20px; font-size:22px">
-          Please use this page to input a Data Dump of information into the database for new users.
-         </div>
-    </div>
-  </div>
-
-    <div style="padding-right:30px;">
-      <div class="card"   >
-          <div class="item item-divider">
-              Data Input
+           <div class="card">
+               <div class="item item-divider">
+                   A line chart
+               </div>
+               <div class="item item-text-wrap">
+                    Please use this page to input a Data Dump of information into the database for new users.
+               </div>
+           </div>
           </div>
-          <div class="form-group" style="padding:20px;">
-            <label for="comment">Comment:</label>
-            <textarea class="form-control" rows="5" ng-model="dataExample" id="comment"></textarea>
-          </div>
-          <button class="center-block btn btn-primary btn-lg" ng-click="pushArray(dataExample)">PassData</button>
       </div>
-  </div>
 
+
+  <div class = "row responsive-sm">
+       <div class = "col ">
+
+         <div class="card">
+             <div class="item item-divider">
+               Data Input
+             </div>
+             <div class="item item-text-wrap">
+               <div class="form-group"  >
+                 <label for="comment">Comment:</label>
+                 <textarea class="form-control" rows="5" ng-model="dataExample" id="comment"></textarea>
+               </div>
+               <button class="center-block btn btn-primary btn-lg" ng-click="pushArray(dataExample)">PassData</button>
+             </div>
+         </div>
+        </div>
+    </div>
 
 
 

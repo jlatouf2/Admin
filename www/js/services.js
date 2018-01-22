@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('starter').factory('AuthService' ,
-  function ($rootScope, $http, $location) {
+  function ($rootScope, $http, $location, $timeout) {
 
     $rootScope.lineups2 = ['Jarred', 'Jacob', 'Johna!']; $rootScope.storesAvailable = ['BestBuy', 'Kmart', 'Target', 'Zehrs'];
     $rootScope.peopleLine = ['Marcus', 'Dom', 'Brain'];     $rootScope.lineNumber = [1, 2, 3];
@@ -62,6 +62,8 @@ angular.module('starter').factory('AuthService' ,
                           console.log(data);
                           $rootScope.failedLogin = true;
                             $rootScope.message = data;
+                            $timeout(function () { $rootScope.failedLogin = false; }, 3000);
+
              });
         }
 
@@ -154,6 +156,8 @@ angular.module('starter').factory('AuthService' ,
                       console.log(data);
                       $rootScope.failedLogin = true;
                         $rootScope.message = data;
+                        $timeout(function () { $rootScope.failedLogin = false; }, 3000);
+
          });
     }
 
@@ -185,7 +189,10 @@ angular.module('starter').factory('AuthService' ,
 
         }).error(function (data) {
                       console.log(data);
-                      $rootScope.failedLogin = true;   $rootScope.message = data;
+
+                      $rootScope.failedLogined = true;   $rootScope.messageLogined = data.msg;
+                      $timeout(function () { $rootScope.failedLogined = false; }, 3000);
+
          });
     }
 
