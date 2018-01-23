@@ -264,3 +264,169 @@ https://itsolutionstuff.com/post/how-to-call-angularjs-controller-function-in-jq
 
     </ion-content>
     </ion-view>
+
+
+
+
+
+
+
+    $(document).ready(function() {
+       renderChartJS("line", "playerChartLine", ["2017-07-04T01:51:02-06:00", "2017-07-04T10:51:03-06:00"], [240, 150], "Total Number of Players Playing", "Date", "Players", "188,4,0", 0); // Number of players
+       renderChartJS("bar", "playerChartBar", ["2017-07-04T01:51:02-06:00", "2017-08-04T01:59:02-06:00"], [240, 150], "Total Number of Players Playing", "Date", "Players", "188,4,0", 0); // Number of players
+    });
+
+    function renderChartJS(chartType, elemId, labels, data, title, xAxisLabel, yAxisLabel, rgbaColorStr, yMax) {
+
+       var ticksObj = {
+          suggestedMin: 0,
+          beginAtZero: true,
+          stepValue: 50,
+       }
+
+       if (yMax != 0) {
+          ticksObj.max = yMax;
+       }
+
+       if (data.length) {
+          var ctx = document.getElementById(elemId).getContext('2d');
+          var myChart = new Chart(ctx, {
+             type: chartType,
+             data: {
+                labels: labels,
+                datasets: [{
+                   label: yAxisLabel,
+                   data: data,
+                   borderColor: "rgba(" + rgbaColorStr + ",1)",
+                   backgroundColor: "rgba(" + rgbaColorStr + ",0.5)"
+                }],
+             },
+             options: {
+                responsive: false,
+                maintainAspectRatio: true,
+                scaleBeginAtZero: true,
+                title: {
+                   display: true,
+                   text: title
+                },
+                scales: {
+                   xAxes: [{
+                      type: "time",
+                      display: true,
+                      scaleLabel: {
+                         display: true,
+                         labelString: xAxisLabel
+                      },
+                      ticks: {
+                         minRotation: 90,
+                         maxRotation: 90,
+                         stepValue: 10,
+                         autoSkip: true,
+                         maxTicksLimit: 50
+                      },
+                      time: {
+                         unit: 'minute',
+                         unitStepSize: 10,
+                         max: data[data.length - 1].x
+                      }
+                   }],
+                   yAxes: [{
+                      display: true,
+                      scaleLabel: {
+                         display: true,
+                         labelString: yAxisLabel
+                      },
+                      ticks: ticksObj
+                   }]
+                }
+
+             }
+          });
+       }
+    }
+
+
+
+
+
+
+
+     var speedCanvas = document.getElementById("speedChart");
+
+    Chart.defaults.global.defaultFontFamily = "Lato";
+    Chart.defaults.global.defaultFontSize = 18;
+
+    function hoursEarlier(hours) {
+      return moment().subtract(hours, 'h').toDate();
+    };
+
+    var speedData = {
+      labels: [hoursEarlier(20), hoursEarlier(9.4), hoursEarlier(8), hoursEarlier(7), hoursEarlier(6), hoursEarlier(5), hoursEarlier(4)],
+      datasets: [{
+        label: "Car Speed",
+        data: [0, 59, 75, 20, 20, 55, 40],
+        lineTension: 0.25,
+        fill: false,
+        borderColor: 'orange',
+        backgroundColor: 'transparent',
+        pointBorderColor: 'orange',
+        pointBackgroundColor: 'rgba(255,150,0,0.5)',
+        borderDash: [5, 5],
+        pointRadius: 5,
+        pointHoverRadius: 10,
+        pointHitRadius: 30,
+        pointBorderWidth: 2,
+        pointStyle: 'rectRounded'
+      }]
+    };
+
+    var chartOptions = {
+      legend: {
+        display: true,
+        position: 'top',
+        labels: {
+          boxWidth: 80,
+          fontColor: 'black'
+        }
+      },
+      scales: {
+        xAxes: [{
+          type: "time",
+          time: {
+            unit: 'hour',
+            unitStepSize: 1.5,
+            round: 'hour',
+            tooltipFormat: "h:mm:ss a",
+            displayFormats: {
+              hour: 'MMM D, h:mm A'
+            }
+          }
+        }],
+        yAxes: [{
+          gridLines: {
+            color: "black",
+            borderDash: [2, 5],
+          },
+          scaleLabel: {
+            display: true,
+            labelString: "Speed in Miles per Hour",
+            fontColor: "green"
+          }
+        }]
+      }
+    };
+
+    var lineChart = new Chart(speedCanvas, {
+      type: 'line',
+      data: speedData,
+      options: chartOptions
+    });
+
+
+
+    <canvas id='playerChartLine' width='800' height='400'></canvas>
+    <canvas id='playerChartBar' width='800' height='400'></canvas>
+
+
+
+    <canvas id="speedChart" width="600" height="400"></canvas>

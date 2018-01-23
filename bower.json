@@ -8,6 +8,7 @@
     "ng-cordova-oauth": "^0.3.0",
     "socket.io": "^2.0.4",
     "angular-socket-io": "^0.7.0",
-    "socket.io-client": "sio-client#^1.4.8"
+    "socket.io-client": "sio-client#^1.4.8",
+    "chart.js": "chartjs#^2.7.1"
   }
 }

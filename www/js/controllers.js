@@ -1445,50 +1445,153 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
      })
 
 
- .controller('ChartCtrl', function($scope, $location, $timeout, $rootScope, $http ) {
+ .controller('ChartCtrl', function($scope, $location, $timeout, $rootScope ) {
 
            /*   --------GRAPH DATA:-----------     */
 
 
            $scope.$on('$stateChangeSuccess', function () {
-             socket.emit('storeName', {postal: $scope.postal },function (data) {
-                   console.log(data);    console.log(data[0].store);
-                   console.log(data.length);
-                   $scope.storeAvailable = data.length;
-                    $timeout(function () { $scope.numberLinesZero = false; $scope.storewithNames = data; }, 0);
-              });
+               socket.emit('storeName', {postal: $scope.postal },function (data) {
+                     console.log(data);    console.log(data[0].store);
+                     console.log(data.length);
+                     $scope.storeAvailable = data.length;
+                      $timeout(function () { $scope.numberLinesZero = false; $scope.storewithNames = data; }, 0);
+                });
 
-              socket.emit('numberofLines',  {store:  localStorage.getItem("StoreName")  },function (data) {
-               console.log(data); console.log(data.length);
-                 $timeout(function () { $rootScope.numberLines= data.length;  $scope.countries = data;
-                   }, 0);
-              });
+                socket.emit('numberofLines',  {store:  localStorage.getItem("StoreName")  },function (data) {
+                 console.log(data); console.log(data.length);
+                   $timeout(function () { $rootScope.numberLines= data.length;  $scope.countries = data;
+                     }, 0);
+                });
 
-              socket.emit('getAllPeople', {store : localStorage.getItem("StoreName")},function (data) {
-                      console.log(data);
-                      console.log(data.length);
+                socket.emit('getAllPeople', {store : localStorage.getItem("StoreName")},function (data) {
+                        console.log(data);
+                        console.log(data.length);
 
-                         for(var i=1; i<data.length; i++) {
-                          // console.log(data[i].created);
-                           $scope.whiteArray = [data[i].created, data[i].created]   ;
-                           $scope.whiteArray.push(data[i].created );
 
-                        }
-                        console.log($scope.whiteArray);
+                        $rootScope.whiteArray = [];
 
-                          for (var created in data) {
-                              //console.log(data[created]);
-                              console.log(data[created].created);
-                              $scope.whiteArray.push(data[created].created );
 
-                              //  console.log("User " + data[created].created + " is #" + created); // "User john is #234"
-                            }
+                        //NOTE: THIS LOGS OUT THE VALUE THAT YOU NEED:  console.log(data[key].created);
+                          for (var key in data) { $scope.whiteArray.push(data[key].created );  }
                             console.log($scope.whiteArray);
+                            console.log($scope.whiteArray.length);
+
+
+
+                        //NOTE: THIS IS FOR CREATING ARRAY WITH ALL TIMES WITH 2018
+                            $rootScope.blueArray = [];
+
+                            for (var i = 0; i < $scope.whiteArray.length; i++) {
+                                 if ($scope.whiteArray[i].includes("2018")) {
+                                   $rootScope.blueArray.push($scope.whiteArray[i]);
+                                  }
+                               }
+                               //THIS RETURNS ALL DATES WITH 2018
+                               console.log($scope.blueArray);
+                               console.log($scope.blueArray.length);
+
+                               $rootScope.blueArray2 = []; $rootScope.dateArray1 = [];  $rootScope.dateArray4 = [];
+
+
+                       //NOTE: THIS USES getDate() and gets day (1-31) of month,
+                       //THEN FINDS DATES FOR DAY ELEVEN
+
+                           for (i = 0; i < $scope.blueArray.length; i++) {
+                             var d2 = new Date($scope.blueArray[i]);
+                             var d3 = d2.getDate();
+
+                               if (d3 == 11) {
+                                  $rootScope.blueArray2.push($scope.blueArray[i]);
+                               }
+                            }
+                            //THIS RETURNS ALL DATES WITH 2018 AND 01 month
+                              console.log($scope.blueArray2);
+                              console.log($scope.blueArray2.length);
 
               });
+
            });
 
-                /*
+           /*
+                  ***************NOTE:  JUST HAVE TO WORK THOUGH IT, IT WILL WORK***************
+                  YEAR:
+                1) http for dates in specific year
+                2) take those dates back and graph them with x:axis being the 12 months
+                and Y-axis being the numbers of people per month.
+                [NO TIME IN THIS]
+
+                  MONTH:
+                1) http for dates in specific month
+                2) take those dates back and graph them with x:axis being the 31 days
+                and Y-axis being the numbers of people per day.
+                [NO TIME IN THIS]
+
+
+                  DAY:
+                  1) http for dates in specific day
+                  2) take those dates back and graph them with x:axis being the 24 hours
+                  and Y-axis being the numbers of people per hour.
+                  [TIME IS INVOLVED]
+
+
+
+
+            getDate()	Returns the day of the month (from 1-31)
+           getDay()	Returns the day of the week (from 0-6)
+           getFullYear()	Returns the year
+           getHours()	Returns the hour (from 0-23)
+           getMilliseconds()	Returns the milliseconds (from 0-999)
+           getMinutes()	Returns the minutes (from 0-59)
+           getMonth()	Returns the month (from 0-11)
+           getSeconds()	Returns the seconds (from 0-59)
+           getTime()	Returns the number of milliseconds since midnight Jan 1 1970, and a specified date
+
+           //  console.log("User " + data[created].created + " is #" + created); // "User john is #234"
+
+
+            if ($scope.blueArray[i].includes("2018-01")) {
+              $scope.whiteman2 = $scope.blueArray[i];
+
+              $rootScope.blueArray2.push($scope.whiteman2);
+
+              //TURNS INTO DATE OBJECT:
+              var d2 = new Date($scope.whiteman2);
+              console.log(d2);
+
+              $scope.whiteman777 = d2;
+              //console.log($scope.whiteman44);
+
+              $rootScope.dateArray4.push($scope.whiteman777);
+              $scope.whiteman44 = d2.getTime();
+              //console.log($scope.whiteman44);
+              $rootScope.dateArray1.push($scope.whiteman44);
+
+               xValueType: "dateTime",
+           var dateObj = new Date();
+          var month = dateObj.getUTCMonth() + 1; //months from 1-12
+          var day = dateObj.getUTCDate();
+          var year = dateObj.getUTCFullYear();
+
+          newdate = year + "/" + month + "/" + day;
+
+                console.log($scope.blueArray3);
+
+                //NOTE: YOU CAN STILL LOOP THROUGH AND USE:
+                getMonth, getDate, getyear and then get the counts for EACH
+                and use that data for something.
+
+           LOOPS THROUGH AND FINDS HOW MANY PEOPLE USED THE TECH THAT MONTH:
+           [SO: REFER TO THE FOR LOOP ABOVE THAT CHECKS FOR MONTHS USED:
+           -use for loop that goes from 1=12 that loops through months
+
+           LOOPS THROUGH AND FINDS HOW MANY PEOPLE USED THE TECH THAT days:
+           [SO: REFER TO THE FOR LOOP ABOVE THAT CHECKS FOR MONTHS USED:
+           -use for loop that goes from 1-31 that loops through days
+                                   ]
+                */
+
+                 /*
                 1) add coordinates to each peice of data that is added to the DATABASE
                 2) when you get data back:
                 EX: getting all people back from database:
@@ -1497,20 +1600,202 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
                 */
 
 
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        },
+        title: {
+            display: true,
+            text: 'Custom Chart Title'
+        }
+    }
+});
+
+
+var ctx2 = document.getElementById('myChart2').getContext('2d');
+var myChart2 = new Chart(ctx2, {
+  type: 'line',
+  data: {
+    labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+    datasets: [{
+      label: 'apples',
+      data: [12, 19, 3, 17, 6, 3, 7],
+      backgroundColor: "rgba(153,255,51,0.4)"
+    }, {
+      label: 'oranges',
+      data: [2, 29, 5, 5, 2, 3, 10],
+      backgroundColor: "rgba(255,153,0,0.4)"
+    }]
+  },
+  options: {
+          showLines: false, // disable for all datasets
+      }
+});
+
+
+
+
+
+var ctx3 = document.getElementById("myChart3");
+var myChart3 = new Chart(ctx3, {
+  type: 'radar',
+  data: {
+    labels: ["M", "T", "W", "T", "F", "S", "S"],
+    datasets: [{
+      label: 'apples',
+      backgroundColor: "rgba(153,255,51,0.4)",
+      borderColor: "rgba(153,255,51,1)",
+      data: [12, 19, 3, 17, 28, 24, 7]
+    }, {
+      label: 'oranges',
+      backgroundColor: "rgba(255,153,0,0.4)",
+      borderColor: "rgba(255,153,0,1)",
+      data: [30, 29, 5, 5, 20, 3, 10]
+    }]
+  }
+});
+
+
+var ctx4 = document.getElementById("myChart4").getContext('2d');
+var myChart4 = new Chart(ctx4, {
+  type: 'polarArea',
+  data: {
+    labels: ["M", "T", "W", "T", "F", "S", "S"],
+    datasets: [{
+      backgroundColor: [
+        "#2ecc71",
+        "#3498db",
+        "#95a5a6",
+        "#9b59b6",
+        "#f1c40f",
+        "#e74c3c",
+        "#34495e"
+      ],
+      data: [12, 19, 3, 17, 28, 24, 7]
+    }],
+
+  }
+});
+
+
+
+var ctx5 = document.getElementById("myChart5").getContext('2d');
+var myChart5 = new Chart(ctx5, {
+  type: 'pie',
+  data: {
+    labels: ["M", "T", "W", "T", "F", "S", "S"],
+    datasets: [{
+      backgroundColor: [
+        "#2ecc71",
+        "#3498db",
+        "#95a5a6",
+        "#9b59b6",
+        "#f1c40f",
+        "#e74c3c",
+        "#34495e"
+      ],
+      data: [12, 19, 3, 17, 28, 24, 7]
+    }]
+  },
+  options: {
+  cutoutPercentage: 10,
+}
+
+});
+
+
+/*
+var ctx6 = document.getElementById("myChart6").getContext('2d');
+
+var chart6 = new Chart(ctx6, {
+    type: 'line',
+    data: [{
+        x: new Date('2000, 8, 5'),
+        y: 1
+    }, {
+        t: new Date('2003, 8, 5'),
+        y: 10
+    }],
+
+    options: {
+        scales: {
+            xAxes: [{
+                time: {
+                    unit: 'month'
+                }
+            }]
+        }
+    }
+})
+*/
+
+
+
+
+
+/*
+
+
+console.log($rootScope.dateArray1);
+
+
+
+var blueblack = [23, 33, 44, 55, 67, 66 ,55];
+console.log(blueblack);
+
+
+
+
         $scope.bluetwo = 'black';
 
            $scope.line = {
              labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', "Augest"],
              series: ['Series A', 'Series B'],
+
             data: [
-              [65, 2, 2, 2, 2, 55, 40],
+              blueblack,
               [28, 48, 40, 19, 86, 27, 90]
             ],
+          //  labelsSaved: [$rootScope.blueArray2],
+
             onClick: function (points, evt) {
               console.log(points, evt);
             }
+
            };
 
+console.log(line.data);
 
            $scope.line23 = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', "Augest"],
@@ -1519,10 +1804,20 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
               [100, 2, 2, 2, 2, 100, 40],
               [28, 100, 100, 19, 86, 27, 90]
             ],
+            backgroundColor: [
+               'rgba(255, 99, 132, 0.2)',
+               'rgba(54, 162, 235, 0.2)',
+               'rgba(255, 206, 86, 0.2)',
+               'rgba(75, 192, 192, 0.2)',
+               'rgba(153, 102, 255, 0.2)',
+               'rgba(255, 159, 64, 0.2)'
+           ],
             onClick: function (points, evt) {
               console.log(points, evt);
             }
            };
+
+
 
 
            $scope.bar = {
@@ -1579,6 +1874,9 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
                [65, 59, 2, 2, 2, 55, 40],
                [28, 48, 40, 19, 86, 27, 90]
            ];
+
+
+           */
 
     })
 

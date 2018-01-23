@@ -74,8 +74,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {    console.log('Connected to DB!');   });
 
 
-// grab the things we need
-//  var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // create a schema
@@ -95,13 +93,9 @@ var userSchema = new Schema({
   updated_at: Date
 });
 
-
 // the schema is useless so far
 // we need to create a model using it
 var Usertwo = mongoose.model('Usertwo', userSchema);
-
-
-
 
 
 io.on('connection', function(socket){
@@ -603,6 +597,67 @@ app.post('/deletePeop', function (req, res, next) {
          })
     });
 })
+
+
+
+
+
+
+---------- SIGNUP FUNCTION: --------------
+
+app.post('/signup22', function (req, res, next) {
+console.log(req.body.noteToken);
+console.log(req.body.email);
+
+//var noteTokenvar = req.body.noteToken;
+    if (req.body.password !== req.body.passwordConf) {
+       res.status(401).send({success: false, msg: 'Passwords dont match.'});
+      console.log('Passwords dont match');
+      //  return next(err);
+    } else {
+      console.log('blue');
+    if (req.body.email && req.body.fname &&
+        req.body.lname && req.body.password &&
+        req.body.passwordConf) {
+
+      var userData = {
+        email: req.body.email, firstname: req.body.fname,
+        lastname: req.body.lname, password: req.body.password,
+         notificationkey: req.body.noteToken
+      };
+        console.log(req.body.email);
+             emailCheck(req.body.email)
+             .then(function (data) {
+                 console.log('true');
+                        Blue.findOne({ email: req.body.email }, function(err, user) {
+                             if (err) throw err;
+                             if (user) {
+                               console.log('username didnt work');
+                                res.status(401).send({success: false, msg: 'Authentication failed. User already exists!'});
+                             }  else {
+                             Blue.create(userData, function (err, user) {
+                               if (err) { return next(err); }
+
+                               res.status(200).send(user);
+                                 console.log(user);
+                               //  return res.redirect('/profile');
+                             });
+                                }
+                       })
+             })
+
+            .catch(function (err) {
+             res.status(401).send({success: false, msg: 'email does not work.'})
+             console.log('error');
+
+           });
+
+
+    } else { res.status(401).send({success: false, msg: 'Please fill in all Userdata.'}) }
+
+     }
+});
+
 */
 
 //curl -X POST -H 'Content-Type: application/json' -d '{"email":"jlatouf2@gmail.comsadfasfaf888", "password":"jarredl"}' http://localhost:3000/signup22
