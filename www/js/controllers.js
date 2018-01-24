@@ -1468,52 +1468,382 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
                         console.log(data);
                         console.log(data.length);
 
-
                         $rootScope.whiteArray = [];
 
-
                         //NOTE: THIS LOGS OUT THE VALUE THAT YOU NEED:  console.log(data[key].created);
-                          for (var key in data) { $scope.whiteArray.push(data[key].created );  }
+                          for (var key in data) { $scope.whiteArray.push(data[key].created ); }
+
                             console.log($scope.whiteArray);
                             console.log($scope.whiteArray.length);
 
-
-
                         //NOTE: THIS IS FOR CREATING ARRAY WITH ALL TIMES WITH 2018
-                            $rootScope.blueArray = [];
+                            $rootScope.yearArray1 = [];
+                            $rootScope.yearArray2 = [];
+                            $rootScope.monthArray1 = [];
+
+                             $rootScope.one = []; $rootScope.two = []; $rootScope.three = [];
+                             $rootScope.four = []; $rootScope.five = []; $rootScope.six = [];
+                             $rootScope.seven = []; $rootScope.eight = []; $rootScope.nine = [];
+                             $rootScope.ten = []; $rootScope.eleven = []; $rootScope.twelve = [];
+
+                              /******************THIS IS FOR SEEING THE MONTH DATA**********************/
 
                             for (var i = 0; i < $scope.whiteArray.length; i++) {
-                                 if ($scope.whiteArray[i].includes("2018")) {
-                                   $rootScope.blueArray.push($scope.whiteArray[i]);
-                                  }
+                                   var d2 = new Date($scope.whiteArray[i]);
+                                  var d3 = d2.getFullYear();
+                                      if (d3 == 2017) { $rootScope.yearArray1.push($scope.whiteArray[i]) }
+                                //    if (d3 == 2017) {   $rootScope.yearArray2.push($scope.whiteArray[i]) }
                                }
-                               //THIS RETURNS ALL DATES WITH 2018
-                               console.log($scope.blueArray);
-                               console.log($scope.blueArray.length);
 
-                               $rootScope.blueArray2 = []; $rootScope.dateArray1 = [];  $rootScope.dateArray4 = [];
+                               console.log($scope.yearArray1);  console.log($scope.yearArray1.length);
+                              // console.log($scope.yearArray2);   console.log($scope.yearArray2.length);
 
+                              for (var i = 0; i < $scope.yearArray1.length; i++) {
+                                var d4 = new Date($scope.yearArray1[i]);
+                               var d5 = d4.getMonth();
+                               console.log(d5);
+                               // NOTE:  REMEMBER 0 IS A MONTH [ITS THE FIRST MONTH]
 
-                       //NOTE: THIS USES getDate() and gets day (1-31) of month,
-                       //THEN FINDS DATES FOR DAY ELEVEN
-
-                           for (i = 0; i < $scope.blueArray.length; i++) {
-                             var d2 = new Date($scope.blueArray[i]);
-                             var d3 = d2.getDate();
-
-                               if (d3 == 11) {
-                                  $rootScope.blueArray2.push($scope.blueArray[i]);
+                                    if (d5 == 0) {   $rootScope.one.push($scope.yearArray1[i]) }
+                                    if (d5 == 1) {   $rootScope.two.push($scope.yearArray1[i]) }
+                                    if (d5 == 2) {   $rootScope.three.push($scope.yearArray1[i]) }
+                                    if (d5 == 3) {   $rootScope.four.push($scope.yearArray1[i]) }
+                                    if (d5 == 4) {   $rootScope.five.push($scope.yearArray1[i]) }
+                                    if (d5 == 5) {   $rootScope.six.push($scope.yearArray1[i]) }
+                                    if (d5 == 6) {   $rootScope.seven.push($scope.yearArray1[i]) }
+                                    if (d5 == 7) {   $rootScope.eight.push($scope.yearArray1[i]) }
+                                    if (d5 == 8) {   $rootScope.nine.push($scope.yearArray1[i]) }
+                                    if (d5 == 9) {   $rootScope.ten.push($scope.yearArray1[i]) }
+                                    if (d5 == 10) {   $rootScope.eleven.push($scope.yearArray1[i]) }
+                                    if (d5 == 11) {   $rootScope.twelve.push($scope.yearArray1[i]) }
                                }
-                            }
-                            //THIS RETURNS ALL DATES WITH 2018 AND 01 month
-                              console.log($scope.blueArray2);
-                              console.log($scope.blueArray2.length);
+
+                               console.log($rootScope.monthArray1);  console.log($rootScope.monthArray1.length);
+
+                               console.log($rootScope.one);  console.log($rootScope.two); console.log($rootScope.three);
+                               console.log($rootScope.four); console.log($rootScope.five); console.log($rootScope.six);
+                               console.log($rootScope.seven); console.log($rootScope.eight); console.log($rootScope.nine);
+                               console.log($rootScope.ten); console.log($rootScope.eleven); console.log($rootScope.twelve);
+
+
+                                      //GRAPH:
+                               var ctx2 = document.getElementById('myChart2').getContext('2d');
+                               var myChart2 = new Chart(ctx2, {
+                                 type: 'bar',
+                                 data: {
+                                   //THESE ARE MONTHS:
+                                   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+                                   datasets: [{
+                                     label: 'People',
+                                     data: [$rootScope.one.length, $rootScope.two.length, $rootScope.three.length , $rootScope.four.length,
+                                       $rootScope.five.length, $rootScope.six.length, $rootScope.seven.length, $rootScope.eight.length,
+                                       $rootScope.nine.length, $rootScope.ten.length, $rootScope.eleven.length, $rootScope.twelve.length],
+                                     backgroundColor: "rgba(153,255,51,0.4)"
+                                   }  /*,  { label: 'oranges',  data: [2, 29, 5, 5, 2, 3, 10], backgroundColor: "rgba(255,153,0,0.4)" } */
+
+                                 ]
+                                 }
+                                });
 
               });
 
            });
 
-           /*
+
+
+
+           $scope.getPeopleButton = function(){
+
+                 socket.emit('getAllPeople', {store : localStorage.getItem("StoreName")},function (data) {
+                   console.log(data);
+                   console.log(data.length);
+                   /******************THIS IS FOR SEEING THE MONTH DATA**********************/
+
+
+
+                   $rootScope.whiteArray = [];
+
+                   //NOTE: THIS LOGS OUT THE VALUE THAT YOU NEED:  console.log(data[key].created);
+                     for (var key in data) { $scope.whiteArray.push(data[key].created ); }
+
+                       console.log($scope.whiteArray);
+                       console.log($scope.whiteArray.length);
+
+                   //NOTE: THIS IS FOR CREATING ARRAY WITH ALL TIMES WITH 2018
+                       $rootScope.yearArray1 = [];
+                       $rootScope.yearArray2 = [];
+                       $rootScope.monthArray1 = [];
+
+                        $rootScope.one = []; $rootScope.two = []; $rootScope.three = [];
+                        $rootScope.four = []; $rootScope.five = []; $rootScope.six = [];
+                        $rootScope.seven = []; $rootScope.eight = []; $rootScope.nine = [];
+                        $rootScope.ten = []; $rootScope.eleven = []; $rootScope.twelve = [];
+
+
+
+                         /******************THIS IS FOR SEEING THE MONTH DATA**********************/
+
+                       for (var i = 0; i < $scope.whiteArray.length; i++) {
+                              var d2 = new Date($scope.whiteArray[i]);
+                             var d3 = d2.getFullYear();
+                                 if (d3 == 2017) { $rootScope.yearArray1.push($scope.whiteArray[i]) }
+                           //    if (d3 == 2017) {   $rootScope.yearArray2.push($scope.whiteArray[i]) }
+                          }
+                                /*
+                                for (var i = 0; i < $scope.yearArray1.length; i++) {
+                                  var d4 = new Date($scope.yearArray1[i]);
+                                 var d5 = d4.getMonth();
+                                 console.log(d5);
+                                 // NOTE:  REMEMBER 0 IS A MONTH [ITS THE FIRST MONTH]
+
+                                      if (d5 == 0) {   $rootScope.one.push($scope.yearArray1[i]) }
+                                      if (d5 == 1) {   $rootScope.two.push($scope.yearArray1[i]) }
+                                      if (d5 == 2) {   $rootScope.three.push($scope.yearArray1[i]) }
+                                      if (d5 == 3) {   $rootScope.four.push($scope.yearArray1[i]) }
+                                      if (d5 == 4) {   $rootScope.five.push($scope.yearArray1[i]) }
+                                      if (d5 == 5) {   $rootScope.six.push($scope.yearArray1[i]) }
+                                      if (d5 == 6) {   $rootScope.seven.push($scope.yearArray1[i]) }
+                                      if (d5 == 7) {   $rootScope.eight.push($scope.yearArray1[i]) }
+                                      if (d5 == 8) {   $rootScope.nine.push($scope.yearArray1[i]) }
+                                      if (d5 == 9) {   $rootScope.ten.push($scope.yearArray1[i]) }
+                                      if (d5 == 10) {   $rootScope.eleven.push($scope.yearArray1[i]) }
+                                      if (d5 == 11) {   $rootScope.twelve.push($scope.yearArray1[i]) }
+                                 }
+                                */
+
+                          console.log($scope.yearArray1);  console.log($scope.yearArray1.length);
+                         // console.log($scope.yearArray2);   console.log($scope.yearArray2.length);
+
+                         for (var i = 0; i < $scope.yearArray1.length; i++) {
+                           var d4 = new Date($scope.yearArray1[i]);
+                          var d5 = d4.getDate();
+                          console.log(d5);
+                          // NOTE:  REMEMBER 0 IS A MONTH [ITS THE FIRST MONTH]
+                                   
+                               if (d5 == 0) {   $rootScope.one.push($scope.yearArray1[i]) }
+                               if (d5 == 1) {   $rootScope.two.push($scope.yearArray1[i]) }
+                               if (d5 == 2) {   $rootScope.three.push($scope.yearArray1[i]) }
+                               if (d5 == 3) {   $rootScope.four.push($scope.yearArray1[i]) }
+                               if (d5 == 4) {   $rootScope.five.push($scope.yearArray1[i]) }
+                               if (d5 == 5) {   $rootScope.six.push($scope.yearArray1[i]) }
+                               if (d5 == 6) {   $rootScope.seven.push($scope.yearArray1[i]) }
+                               if (d5 == 7) {   $rootScope.eight.push($scope.yearArray1[i]) }
+                               if (d5 == 8) {   $rootScope.nine.push($scope.yearArray1[i]) }
+                               if (d5 == 9) {   $rootScope.ten.push($scope.yearArray1[i]) }
+                               if (d5 == 10) {   $rootScope.eleven.push($scope.yearArray1[i]) }
+                               if (d5 == 11) {   $rootScope.twelve.push($scope.yearArray1[i]) }
+
+                          }
+
+                          console.log($rootScope.monthArray1);  console.log($rootScope.monthArray1.length);
+
+                          console.log($rootScope.one);  console.log($rootScope.two); console.log($rootScope.three);
+                          console.log($rootScope.four); console.log($rootScope.five); console.log($rootScope.six);
+                          console.log($rootScope.seven); console.log($rootScope.eight); console.log($rootScope.nine);
+                          console.log($rootScope.ten); console.log($rootScope.eleven); console.log($rootScope.twelve);
+
+
+                                 //GRAPH:
+                      /*    var ctx2 = document.getElementById('myChart2').getContext('2d');
+                          var myChart2 = new Chart(ctx2, {
+                            type: 'bar',
+                            data: {
+                              //THESE ARE MONTHS:
+                              labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+                              datasets: [{
+                                label: 'People',
+                                data: [$rootScope.one.length, $rootScope.two.length, $rootScope.three.length , $rootScope.four.length,
+                                  $rootScope.five.length, $rootScope.six.length, $rootScope.seven.length, $rootScope.eight.length,
+                                  $rootScope.nine.length, $rootScope.ten.length, $rootScope.eleven.length, $rootScope.twelve.length],
+                                backgroundColor: "rgba(153,255,51,0.4)"
+                              }  ,  { label: 'oranges',  data: [2, 29, 5, 5, 2, 3, 10], backgroundColor: "rgba(255,153,0,0.4)" }
+
+                            ]
+                            }
+                           });
+                             */
+
+                     });
+
+            };
+
+
+
+
+
+            $scope.getPeopleButton44 = function(){
+
+                  socket.emit('getAllPeople33', {year: "2018", month:"01"},function (data) {
+                    console.log(data);
+                    console.log(data.length);
+                    /******************THIS IS FOR SEEING THE MONTH DATA**********************/
+
+                   $rootScope.whiteArray55 = [];
+
+                   //NOTE: THIS LOGS OUT THE VALUE THAT YOU NEED:  console.log(data[key].created);
+                     for (var key in data) { $scope.whiteArray55.push(data[key].created ); }
+
+
+                     console.log($scope.whiteArray55);
+                     console.log($scope.whiteArray55.length);
+
+
+
+                       $rootScope.twoa = []; $rootScope.threea = [];
+                     $rootScope.foura = []; $rootScope.fivea = []; $rootScope.sixa = [];
+                     $rootScope.sevena = []; $rootScope.eighta = []; $rootScope.ninea = [];
+                     $rootScope.tena = []; $rootScope.elevena = []; $rootScope.twelvea = [];
+
+                     $rootScope.thirteena = []; $rootScope.fourteena = []; $rootScope.fifteena = [];
+                     $rootScope.sixteena = []; $rootScope.seventeena = []; $rootScope.eightteena = [];
+                     $rootScope.nineteena = []; $rootScope.twentya = []; $rootScope.twentyonea = []; $rootScope.twentytwoa = [];
+                     $rootScope.twentythreea = []; $rootScope.twentyfoura = []; $rootScope.twentyfivea = [];
+
+                     $rootScope.twentysixa = []; $rootScope.twentysevena = []; $rootScope.twentyeighta= [];
+                     $rootScope.twentyninea = [];  $rootScope.thirtya = [];
+                     $rootScope.thirtyonea = []; $rootScope.thirtytwoa = [];
+
+
+                     for (var i = 0; i < $scope.whiteArray55.length; i++) {
+                       var d8 = new Date($scope.whiteArray55[i]);
+
+
+                      var d9 = d8.getDate();
+                      console.log(d9);
+                      // NOTE:  REMEMBER 0 IS A MONTH [ITS THE FIRST MONTH]
+
+                           //if (d9 == 12) {   $rootScope.onea.push($scope.whiteArray55[i]) }
+                           if (d9 == 1) {   $rootScope.twoa.push($scope.whiteArray55[i]) }
+                           if (d9 == 2) {   $rootScope.threea.push($scope.whiteArray55[i]) }
+                           if (d9 == 3) {   $rootScope.foura.push($scope.whiteArray55[i]) }
+                           if (d9 == 4) {   $rootScope.fivea.push($scope.whiteArray55[i]) }
+                           if (d9 == 5) {   $rootScope.sixa.push($scope.whiteArray55[i]) }
+                           if (d9 == 6) {   $rootScope.sevena.push($scope.whiteArray55[i]) }
+                           if (d9 == 7) {   $rootScope.eighta.push($scope.whiteArray55[i]) }
+                           if (d9 == 8) {   $rootScope.ninea.push($scope.whiteArray55[i]) }
+                           if (d9 == 9) {   $rootScope.tena.push($scope.whiteArray55[i]) }
+                           if (d9 == 10) {   $rootScope.elevena.push($scope.whiteArray55[i]) }
+                           if (d9 == 11) {   $rootScope.twelvea.push($scope.whiteArray55[i]) }
+                          if (d9 == 12) {   $rootScope.thirteena.push($scope.whiteArray55[i]) }
+                           if (d9 == 13) {   $rootScope.fourteena.push($scope.whiteArray55[i]) }
+                           if (d9 == 14) {   $rootScope.fifteena.push($scope.whiteArray55[i]) }
+                           if (d9 == 15) {   $rootScope.sixteena.push($scope.whiteArray55[i]) }
+                           if (d9 == 16) {   $rootScope.seventeena.push($scope.whiteArray55[i]) }
+                           if (d9 == 17) {   $rootScope.eightteena.push($scope.whiteArray55[i]) }
+                           if (d9 == 18) {   $rootScope.nineteena.push($scope.whiteArray55[i]) }
+                           if (d9 == 19) {   $rootScope.twentya.push($scope.whiteArray55[i]) }
+                           if (d9 == 20) {   $rootScope.twentyonea.push($scope.whiteArray55[i]) }
+                           if (d9 == 21) {   $rootScope.twentytwoa.push($scope.whiteArray55[i]) }
+                           if (d9 == 22) {   $rootScope.twentythreea.push($scope.whiteArray55[i]) }
+                           if (d9 == 23) {   $rootScope.twentyfoura.push($scope.whiteArray55[i]) }
+                           if (d9 == 24) {   $rootScope.twentyfivea.push($scope.whiteArray55[i]) }
+                           if (d9 == 25) {   $rootScope.twentysixa.push($scope.whiteArray55[i]) }
+                           if (d9 == 26) {   $rootScope.twentysevena.push($scope.whiteArray55[i]) }
+                           if (d9 == 27) {   $rootScope.twentyeighta.push($scope.whiteArray55[i]) }
+                           if (d9 == 28) {   $rootScope.twentyninea.push($scope.whiteArray55[i]) }
+                           if (d9 == 29) {   $rootScope.thirtya.push($scope.whiteArray55[i]) }
+                           if (d9 == 30) {   $rootScope.thirtyonea.push($scope.whiteArray55[i]) }
+                           if (d9 == 31) {   $rootScope.thirtytwoa.push($scope.whiteArray55[i]) }
+
+                        }
+
+                    /*         console.log($rootScope.twoa); console.log($rootScope.threea);
+                          console.log($rootScope.foura); console.log($rootScope.fivea); console.log($rootScope.sixa);
+                          console.log($rootScope.sevena); console.log($rootScope.eighta); console.log($rootScope.ninea);
+                          console.log($rootScope.tena); console.log($rootScope.elevena); console.log($rootScope.twelvea);
+
+                         console.log($rootScope.thirteena);  console.log($rootScope.fourteena); console.log($rootScope.fifteena);
+                          console.log($rootScope.sixteena); console.log($rootScope.seventeena); console.log($rootScope.eightteena);
+                          console.log($rootScope.nineteena); console.log($rootScope.twentya); console.log($rootScope.twentyonea);
+                          console.log($rootScope.twentytwoa); console.log($rootScope.twentythreea); console.log($rootScope.twentyfoura);
+
+                          console.log($rootScope.twentyfivea); console.log($rootScope.twentysixa); console.log($rootScope.twentysevena);
+                          console.log($rootScope.twentyeighta); console.log($rootScope.twentyninea); console.log($rootScope.thritya);
+                          console.log($rootScope.thrityonea);  console.log($rootScope.thritytwoa);  */
+
+
+                          //GRAPH:
+                   var ctx2 = document.getElementById('myChart2').getContext('2d');
+                   var myChart2 = new Chart(ctx2, {
+                     type: 'bar',
+                     data: {
+                       //THESE ARE MONTHS:
+                       labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15',
+                                '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+                       datasets: [{
+                         label: 'People',
+                         data: [  ],
+                         backgroundColor: "rgba(153,255,51,0.4)"
+                       }  ,  { label: 'oranges',  data: [  $rootScope.twoa.length, $rootScope.threea.length , $rootScope.foura.length,
+                         $rootScope.fivea.length, $rootScope.sixa.length, $rootScope.sevena.length, $rootScope.eighta.length,
+                         $rootScope.ninea.length, $rootScope.tena.length, $rootScope.elevena.length, $rootScope.twelvea.length,
+
+                         $rootScope.thirteena.length, $rootScope.fourteena.length, $rootScope.fifteena.length , $rootScope.sixteena.length,
+                          $rootScope.seventeena.length, $rootScope.eightteena.length, $rootScope.nineteena.length,  $rootScope.twentya.length,
+                          $rootScope.twentyonea.length, $rootScope.twentytwoa.length, $rootScope.twentythreea.length, $rootScope.twentyfoura.length,
+                          $rootScope.twentyfivea.length, $rootScope.twentysixa.length, $rootScope.twentysevena.length, $rootScope.twentyeighta.length,
+                          $rootScope.twentyninea.length, $rootScope.thirtya.length, $rootScope.thirtyonea.length ], backgroundColor: "rgba(255,153,0,0.4)" }
+
+                     ]
+                     }
+                    });
+
+
+                      });
+
+               };
+
+            /*
+
+           getDate()	Returns the day of the month (from 1-31)
+          getDay()	Returns the day of the week (from 0-6)
+          getFullYear()	Returns the year
+          getHours()	Returns the hour (from 0-23)
+          getMilliseconds()	Returns the milliseconds (from 0-999)
+          getMinutes()	Returns the minutes (from 0-59)
+          getMonth()	Returns the month (from 0-11)
+          getSeconds()	Returns the seconds (from 0-59)
+          getTime()	Returns the number of milliseconds since midnight Jan 1 1970, and a specified date
+
+           $rootScope.yearArray1.push($scope.whiteArray[i])
+
+           var d4 =   $rootScope.yearArray1;
+           var d5 = d4.getFullYear();
+
+           if (d5 == 11) {
+             $rootScope.monthArray1.push($scope.yearArray1[i])
+           }
+
+
+           for (var i = 0; i < $scope.whiteArray.length; i++) {
+                if ($scope.whiteArray[i].includes("2018")) {
+                  $rootScope.blueArray.push($scope.whiteArray[i]);
+                 }
+              }
+              //THIS RETURNS ALL DATES WITH 2018
+              console.log($scope.blueArray);
+              console.log($scope.blueArray.length);
+
+              $rootScope.blueArray2 = []; $rootScope.dateArray1 = [];  $rootScope.dateArray4 = [];
+
+
+      //NOTE: THIS USES getDate() and gets day (1-31) of month,
+      //THEN FINDS DATES FOR DAY ELEVEN
+
+          for (i = 0; i < $scope.blueArray.length; i++) {
+            var d2 = new Date($scope.blueArray[i]);
+            var d3 = d2.getDate();
+
+               if (d3 == 11) {
+                 $rootScope.blueArray2.push($scope.blueArray[i]);
+              }
+
+           }
+           //THIS RETURNS ALL DATES WITH 2018 AND 01 month
+             console.log($scope.blueArray2);
+             console.log($scope.blueArray2.length);
+
+
                   ***************NOTE:  JUST HAVE TO WORK THOUGH IT, IT WILL WORK***************
                   YEAR:
                 1) http for dates in specific year
@@ -1533,6 +1863,31 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
                   2) take those dates back and graph them with x:axis being the 24 hours
                   and Y-axis being the numbers of people per hour.
                   [TIME IS INVOLVED]
+
+
+                  YEAR:
+                1)  for (var key in data) { $scope.whiteArray.push(data[key].created )  }
+
+                2)
+                for (var i = 0; i < $scope.whiteArray.length; i++) {
+                     if ($scope.whiteArray[i].includes("2018")) {
+                       $rootScope.blueArray.push($scope.whiteArray[i]);
+                      }
+                   }
+
+                3)
+                for (i = 0; i < $scope.blueArray.length; i++) {
+                  var d2 = new Date($scope.blueArray[i]);
+                  var d3 = d2.getMonth();
+                  //THIS NEEDS TO HAVE FOR LOOP THAT GOES THROUGH 12 TIMES [FOR 12 MONTHS] AND ADDS EACH MONTH
+                  //TO DIFFERENT ARRAY.
+
+                    if (d3 == 11) {
+                       $rootScope.blueArray2.push($scope.blueArray[i]);
+                    }
+                 }
+
+
 
 
 
@@ -1643,6 +1998,9 @@ var myChart = new Chart(ctx, {
 });
 
 
+
+
+ /*
 var ctx2 = document.getElementById('myChart2').getContext('2d');
 var myChart2 = new Chart(ctx2, {
   type: 'line',
@@ -1662,7 +2020,7 @@ var myChart2 = new Chart(ctx2, {
           showLines: false, // disable for all datasets
       }
 });
-
+*/
 
 
 

@@ -301,12 +301,32 @@ socket.on('getPeopleLine', function (data, callback) {
 });
 
 socket.on('getAllPeople', function (data, callback) {
-  PeopleLine.find({ })
+
+  PeopleLine.find({  })
     .exec(function(err, posts) {
         if (err) { return next(err); }
-      callback(posts);  console.log(posts);
+      callback(posts);
+
+      console.log(posts);
+      console.log(posts.created);
+       });
+});
+
+
+socket.on('getAllPeople33', function (data, callback) {
+
+
+  PeopleLine.find({ created: {$gte: "2017-12-01", $lte: "2017-12-31"}})
+    .exec(function(err, posts, next) {
+        if (err) {  err }
+      callback(posts);
+
+      console.log(posts);
+
+
       });
 });
+
 
 
 socket.on('getLineCoordinates', function (data, callback) {
