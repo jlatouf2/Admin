@@ -9,7 +9,8 @@
 </div>
 
 
-<button ng-click="getPeopleButton()">GetPeople</button>
+
+
 
 <button ng-click="getPeopleButton44()">getPeopleButton44</button>
 
@@ -19,10 +20,16 @@
 
     <div class="card">
         <div class="item item-divider">
-            A line chart99
+           Month Chart
         </div>
         <div class="item item-text-wrap">
-          <canvas id="myChart" width="400" height="400"></canvas>
+          <canvas id="myChart" style=" max-width: 450px;"></canvas>
+
+          <div style="text-align:center">
+          <button ng-click="monthData2017()">monthData2017</button>
+          <button ng-click="monthData2018()">monthData2018</button>
+          </div>
+
         </div>
     </div>
 
@@ -32,10 +39,16 @@
 
        <div class="card">
            <div class="item item-divider">
-               A line chart
+               Year Chart
            </div>
            <div class="item item-text-wrap">
-             <canvas id="myChart2"   ></canvas>
+             <canvas id="myChart2"   style=" max-width: 450px;"></canvas>
+
+             <div style="text-align:center">
+             <button ng-click="chart2017()">chart2017</button>
+
+             <button ng-click="chart2018()">chart2018</button>
+           </div>
 
             </div>
        </div>
@@ -54,10 +67,17 @@
 
       <div class="card">
           <div class="item item-divider">
-              A line chart99
+            Day Chart
           </div>
           <div class="item item-text-wrap">
-            <canvas id="myChart3"  width="400" height="400"></canvas>
+            <canvas id="myChart55"   style=" max-width: 450px;"></canvas>
+
+            <div style="text-align:center">
+              <button ng-click="dayData2017()">dayData2017</button>
+              <button ng-click="dayData2018()">dayData2018</button>
+          </div>
+
+
           </div>
       </div>
 
@@ -70,142 +90,44 @@
                  A line chart
              </div>
              <div class="item item-text-wrap">
-               <canvas id="myChart4"  width="400" height="400"></canvas>
+
+               <canvas id="myChart3"  width="400" height="400"></canvas>
+
 
               </div>
          </div>
 
        </div>
-
-
     </div>
 
 
 
     <div class = "row responsive-sm">
-
       <div class = "col ">
-
         <div class="card">
             <div class="item item-divider">
                 A line chart99
             </div>
             <div class="item item-text-wrap">
-              <canvas id="myChart5"  width="400" height="400"></canvas>
+              <canvas id="myChart4"  width="400" height="400"></canvas>
             </div>
         </div>
 
       </div>
 
          <div class = "col ">
-
            <div class="card">
                <div class="item item-divider">
                    A line chart
                </div>
                <div class="item item-text-wrap">
-                 <canvas id="elemId"  width="400" height="400"></canvas>
 
+                 <canvas id="myChart5"  width="400" height="400"></canvas>
                 </div>
            </div>
-
          </div>
 
-
-      </div>
-
-
- <!--
-
- <div class = "row responsive-sm">
-    <div class = "col ">
-
-      <div class="card">
-          <div class="item item-divider">
-              Doughnut Chart
-          </div>
-          <div class="item item-text-wrap">
-            <canvas id="doughnut" class="chart chart-doughnut chart-xs" data="donut.data" labels="donut.labels" legend="false"></canvas>
-          </div>
-      </div>
-
-    </div>
-    <div class = "col">
-      <div class="card">
-          <div class="item item-divider">
-              Radar Chart
-          </div>
-          <div class="item item-text-wrap">
-            <canvas id="area" class="chart chart-radar" data="radar.data" labels="radar.labels" click="onClick"></canvas>
-          </div>
-      </div>
-
-    </div>
-
-    <div class = "col">
-      <div class="card">
-          <div class="item item-divider">
-              Pie Chart
-          </div>
-          <div class="item item-text-wrap">
-            <canvas id="pie" class="chart chart-pie chart-xs" data="pie.data" labels="pie.labels"></canvas>
-          </div>
-      </div>
-
-    </div>
-
-
-
-  </div>
-
-
-  <div class = "row responsive-sm">
-      <div class = "col">
-        <div class="card">
-            <div class="item item-divider">
-                Area Chart
-            </div>
-            <div class="item item-text-wrap">
-              <canvas id="polar" class="chart chart-polar-area" data="polar.data" labels="polar.labels"></canvas>
-            </div>
-        </div>
-
-      </div>
-      <div class = "col">
-        <div class="card">
-          <div class="panel panel-default">
-              <div class="panel-heading">Dynamic Chart</div>
-              <div class="panel-body">
-              <canvas id="base" class="chart chart-base" chart-type="dynamic.type" data="dynamic.data" labels="dynamic.labels" legend="true"></canvas>
-              </div>
-          </div>
-          <button type="button" class="btn btn-primary pull-right" ng-click="dynamic.toggle()">Toggle</button>
-        </div>
-
-      </div>
-   </div>
-
-
-
-<div class="card">
-    <div class="item item-divider">
-        A line chart
-    </div>
-    <div class="item item-text-wrap">
-        <canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" options="{showTooltips: false}"></canvas>
-    </div>
-</div>
-<div class="card">
-    <div class="item item-divider">
-        A bar chart
-    </div>
-    <div class="item item-text-wrap">
-        <canvas id="bar" class="chart chart-bar" data="data" labels="labels" legend="true" series="series" options="{showTooltips: false}"></canvas>
-    </div>
-</div>
--->
-
-
+       </div>
 
 
 </ion-content>

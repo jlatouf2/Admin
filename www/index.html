@@ -116,7 +116,13 @@
                        <span class="icon-bar" style="background-color:black;"></span>
                      </button>
 
-                        <a class="navbar-brand  " href=""  style="font-size: 22px; color: #D5D5D5;" >Lineups Admin</a>
+
+
+                        <a class="navbar-brand  " href=""  style="font-size: 22px; color: #D5D5D5;" >
+                          <span class="sidebar-icon"   ><i class="glyphicon glyphicon-stats"></i></span>
+
+                          &nbsp; &nbsp;Lineups Admin
+                        </a>
 
                      </div>
                      <div class="collapse navbar-collapse" id="myNavbar">
@@ -330,8 +336,8 @@
 
     function goBack() {   window.history.back();   }
 
-     var socket = io.connect('http://192.168.1.115:3000');
-  // var socket = io.connect('https://lineups-adminone.herokuapp.com/#/:3000');
+  //   var socket = io.connect('http://192.168.1.115:3000');
+   var socket = io.connect('https://lineups-adminone.herokuapp.com/#/:3000');
 
      socket.on('broadcast',function(data){ console.log(data.description); });
 
