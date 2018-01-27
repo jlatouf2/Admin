@@ -1210,6 +1210,8 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
 
           $scope.message ={body:"Your turn is up!"};
 
+           localStorage.setItem("messageBody", "Your turn is up!");
+
           $scope.addStore1 = function(name){
              if ( $scope.message.body ==='') {
                console.log('Please enter a name');
@@ -1221,6 +1223,8 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
 
 
         $scope.messageAll = function(){
+          localStorage.setItem("messageBody", $scope.message.body);
+
           if (window.confirm("Are you sure you would like to send this notification: " +
             localStorage.getItem("messageBody") + " to All Users?") === true) {
 
@@ -1267,9 +1271,11 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
 
 
           $scope.grabStuff = function(notificationkey, email){
+            localStorage.setItem("messageBody", $scope.message.body);
+
                 console.log( notificationkey);   console.log( email);
                   var not = notificationkey; console.log(not);
-                if (window.confirm("Are you sure you would like to send a notification to "+ email +"!") === true) {
+                if (window.confirm("Are you sure you would like to send this notification: " + localStorage.getItem("messageBody") + " to: " + email +"!") === true) {
                     console.log( "You pressed OK!");
                       $http({
                       url : "https://fcm.googleapis.com/fcm/send",

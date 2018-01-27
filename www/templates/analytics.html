@@ -38,20 +38,40 @@
                    <table class="table-responsive table-striped">
                      <thead>
                        <tr>
-                         <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
-                           Identification</th>
+                          <th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
+                              <a href="" ng-click="sortType = '_id' ; sortReverse = !sortReverse ">
+                              Identification
+                              <span ng-show="sortType == '_id'" class="fa fa-caret-down"></span>
+                              </a>
+                          </th>
                          <th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
-                           Email</th>
+                              <a href="" ng-click="sortType = 'email' ; sortReverse = !sortReverse ">
+                                 Email
+                                 <span ng-show="sortType == 'email'" class="fa fa-caret-down"></span>
+                              </a>
+                          </th>
                          <th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
-                           Store</th>
+                            <a href="" ng-click="sortType = 'store'; sortReverse = !sortReverse ">
+                              Store
+                              <span ng-show="sortType == 'store'" class="fa fa-caret-down"></span>
+                           </a>
+                         </th>
                        <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
-                         Line</th>
+                          <a href="" ng-click="sortType = 'line'; sortReverse = !sortReverse ">
+                           Line
+                           <span ng-show="sortType == 'line'" class="fa fa-caret-down"></span>
+                         </a>
+                       </th>
                          <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
-                           Created</th>
+                            <a href="" ng-click="sortType = 'created'; sortReverse = !sortReverse ">
+                            Created
+                            <span ng-show="sortType == 'created'" class="fa fa-caret-down"></span>
+                          </a>
+                         </th>
                        </tr>
                      </thead>
                      <tbody>
-                       <tr style="" ng-repeat="usercontent in usercontents | filter:search | orderBy:'usercontent._id'">
+                       <tr style="" ng-repeat="usercontent in usercontents | orderBy:sortType:sortReverse">
                          <td style="width:20%; text-align: center; max-width:200px; border: 1px solid black; border-collapse: collapse;">{{ usercontent._id }}</td>
                          <td style="width:20%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.email }}</td>
                          <td style="width:20%; text-align: center; max-width:200px; border: 1px solid black; border-collapse: collapse;">{{ usercontent.store }}</td>
@@ -73,17 +93,33 @@
                      <thead>
                        <tr>
                          <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
-                           Identification</th>
+                              <a href="" ng-click="sortType = '_id'; sortReverse = !sortReverse ">
+                               Identification
+                               <span ng-show="sortType == '_id'" class="fa fa-caret-down"></span>
+                             </a>
+                         </th>
                          <th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
-                           Email</th>
+                              <a href="" ng-click="sortType = 'email'; sortReverse = !sortReverse ">
+                                Email
+                                <span ng-show="sortType == 'email'" class="fa fa-caret-down"></span>
+                              </a>
+                         </th>
                          <th style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
-                           Firstname</th>
+                            <a href="" ng-click="sortType = 'firstname'; sortReverse = !sortReverse ">
+                             Firstname
+                             <span ng-show="sortType == 'firstname'" class="fa fa-caret-down"></span>
+                           </a>
+                         </th>
                        <th  style="text-align: center; background-color: black; color: white; border: 1px solid black; border-collapse: collapse;">
-                         Lastname</th>
+                          <a href="" ng-click="sortType = 'lastname'; sortReverse = !sortReverse ">
+                            Lastname
+                            <span ng-show="sortType == 'lastname'" class="fa fa-caret-down"></span>
+                          </a>
+                       </th>
                        </tr>
                      </thead>
                      <tbody>
-                       <tr  style="" ng-repeat="usercontent in usercontents | filter:search | orderBy:'usercontent._id'">
+                       <tr  style="" ng-repeat="usercontent in usercontents | orderBy:sortType:sortReverse">
                          <td style="width:25%; text-align: center; max-width:200px; border: 1px solid black; border-collapse: collapse;">{{ usercontent._id }}</td>
                          <td style="width:25%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.email }}</td>
                          <td style="width:25%; text-align: center;  border: 1px solid black; border-collapse: collapse;">{{ usercontent.firstname }}</td>

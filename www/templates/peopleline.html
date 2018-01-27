@@ -9,10 +9,14 @@
        </div>
        <div class = "col">
          <div style="text-align:right">
-              <div ng-switch on="selected">
+            <!--  <div ng-switch on="selected">
                   <button class="btn btn-primary" ng-switch-when='true' ng-click='button3()'>Hide Actions</button>
                   <button class="btn btn-primary" ng-switch-when='false' ng-click='button4()'>Show Actions</button>
               </div>
+            -->
+              <button class="btn btn-primary"   ng-click='openpeoplemodal1()'>Options</button>
+
+
           </div>
 
        </div>
@@ -45,21 +49,23 @@
               <!--        NOTE: THIS IS THE BUTTON FOR ADDING A PERSON -->
         <!--     <button style="background-color:teal" class="btn btn-default btn"  ng-click="openpeoplemodal3()">Add to Lineup</button>  -->
 
-
-          <!-- SUCCESS BAR -->
-
-          <div ng-show="successful"  class="alert alert-success" style="text-align:center">
-            <strong>Success! Person Added</strong>
-          </div>
-
-          <div ng-show="failedLog"  class="alert alert-danger" style="text-align:center">
-            <strong >{{failedData}}</strong>
-          </div>
-
-
-          <div ng-show="DisplacementCalc"  class="alert alert-success" style="text-align:center">
-            <strong>Success! Displacement Calculated: {{finalCalc}}</strong>
-          </div>
+        <div class = "row responsive-sm">
+             <div class = "col ">
+             <!-- DELETE ALERT  -->
+              <button ng-show="deleteButton" style="width:100%; height:50px; opacity: 0.5; " ng-click="exitDeleteMode()" type="button" class="btn btn-danger">
+               DELETE MODE! PLESE PRESS ME TO EXIT!</button>
+               <!-- SUCCESS BAR -->
+              <div ng-show="successful"  class="alert alert-success" style="text-align:center">
+                <strong>Success! Person Added</strong>
+              </div>
+              <div ng-show="failedLog"  class="alert alert-danger" style="text-align:center">
+                <strong >{{failedData}}</strong>
+              </div>
+              <div ng-show="DisplacementCalc"  class="alert alert-success" style="text-align:center">
+                <strong>Success! Displacement Calculated: {{finalCalc}}</strong>
+              </div>
+            </div>
+        </div>
 
 
       <!--    <div>
@@ -88,11 +94,6 @@
              </div>
          </div>
 
-          <!-- DELETE ALERT  -->
-
-
-          <button ng-show="deleteButton" style="width:100%; height:50px; opacity: 0.5; " ng-click="exitDeleteMode()" type="button" class="btn btn-danger">
-            DELETE MODE! PLESE PRESS ME TO EXIT!</button>
 
 
               <!-- POSITION / DISPLACEMNT BUTTONS! -->
