@@ -203,7 +203,8 @@
                               <!-- /.dropdown -->
                                <!-- /.dropdown -->
 
-                            <li><a ng-hide="token" href=" "  ><span class="glyphicon glyphicon-user" ></span> Admin</a></li>
+                            <li><a ng-hide="token" href=" " style="color: #D5D5D5; " ><span class="glyphicon glyphicon-user" ></span> Admin</a></li>
+                          <li><a ng-hide="token" ng-controller="firstController" ng-click="logoutFunction()" style="color: #D5D5D5;  cursor: pointer"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 
                           <!--  <li><a ng-show="token" href="#/messaging"  ><span class="glyphicon glyphicon-envelope" ></span> Messaging</a></li> -->
                           <!-- <li><a ng-show="token" href="#/analytics"  ><span class=" glyphicon glyphicon-list-alt"></span> Analytics</a></li> -->
@@ -285,6 +286,7 @@
                                 <span class="sidebar-title" style="color:#D5D5D5; font-size:16px;">Overview</span>
                             </a>
                         </li>
+
 
                         <li>
                            <a   class="ex1" ng-controller="StorelinesCtrl"

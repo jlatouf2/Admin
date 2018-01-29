@@ -23,68 +23,86 @@
            Month Chart
         </div>
         <div class="item item-text-wrap">
-          <canvas id="myChart" style=" max-width: 450px;"></canvas>
+            <canvas id="myChart" ></canvas>
 
-          <div style="text-align:center">
-          <button ng-click="monthData2017()">monthData2017</button>
-          <button ng-click="monthData2018()">monthData2018</button>
-          </div>
+            <div style="text-align:center">
+            <button ng-click="monthData2017()">monthData2017</button>
+            <button ng-click="monthData2018()">monthData2018</button>
+            </div>
+            <div style="padding-left:300px; padding-right:300px">
+               <div class="bar bar-header item-input-inset"  >
+                  <label class="item-input-wrapper"   >
+                     <input type="number" ng-model="datesearch.number"  min="0" max="11" placeholder="Month">
+                  </label>
+                  <div style="padding-right:20px"></div>
+                  <label class="item-input-wrapper" >
+                     <input type="number" ng-model="datesearch2.number2"   min="2000" max="2020" placeholder="Year">
+                  </label>
+
+
+                  <button class="button button-clear" ng-click="addDateNumbers();" style="color:black">
+                    Display
+                  </button>
+
+               </div>
+           </div>
+
 
         </div>
     </div>
 
   </div>
 
-     <div class = "col ">
-
-       <div class="card">
-           <div class="item item-divider">
-               Year Chart
-           </div>
-           <div class="item item-text-wrap">
-             <canvas id="myChart2"   style=" max-width: 450px;"></canvas>
-
-             <div style="text-align:center">
-             <button ng-click="chart2017()">chart2017</button>
-
-             <button ng-click="chart2018()">chart2018</button>
-           </div>
-
-            </div>
-       </div>
-
-     </div>
 
   </div>
 
 
 
+<!-- style=" max-width: 450px;"  style=" max-width: 450px;"-->
+
+  <div class = "row responsive-sm" >
+    <div class = "col ">
+      <div class="card">
+          <div class="item item-divider">
+              Year Chart
+          </div>
+          <div class="item item-text-wrap">
+            <canvas id="myChart2"   ></canvas>
+
+            <div style="text-align:center">
+            <button ng-click="chart2017()">chart2017</button>
+
+            <button ng-click="chart2018()">chart2018</button>
+          </div>
+
+
+           </div>
+      </div>
+    </div>
+
+ </div>
 
 
   <div class = "row responsive-sm" >
+      <div class = "col ">
+        <div class="card">
+              <div class="item item-divider">
+                Day Chart
+              </div>
+              <div class="item item-text-wrap">
+                <canvas id="myChart55"   ></canvas>
 
-    <div class = "col ">
-
-      <div class="card">
-          <div class="item item-divider">
-            Day Chart
-          </div>
-          <div class="item item-text-wrap">
-            <canvas id="myChart55"   style=" max-width: 450px;"></canvas>
-
-            <div style="text-align:center">
-              <button ng-click="dayData2017()">dayData2017</button>
-              <button ng-click="dayData2018()">dayData2018</button>
-          </div>
-
-
-          </div>
+                <div style="text-align:center">
+                  <button ng-click="dayData2017()">dayData2017</button>
+                  <button ng-click="dayData2018()">dayData2018</button>
+              </div>
+              </div>
+        </div>
       </div>
 
-    </div>
-
-       <div class = "col ">
-
+    <!--
+    style=" max-width: 450px;"
+     <div class = "col ">
          <div class="card">
              <div class="item item-divider">
                  A line chart
@@ -92,16 +110,14 @@
              <div class="item item-text-wrap">
 
                <canvas id="myChart3"  width="400" height="400"></canvas>
-
-
               </div>
          </div>
-
        </div>
+     -->
     </div>
 
 
-
+<!--
     <div class = "row responsive-sm">
       <div class = "col ">
         <div class="card">
@@ -112,9 +128,7 @@
               <canvas id="myChart4"  width="400" height="400"></canvas>
             </div>
         </div>
-
       </div>
-
          <div class = "col ">
            <div class="card">
                <div class="item item-divider">
@@ -126,9 +140,8 @@
                 </div>
            </div>
          </div>
-
        </div>
-
+-->
 
 </ion-content>
 </ion-view>

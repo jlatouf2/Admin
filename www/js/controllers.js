@@ -1199,6 +1199,7 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
 .controller('MessagingCtrl', function($scope, $location, $rootScope, $http, $timeout, AuthService ) {
 
   //https://thawing-ocean-11742.herokuapp.com/findUserTokens
+
         $scope.$on('$stateChangeSuccess', function () {
              socket.emit('findUserTokens', {},function (data) {
                 $timeout(function () {
@@ -1455,6 +1456,21 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
 
            /*   --------GRAPH DATA:-----------     */
 
+     /*
+     $scope.datesearch ={number:"1980-01-01"};
+    console.log($scope.datesearch.number);
+
+            localStorage.setItem("messageBody", "Your turn is up!");
+
+           $scope.addStore1 = function(name){
+              if ( $scope.message.body ==='') {
+                console.log('Please enter a name');
+                  } else{
+                    localStorage.setItem("messageBody", $scope.message.body);
+                    console.log("MESSAGE ADDED!:"+ localStorage.getItem("messageBody"));
+               }
+           };
+           */
 
            $scope.$on('$stateChangeSuccess', function () {
                socket.emit('storeName', {postal: $scope.postal },function (data) {
@@ -1657,9 +1673,36 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
     /***************THIS IS FUNTION FOR MONTH *****************/
 
 
+
     $scope.monthData2017 = function(){ monthData(2017, 10); }
 
     $scope.monthData2018 = function(){ monthData(2018, 0); }
+
+            $scope.datesearch ={number:0};
+            $scope.datesearch2 ={number2:2018};
+
+        console.log($scope.datesearch.number);
+        console.log($scope.datesearch2.number2);
+
+        $scope.addDateNumbers = function(){
+             console.log($scope.datesearch.number);   console.log($scope.datesearch2.number2);
+
+            if ( $scope.datesearch.number == null || $scope.datesearch2.number2 == null) {
+           console.log('Please enter both numbers');
+           } else{
+
+              monthData($scope.datesearch2.number2 , $scope.datesearch.number );
+             //localStorage.setItem("messageBody", $scope.message.body);
+             //console.log("MESSAGE ADDED!:"+ localStorage.getItem("messageBody"));
+           }
+             /* if ( $scope.message.body ==='') {
+            console.log('Please enter a name');
+            } else{
+              localStorage.setItem("messageBody", $scope.message.body);
+              console.log("MESSAGE ADDED!:"+ localStorage.getItem("messageBody"));
+            }
+            */
+        };
 
 
          function monthData(parameter1, parameter2) {
@@ -1798,7 +1841,7 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
 
                            var ctx = document.getElementById("myChart");
                            var myChart = new Chart(ctx, {
-                               type: 'bar',
+                               type: 'line',
                                data: {
                                  labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15',
                                           '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
@@ -1953,7 +1996,7 @@ $scope.addpersonAfter = function(){    console.log($scope.addnameLine.line); con
 
                                var ctx55 = document.getElementById("myChart55");
                                var myChart = new Chart(ctx55, {
-                                   type: 'bar',
+                                   type: 'line',
                                    data: {
                                      labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '1', '2', '3',
                                               '4', '5', '6', '7', '8', '9', '10', '11', '12' ],
@@ -2114,6 +2157,7 @@ var myChart2 = new Chart(ctx2, {
 
 
 
+/*
 var ctx3 = document.getElementById("myChart3");
 var myChart3 = new Chart(ctx3, {
   type: 'radar',
@@ -2180,7 +2224,7 @@ var myChart5 = new Chart(ctx5, {
 }
 
 });
-
+*/
 
 /*
 var ctx6 = document.getElementById("myChart6").getContext('2d');

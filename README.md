@@ -715,3 +715,121 @@ https://itsolutionstuff.com/post/how-to-call-angularjs-controller-function-in-jq
                               });
 
                        };
+
+
+                  //FOR COORDINATES LINE GROUP:
+
+                 // NOTE: MAY NEED TO HAVE TWO DIFFERENT DATABASES, ONE FOR POSITION,
+                 AND ONE FOR COORDINATE POSITION....
+                 //THIS WAY WHEN YOU PRESS BUTTON TO ADD YOURSELF, YOU WILL ADD YOURSELF TO
+                 BOTH :
+                  1) CHECK IF NAME IS IN DB
+                  2) GETS POST ARRAY DATA OF PEOPLE IN PARTICULAR Line
+                  3) CHECK IF ITS WITHIN 5 min
+                  4) IF FALSE JUST ADD ALL PERSONS' DATA INCLUDING COORDINATE POSITION, AND COORDINATE group
+                  5) IF TRUE [ WILL TAKE LONGER B/C MUST LOOP THROUGH DATA, GET DISTANCE MEASUREMENT FOR each
+                  PERSON AND COMPARE TO YOURS, WHICH WILL THEN GIVE YOU THE COORDINATE POSITION THAT YOU NEED ]
+
+                   socket.on('addperson11', function (data, callback) {
+                     console.log(data.notificationkey);
+                     PeopleLine.findOne({store: data.store, line: data.line, email: data.email}).exec(function(err, posts) {
+                           if (err) { return next(err); }
+                             if (posts) {
+                               console.log(posts);
+                               callback('SORRY! THAT EMAIL IS ALREADY IN THE DATABASE!');
+
+                             } else {
+
+                                PeopleLine.find({ $and: [{store: req.body.store}, {line: req.body.line}]})
+                                 .exec(function(err, posts) {
+                                     if (err) { return next(err); }
+                                   //callback(posts);
+                                   console.log(posts);
+                                 //  console.log(posts[posts.length].created);
+
+                                 //THIS CHECKS IF YOU ARE FIRST PERSON:
+                                if (posts.length == 0) {
+                                  posts.coordinatesGrounp = 1;
+                                  posts.coordinatesPosition = 1;
+                                     //    posts.save();
+                                } else {
+
+                                       var numbers = posts.length;
+                                    var blueman = posts[posts.length - 1].created;
+                                    console.log(blueman);
+
+                                    var d2 = new Date(blueman);
+                                   var d3 = d2.getTime();
+                                   console.log(d3);
+
+                                   var oldDate = d2;
+                                    var newDate   = new Date();
+                                   var difference = newDate.getTime() - oldDate.getTime(); // This will give difference in milliseconds
+                                   var resultInMinutes = Math.round(difference / 60000);
+
+                                   console.log(resultInMinutes);
+                                   //var resultInHours= resultInMinutes / 60;   console.log(resultInHours);
+                                 //  var resultInDays= resultInHours / 24;     console.log(resultInDays);
+
+                                       if (resultInMinutes < 5) {
+
+                                         /*
+                                           //the distance calculation is already done in front end,
+                                             //so you just have to add it to DB.
+                                       -  you may have to loop through the numbers and see if the distances are
+                                       higher or lower to get the right position number.
+                                       - if you are within the 5 min (TRUE) THEN you are in same group
+                                         as the others; this limits the distance calculations
+                                         -YOU ADD NUMBER FOR coordinatesGroup and coordinatesPosition
+                                         so that you can get timestamps you need to loop through and check distances,
+                                         then you can add coordinatePosition and allow that to pass to frontend table.
+                                       */
+
+                                        var newUser2 = PeopleLine({
+                                         email : data.email, line: data.line,
+                                         position: data.position,  store: data.store,
+                                         fullname : data.fullName,  longitude: data.longitude,
+                                         latitude: data.latitude,  distance: data.distance,
+                                         notificationkey: data.notificationkey
+                                       });
+
+                                       newUser2.save(function (err, post) {
+                                         if (err) {return next(err); }
+                                       //  callback(post);
+                                           io.emit('updatePeople', post);
+                                         console.log(post);
+                                       });
+
+                                        } else {
+                                         /*   if you are outside the 5 min (FALSE) THEN you are in different
+                                           group as others, ex: Coordinategroup = group1 + 1;
+                                         */
+
+                                           var newUser2 = PeopleLine({
+                                            email : data.email, line: data.line,
+                                            position: data.position,  store: data.store,
+                                            fullname : data.fullName,  longitude: data.longitude,
+                                            latitude: data.latitude,  distance: data.distance,
+                                            notificationkey: data.notificationkey
+                                          });
+
+                                          newUser2.save(function (err, post) {
+                                            if (err) {return next(err); }
+                                          //  callback(post);
+                                              io.emit('updatePeople', post);
+                                            console.log(post);
+                                          });
+
+
+                                         posts.coordinatesGrounp = 1 + 1;
+                                         posts.save();
+
+                                       }
+
+                                   res.send(posts);
+                                     }
+                                   });
+
+                             }
+                           });
+                   });

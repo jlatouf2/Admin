@@ -20,7 +20,7 @@
        </div>
 
 
-<h1 class="" style="text-align:center;" id="messagingScreen">Stores Available in Area</h1>
+<h1 class="" style="text-align:center;" id="messagingScreen">Queue Available to Join</h1>
 
 
 
@@ -155,7 +155,7 @@
 
               </thead>
                   <tbody style="background-color:white; border:none">
-                        <tr ng-hide="numberLinesZero" style="text-align: center;" ng-repeat="storewithName in storewithNames | filter:search | orderBy:'store'">
+                        <tr ng-hide="numberLinesZero" style="text-align: center;"    ng-repeat="storewithName in storewithNames | filter:search | orderBy:'store'">
                             <td>
                               <a  style="background-color:white; border:none"  href="#/storelines"   ng-click="grabStuff(storewithName.store)" class="list-group-item ">
                               <span style="color:black;font-weight: bold;">{{storewithName.store}} <br>

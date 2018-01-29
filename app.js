@@ -66,7 +66,8 @@ var mongoose = require('mongoose');
  //mongoose.connect('mongodb://localhost/myappANG' , { useMongoClient: true });
  //mongoose.connect("mongodb://john:john1@ds013891.mlab.com:13891/white");
 
-mongoose.connect("mongodb://john:john1@ds227565.mlab.com:27565/teal");
+//mongoose.connect("mongodb://john:john1@ds227565.mlab.com:27565/teal");
+mongoose.connection.openUri('mongodb://john:john1@ds227565.mlab.com:27565/teal')
 
 // 3) SIMPLE CHECK TO SEE IF CONNECTED TO DB
 var db = mongoose.connection;
@@ -384,6 +385,8 @@ socket.on('addperson11', function (data, callback) {
           }
         });
 });
+
+
 
     socket.on('optimizeData', function (data) {
       PeopleLine.find({ $and: [{store: data.store}, {line: data.line}, {email: data.email}]})
@@ -1549,11 +1552,6 @@ app.post('/jp', function (req, res) {
           });
 
 
-
-
-
-
-
     //curl -X POST  http://localhost:3000/stuff
     app.post('/stuff', function (req, res, next) {
       console.log("Worked!");
@@ -1607,6 +1605,181 @@ app.post('/jp', function (req, res) {
     });
 
 
+
+
+    app.post('/addforCoordinates', function (req, res, next) {
+    //  socket.on('getPeopleLine', function (data, callback) {
+        PeopleLine.find({ $and: [{store: req.body.store}, {line: req.body.line}]})
+          .exec(function(err, posts) {
+              if (err) { return next(err); }
+            //callback(posts);
+            console.log(posts);
+          //  console.log(posts[posts.length].created);
+
+                var numbers = posts.length;
+             var blueman = posts[posts.length - 1].created;
+             console.log(blueman);
+
+
+             var d2 = new Date(blueman);
+            var d3 = d2.getTime();
+            console.log(d3);
+
+            var oldDate = d2;
+             var newDate   = new Date();
+            var difference = newDate.getTime() - oldDate.getTime(); // This will give difference in milliseconds
+            var resultInMinutes = Math.round(difference / 60000);
+
+            console.log(resultInMinutes);
+            //var resultInHours= resultInMinutes / 60;   console.log(resultInHours);
+          //  var resultInDays= resultInHours / 24;     console.log(resultInDays);
+
+                if (resultInMinutes < 5) {
+                  /*
+                    //the distance calculation is already done in front end,
+                      //so you just have to add it to DB.
+                -  you may have to loop through the numbers and see if the distances are
+                higher or lower to get the right position number.
+                - if you are within the 5 min (TRUE) THEN you are in stame group
+                  as the others; this limits the distance calculations
+                */
+
+
+
+                } else {
+                  /*
+                    if you are outside the 5 min (FALSE) THEN you are in different
+                    group as others, ex: Coordinategroup = group1 + 1;
+                  */
+
+                  var blueman = posts[posts.length - 1].created;
+
+                }
+            /*
+            HAVE TO ADD A RANKING ELEMENT TO DB, [CALLED COORDINATE POSITION]
+            1)check people who are already in line time data
+            2)compare your created at times, and see if they are within 5 minutes of each other.
+            3)if true( time within 5 min) : then you compare coordinate distances, [which are already in db],
+            and the highest distance [furthest away person] is last in line
+            4)if false( time higher than 5 min) : then just add up all people and put yourself last.
+            */
+
+
+        /*      var whiteArray = [];
+            //NOTE: THIS LOGS OUT THE VALUE THAT YOU NEED:  console.log(data[key].created);
+              for (var key in posts) {   whiteArray.push(posts[key].created );   }
+                console.log(whiteArray);   console.log(whiteArray.length);
+
+                    //Get final object in Array:
+                      var  finaltimeinArray = whiteArray.length;
+                        console.log(finaltimeinArray);
+
+                    var timeNeeded = whiteArray[5];
+                      console.log("TimeNeeded" + timeNeeded);
+
+                    var yearArray1 = [];
+                    for (var i = 0; i < whiteArray.length; i++) {
+                           var d2 = new Date(whiteArray[i]);
+                          var d3 = d2.getFullYear();
+                          console.log(d3);
+                            //  if (d3 == 2018) { $rootScope.yearArray1.push($scope.whiteArray[i]) }
+                        //    if (d3 == 2017) {   $rootScope.yearArray2.push($scope.whiteArray[i]) }
+                       }
+                       console.log(yearArray1);  console.log(yearArray1.length);
+
+                       var date1 = new Date("7/11/2010");
+                       var date2 = new Date("8/11/2010");
+                       var diffDays = parseInt((date2 - date1) / (1000 * 60 * 60 * 24));
+
+                       alert(diffDays )
+
+                       */
+
+            res.send(posts);
+            });
+      });
+
+
+
+//1000 * 60 * 60 * 24
+
+   //curl -X POST -H 'Content-Type: application/json' -d '{"store":"bobby", "line":"2"}' http://localhost:3000/addforCoordinates
+
+    /*
+    var startDate = new Date("6/11/2010");
+     var endDate   = new Date("8/11/2010");
+    var seconds = (endDate.getTime() - startDate.getTime()) / 1000;
+    console.log("SECONDS" +seconds);
+
+    var yellow = (seconds) / 60;
+    console.log("Yellow"+ yellow);
+
+
+
+
+    var startTime = new Date('2012/10/09  ');
+    var endTime = new Date('2012/10/10  ');
+    var difference = endTime.getTime() - startTime.getTime(); // This will give difference in milliseconds
+    var resultInMinutes = Math.round(difference / 60000);
+    console.log(resultInMinutes);
+    var resultInHours= resultInMinutes / 60;
+    console.log(resultInHours);
+    var resultInDays= resultInHours / 24;
+    console.log(resultInDays);
+
+
+    var diff = startDate.getTime() - endDate.getTime(); // this is a time in milliseconds
+    var diff_as_date = new Date(diff);
+    console.log(diff_as_date.getHours()); // hours
+    console.log(diff_as_date.getMinutes()); // minutes
+    console.log(diff_as_date.getSeconds());// seconds
+
+    function timeLeft() {
+        var now = new Date();
+        var endDate = new Date(Date.UTC(2018,1,29)); // 2017-05-29T00:00:00Z
+        var diff = endDate - now;
+
+        var hours   = Math.floor(diff / 3.6e6);
+        var minutes = Math.floor((diff % 3.6e6) / 6e4);
+        var seconds = Math.floor((diff % 6e4) / 1000);
+        console.log('Time remaining to ' + endDate.toISOString() +
+                    ' or\n' + endDate.toString() + ' local is\n' +
+                     hours + ' hours, ' +  minutes + ' minutes and ' +
+                     seconds + ' seconds');
+    }
+
+    timeLeft()
+
+    var seconds = diff / 1000;
+    var minutes = (diff / 1000) / 60;
+    var hours = minutes / 60;
+
+   getDate()	Returns the day of the month (from 1-31)
+  getDay()	Returns the day of the week (from 0-6)
+  getFullYear()	Returns the year
+  getHours()	Returns the hour (from 0-23)
+  getMilliseconds()	Returns the milliseconds (from 0-999)
+  getMinutes()	Returns the minutes (from 0-59)
+  getMonth()	Returns the month (from 0-11)
+  getSeconds()	Returns the seconds (from 0-59)
+  getTime()	Returns the number of milliseconds since midnight Jan 1 1970, and a specified date
+
+    1) add coordinates to each peice of data that is added to the DATABASE
+    2) when you get data back:
+    EX: getting all people back from database:
+    -take all the times and on x axis of graph: have the days of month (1,2,3,4 --> 31)
+    3)y axis:
+    */
+
+    /*
+    HAVE TO ADD A RANKING ELEMENT TO DB, [CALLED COORDINATE POSITION]
+    1)check people who are already in line time data
+    2)compare your created at times, and see if they are within 5 minutes of each other.
+    3)if true( time within 5 min) : then you compare coordinate distances, [which are already in db],
+    and the highest distance [furthest away person] is last in line
+    4)if false( time higher than 5 min) : then just add up all people and put yourself last.
+    */
+
     /*---------- DELETE PEOPLE  --------------*/
     //curl -X POST  http://localhost:3000/deletePeopleLine44
 
@@ -1643,7 +1816,7 @@ app.post('/jp', function (req, res) {
      return new Date(copiedDate.getTime() + mseconds * 100);
  };
 
-
+  /*
  var now = new Date();
  console.log(""+now);
  console.log( "THIS IS DATE OBJECT:" + now.addMinutes(1));
@@ -1652,29 +1825,30 @@ app.post('/jp', function (req, res) {
  console.log(""+now);
  console.log( "THIS IS DATE OBJECT:" + now.addSeconds(1));
 
-/*
- var d = new Date();
- var n = d.getTime() ;
- var n1 = d.getTime() + 2 * 60000;
-console.log(n);
-console.log(n1);
 
-var d = new Date();
-console.log(d);
+         var d = new Date();
+         var n = d.getTime() ;
+         var n1 = d.getTime() + 2 * 60000;
+        console.log(n);
+        console.log(n1);
 
-d.setMilliseconds(192);
-var n = d
-console.log(n);
-*/
-var d = new Date();
-console.log(d);
+        var d = new Date();
+        console.log(d);
 
-d.setMilliseconds(192);
-var n = d
-console.log(n);
+        d.setMilliseconds(192);
+        var n = d
+        console.log(n);
 
 
-    app.post('/optimizeData2', function (req, res, next) {
+          var d = new Date();
+          console.log(d);
+
+          d.setMilliseconds(192);
+          var n = d
+          console.log(n);
+  */
+
+    app.post('/optimizeData23', function (req, res, next) {
       PeopleLine.find({ $and: [{store: req.body.store}, {line: req.body.line}, {email: req.body.email}]})
         .exec(function(err, posts) {
             if (err) { return next(err) }
@@ -1682,6 +1856,8 @@ console.log(n);
           console.log(posts);
           })
     });
+
+    // curl -X POST -H 'Content-Type: application/json' -d '{"store":"bobby", "line":"2"}' http://localhost:3000/optimizeData23
 
     // curl -X POST -H 'Content-Type: application/json' -d '{"store":"bobby", "line":"2", "email":"jlatouf2@gmail.com"}' http://localhost:3000/optimizeData23
 
@@ -1747,21 +1923,21 @@ console.log(n);
         console.log(/'\d+'/.test("'123'"));
 
 
-/*
-// Every sanitizer method in the validator lib is available as well!
-.trim()
-.normalizeEmail()
+      /*
+      // Every sanitizer method in the validator lib is available as well!
+      .trim()
+      .normalizeEmail()
 
-HAVE TO ADD A RANKING ELEMENT TO DB, [CALLED COORDINATE POSITION]
-1)check people who are already in line time data
-2)compare your created at times, and see if they are within 5 minutes of each other.
-3)if true( time within 5 min) : then you compare coordinate distances, [which are already in db],
-and the highest distance [furthest away person] is last in line
-4)if false( time higher than 5 min) : then just add up all people and put yourself last.
-*/
+      HAVE TO ADD A RANKING ELEMENT TO DB, [CALLED COORDINATE POSITION]
+      1)check people who are already in line time data
+      2)compare your created at times, and see if they are within 5 minutes of each other.
+      3)if true( time within 5 min) : then you compare coordinate distances, [which are already in db],
+      and the highest distance [furthest away person] is last in line
+      4)if false( time higher than 5 min) : then just add up all people and put yourself last.
+      */
 
-//curl -X POST -H 'Content-Type: application/json' -d '{"email":"davidwalshr44","password":"fsomethingt"}' http://localhost:3000/stuffwhite
-//curl -X POST -H 'Content-Type: application/json' -d '{"email":"davidwalshr@black.com"}' http://localhost:3000/stuffwhite2
+      //curl -X POST -H 'Content-Type: application/json' -d '{"email":"davidwalshr44","password":"fsomethingt"}' http://localhost:3000/stuffwhite
+      //curl -X POST -H 'Content-Type: application/json' -d '{"email":"davidwalshr@black.com"}' http://localhost:3000/stuffwhite2
 
         app.post('/stuffwhite2', function (req, res) {
         //  req.assert('email', 'A valid email is required').trim();
